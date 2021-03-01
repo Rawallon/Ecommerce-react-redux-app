@@ -1,17 +1,29 @@
-const express = require('express');
-const products = require('./data/products');
+import express from 'express';
+import dotenv from 'dotenv';
+import connectDB from './config/db.js';
+
+import productsRoutes from './routes/productRoutes.js';
+import { errorHandler, notFound } from './middleware/errorMiddleware.js';
+
+dotenv.config();
+
+connectDB();
 
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('api!');
-});
-app.get('/api/products', (req, res) => {
-  res.json(products);
-});
-app.get('/api/products/:id', (req, res) => {
-  const produt = products.find((el) => el._id === req.params.id);
-  res.json(produt);
+  res.send('Try hitting /API');
+  console.warn('Hit the API!');
 });
 
-app.listen(5000, console.log('Server runing on 5000'));
+app.use('/api/products', productsRoutes);
+
+app.use(notFound);
+
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
+app.listen(
+  PORT,
+  console.log(`Server runing in ${process.env.NODE_ENV} on port ${PORT}`),
+);
