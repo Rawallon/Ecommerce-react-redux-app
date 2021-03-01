@@ -1,0 +1,15 @@
+{
+  "name": "e-commerce-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "keywords": [],
+  "author": "Rawallon Cardoso",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
