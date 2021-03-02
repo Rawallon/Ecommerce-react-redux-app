@@ -5,12 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node backend/server",
-    "server": "npm start --prefix backend",
-    "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "data:import": "node backend/seeder",
-    "data:destroy": "node backend/seeder -D"
+    "start": "nodemon server",
+    "data:import": "node seeder",
+    "data:destroy": "node seeder -D"
   },
   "keywords": [],
   "author": "Rawallon Cardoso",

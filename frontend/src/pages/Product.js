@@ -9,6 +9,7 @@ import {
 } from '../actions/productActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import { addToCart } from '../actions/cartActions';
 
 export function Product({
   match,
@@ -17,6 +18,7 @@ export function Product({
   product = [],
   listProductDetails,
   clearProductDetails,
+  addToCart,
 }) {
   useEffect(() => {
     listProductDetails(match.params.id);
@@ -24,6 +26,10 @@ export function Product({
       clearProductDetails();
     };
   }, []);
+
+  function addToCartHandler(pId) {
+    addToCart(pId);
+  }
 
   function renderPrefetch() {
     if (error) return <Message variant="danger">{error}</Message>;
@@ -88,6 +94,7 @@ export function Product({
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Button
+                      onClick={() => addToCartHandler(product._id)}
                       className="btn-block"
                       disabled={product.countInStock === 0}>
                       Add to cart
@@ -112,6 +119,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   listProductDetails,
   clearProductDetails,
+  addToCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);
