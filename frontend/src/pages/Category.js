@@ -2,19 +2,21 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import Product from '../components/Product';
-import { listProducts } from '../actions/productActions';
+import { listCategoryProducts } from '../actions/productActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import { Link } from 'react-router-dom';
 
-export function Home({
+export function Category({
+  match,
   isLoading = true,
   error = '',
   products = [],
-  listProducts,
+  listCategoryProducts,
 }) {
   useEffect(() => {
-    listProducts();
-  }, [listProducts]);
+    listCategoryProducts(match.params.cat);
+  }, []);
 
   function renderPrefetch() {
     if (error) return <Message variant="danger">{error}</Message>;
@@ -23,7 +25,11 @@ export function Home({
 
   return (
     <>
-      <h1>Latest Products</h1>
+      <Link className="btn btn-light my-3" to="/">
+        <i className="fas fa-home"></i>
+      </Link>
+      <span className="btn">/</span>
+      <div className="btn my-3">{match.params.cat}</div>
       <Row>
         {renderPrefetch()}
         {!isLoading &&
@@ -45,7 +51,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  listProducts,
+  listCategoryProducts,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Category);

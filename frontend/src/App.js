@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Product from './pages/Product';
+import Category from './pages/Category';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Container>
           <main className="py-3">
             <Switch>
+              <Route path="/category/:cat" component={Category} />
               <Route path="/product/:id" component={Product} />
               <Route path="/" exact component={Home} />
               <Route path="*" component={Footer} />

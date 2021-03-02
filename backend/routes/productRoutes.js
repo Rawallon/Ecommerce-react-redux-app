@@ -32,4 +32,21 @@ router.get(
   }),
 );
 
+// @desc Fetch all product of a given category
+// @route GET /api/products/category/:cat
+// @access Public
+router.get(
+  '/category/:cat',
+  asyncHandler(async (req, res) => {
+    const category = await ProductModel.find({ category: req.params.cat });
+
+    if (category.length > 0) {
+      res.json(category);
+    } else {
+      res.status(404);
+      throw new Error('Category is empty');
+    }
+  }),
+);
+
 export default router;
