@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 
-export default function Loader() {
+export default function Loader({ absolute = false }) {
   return (
     <Spinner
       animation="border"
@@ -9,8 +9,6 @@ export default function Loader() {
       style={{
         width: '100px',
         height: '100px',
-        margin: 'auto',
-        display: 'block',
       }}>
       <span className="sr-only">Loading!</span>
     </Spinner>

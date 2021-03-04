@@ -29,7 +29,6 @@ export const authUser = asyncHandler(async (req, res) => {
 // @access Private
 export const getUserProfile = asyncHandler(async (req, res) => {
   const user = await UserModel.findById(req.user._id);
-  res.json(user);
 
   if (user) {
     res.json({
@@ -49,7 +48,6 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 // @access Private
 export const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await UserModel.findById(req.user._id);
-
   if (user) {
     //TODO
     // if (user.password !== req.body.oldPassword) {
@@ -63,7 +61,6 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
       user.password = req.body.password;
     }
     const updatedUser = await user.save();
-
     res.json({
       _id: updatedUser._id,
       name: updatedUser.name,

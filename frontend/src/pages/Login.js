@@ -20,7 +20,6 @@ export function Login({ location, login, history, loading, error, userInfo }) {
     e.preventDefault();
     login(email, password);
   }
-  console.log(loading);
   return (
     <FormContainer>
       <h1>Sign in</h1>

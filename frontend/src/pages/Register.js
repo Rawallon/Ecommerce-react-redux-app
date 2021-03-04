@@ -102,7 +102,7 @@ export function Register({
         </Form.Group>
 
         <Button type="submit" variant="primary">
-          Sign in
+          Register
         </Button>
       </Form>
 
