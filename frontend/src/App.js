@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import Product from './pages/Product';
 import Category from './pages/Category';
 import Cart from './pages/Cart';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Container>
           <main className="py-3">
             <Switch>
+              <Route path="/register" component={Register} />
+              <Route path="/login" component={Login} />
               <Route path="/cart" component={Cart} />
               <Route path="/category/:cat" component={Category} />
               <Route path="/product/:id" component={Product} />

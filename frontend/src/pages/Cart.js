@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
+import { Card, Col, ListGroup, Row } from 'react-bootstrap';
 import {
   clearProductDetails,
   listProductDetails,
@@ -8,7 +9,7 @@ import {
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import CartProduct from '../components/CartProduct';
-import { Link } from 'react-router-dom';
+import CartSubtotal from '../components/CartSubtotal';
 
 export function Cart({
   match,
@@ -25,7 +26,6 @@ export function Cart({
   }, [cartItems]);
 
   function addTotalValue(itemId, price) {
-    console.log(itemId, price);
     setTotalValue({ ...totalValue, [itemId]: price });
   }
 
@@ -38,59 +38,27 @@ export function Cart({
       <h1>Cart Items</h1>
       <Row>
         {renderPrefetch()}
-        <Card className="w-100">
-          <ListGroup variant="flush">
-            {cartItemsArray.length === 0 && (
-              <Message>
-                Your cart is empty, <Link to="/">go back</Link>
-              </Message>
-            )}
-            {cartItemsArray.map((item) => (
-              <CartProduct
-                key={item}
-                pId={item}
-                addTotalValue={addTotalValue}
-              />
-            ))}
-            <ListGroup.Item active>
-              <Col>
-                <h3>Resumo do pedido</h3>
-              </Col>
-              {Object.values(totalValue).length > 0 && (
-                <>
-                  <Col className="d-flex align-items-center justify-content-between">
-                    <div>
-                      {Object.values(cartItems).reduce(
-                        (accumulator, currentValue) =>
-                          +accumulator + +currentValue,
-                      )}{' '}
-                      item
-                      {cartItemsArray.length > 1 && `s`}
-                    </div>
-                    <div>
-                      $
-                      {Object.values(totalValue)
-                        .reduce(
-                          (accumulator, currentValue) =>
-                            +accumulator + +currentValue,
-                        )
-                        .toFixed(2)}
-                    </div>
-                  </Col>
-                  <Col className="d-flex align-items-center justify-content-between my-2">
-                    <div>Shipping</div>
-                    <div>-</div>
-                  </Col>
-                </>
+        <Col md={8}>
+          <Card className="w-100">
+            <ListGroup variant="flush">
+              {cartItemsArray.length === 0 && (
+                <Message>
+                  Your cart is empty, <Link to="/">go back</Link>
+                </Message>
               )}
-              <Col class="mt-4">
-                <Button variant="outline-success" block>
-                  Continue to checkout!
-                </Button>
-              </Col>
-            </ListGroup.Item>
-          </ListGroup>
-        </Card>
+              {cartItemsArray.map((item) => (
+                <CartProduct
+                  key={item}
+                  pId={item}
+                  addTotalValue={addTotalValue}
+                />
+              ))}
+            </ListGroup>
+          </Card>
+        </Col>
+        <Col md={4}>
+          <CartSubtotal />
+        </Col>
       </Row>
     </>
   );

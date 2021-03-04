@@ -1,5 +1,4 @@
 import asyncHandler from 'express-async-handler';
-import User from '../models/UserModel.js';
 import UserModel from '../models/UserModel.js';
 import generateToken from '../utils/generateToken.js';
 
@@ -13,7 +12,7 @@ export const authUser = asyncHandler(async (req, res) => {
 
   if (user && (await user.matchPassword(password))) {
     res.json({
-      _id: user.id,
+      _id: user._id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
@@ -38,6 +37,39 @@ export const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+// @desc Update user profile
+// @route PATCH /api/users/profile
+// @access Private
+export const updateUserProfile = asyncHandler(async (req, res) => {
+  const user = await UserModel.findById(req.user._id);
+
+  if (user) {
+    //TODO
+    // if (user.password !== req.body.oldPassword) {
+    //   res.status(401);
+    //   throw new Error('Wrong old password');
+    // }
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.user.isAdmin ? req.body.isAdmin : user.isAdmin;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
     });
   } else {
     res.status(404);

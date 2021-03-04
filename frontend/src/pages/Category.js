@@ -16,7 +16,7 @@ export function Category({
 }) {
   useEffect(() => {
     listCategoryProducts(match.params.cat);
-  }, []);
+  }, [listCategoryProducts, match]);
 
   function renderPrefetch() {
     if (error) return <Message variant="danger">{error}</Message>;

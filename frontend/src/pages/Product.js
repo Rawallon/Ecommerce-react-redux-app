@@ -1,7 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Col,
+  Image,
+  ListGroup,
+  Row,
+} from 'react-bootstrap';
 import Rating from '../components/Rating';
 import {
   clearProductDetails,
@@ -25,7 +33,7 @@ export function Product({
     return () => {
       clearProductDetails();
     };
-  }, []);
+  }, [listProductDetails, clearProductDetails, match]);
 
   function addToCartHandler(pId) {
     addToCart(pId);
@@ -40,17 +48,15 @@ export function Product({
       {renderPrefetch()}
       {!isLoading && !error && (
         <>
-          <Link className="btn btn-light my-3" to="/">
-            <i className="fas fa-home"></i>
-          </Link>
-          <span className="btn">/</span>
-          <Link
-            to={`/category/${product.category}`}
-            className="btn btn-light my-3">
-            {product.category}
-          </Link>
-          <span className="btn">/</span>
-          <div className="btn my-3">{product.name}</div>
+          <Breadcrumb>
+            <LinkContainer to="/">
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+            </LinkContainer>
+            <LinkContainer to={`/category/${product.category}`}>
+              <Breadcrumb.Item>{product.category}</Breadcrumb.Item>
+            </LinkContainer>
+            <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
+          </Breadcrumb>
           <Row>
             <Col md={6}>
               <Image src={product.image} alt={product.name} fluid />

@@ -7,7 +7,7 @@ import {
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_CLEAR,
-} from '../types/constants';
+} from '../types';
 
 export const listProducts = () => async (dispatch) => {
   try {

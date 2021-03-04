@@ -7,7 +7,7 @@ import {
   CART_LIST_REQUEST,
   CART_LIST_SUCCESS,
   CART_REM_ITEM,
-} from '../types/constants';
+} from '../types';
 
 export const cartReducer = (
   state = { cartItems: {}, shippingAddress: [] },
@@ -34,11 +34,10 @@ export const cartReducer = (
       return state;
     case CART_REM_ITEM:
     case CART_ADD_FAILED:
-      const { [payload.pId]: _, ...rest } = state.cartItems;
-
+      const { [payload.pId]: _, ...res } = state.cartItems;
       return {
         ...state,
-        cartItems: rest,
+        cartItems: res,
       };
 
     default:
@@ -66,6 +65,12 @@ export const cartListReducer = (state = { products: {} }, action) => {
           ...state.products,
           [payload._id]: { ...payload, loading: false },
         },
+      };
+    case CART_REM_ITEM:
+      const { [payload.pId]: _, ...rest } = state.products;
+      return {
+        ...state,
+        products: rest,
       };
 
     default:
