@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import ProductModel from '../models/productModel.js';
+import sanitize from '../utils/sanitize.js';
 
 // @desc Fetch all products
 // @route GET /api/products
@@ -13,7 +14,7 @@ const getProducts = asyncHandler(async (req, res) => {
 // @route GET /api/products/:id
 // @access Public
 const getProductById = asyncHandler(async (req, res) => {
-  const product = await ProductModel.findById(req.params.id);
+  const product = await ProductModel.findById(sanitize(req.params.id));
 
   if (product) {
     res.json(product);
@@ -27,7 +28,9 @@ const getProductById = asyncHandler(async (req, res) => {
 // @route GET /api/products/category/:cat
 // @access Public
 const getProductByCategory = asyncHandler(async (req, res) => {
-  const category = await ProductModel.find({ category: req.params.cat });
+  const category = await ProductModel.find({
+    category: sanitize(req.params.cat),
+  });
 
   if (category.length > 0) {
     res.json(category);

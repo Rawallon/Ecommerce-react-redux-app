@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import UserModel from '../models/UserModel.js';
 import generateToken from '../utils/generateToken.js';
+import sanitize from '../utils/sanitize.js';
 
 // @desc Auth user and get token
 // @route POST /api/users/login
@@ -54,11 +55,10 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
     //   res.status(401);
     //   throw new Error('Wrong old password');
     // }
-    user.name = req.body.name || user.name;
-    user.email = req.body.email || user.email;
-    user.isAdmin = req.user.isAdmin ? req.body.isAdmin : user.isAdmin;
+    user.name = sanitize(req.body.name) || user.name;
+    user.email = sanitize(req.body.email) || user.email;
     if (req.body.password) {
-      user.password = req.body.password;
+      user.password = sanitize(req.body.password);
     }
     const updatedUser = await user.save();
     res.json({
@@ -80,16 +80,15 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
 export const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
-  const userExists = await UserModel.findOne({ email });
+  const userExists = await UserModel.findOne({ email: sanitize(email) });
   if (userExists) {
     res.status(400);
     throw new Error('User already registered');
   }
-
   const user = await UserModel.create({
-    name,
-    email,
-    password,
+    name: sanitize(name),
+    email: sanitize(email),
+    password: sanitize(password),
   });
 
   if (user) {

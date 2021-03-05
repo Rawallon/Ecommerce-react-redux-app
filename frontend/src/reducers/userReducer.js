@@ -6,12 +6,8 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILED,
-  USER_DETAILS_FAILED,
-  USER_DETAILS_SUCCESS,
-  USER_DETAILS_REQUEST,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
-  USER_UPDATE_PROFILE_RESET,
   USER_UPDATE_PROFILE_FAILED,
 } from '../types';
 
@@ -41,22 +37,6 @@ export const userRegisterReducer = (state = {}, action) => {
       return { loading: false };
     case USER_REGISTER_FAILED:
       return { loading: false, error: payload };
-    default:
-      return state;
-  }
-};
-
-export const userDetailsReducer = (state = {}, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    case USER_DETAILS_REQUEST:
-      return { loading: true };
-    case USER_DETAILS_SUCCESS:
-      return { loading: false };
-    case USER_DETAILS_FAILED:
-      return { loading: false, error: payload };
-    case USER_LOGOUT:
-      return {};
     default:
       return state;
   }

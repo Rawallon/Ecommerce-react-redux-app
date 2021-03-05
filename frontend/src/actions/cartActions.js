@@ -8,6 +8,8 @@ import {
   CART_LIST_REQUEST,
   CART_LIST_SUCCESS,
   CART_REM_ITEM,
+  CART_SAVE_SHIPPING_ADDRESS,
+  CART_SAVE_PAYMENT_METHOD,
 } from '../types';
 
 export const addToCart = (id, qty = 1) => async (dispatch, getState) => {
@@ -22,7 +24,7 @@ export const addToCart = (id, qty = 1) => async (dispatch, getState) => {
     type: CART_ADD_ITEM,
     payload: {
       pId: data._id,
-      qty,
+      qty: Number(qty),
     },
   });
 
@@ -41,7 +43,7 @@ export const changeQtyCart = (id, qty = 1) => async (dispatch, getState) => {
     type: CART_CHANGE_QTY_ITEM_SUCCESS,
     payload: {
       pId: data._id,
-      qty,
+      qty: Number(qty),
     },
   });
 
@@ -61,7 +63,7 @@ export const remCart = (id) => async (dispatch, getState) => {
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 
-export const listProductCart = (pId) => async (dispatch) => {
+export const listProductCart = (pId) => async (dispatch, getState) => {
   try {
     dispatch({
       type: CART_LIST_REQUEST,
@@ -84,5 +86,25 @@ export const listProductCart = (pId) => async (dispatch) => {
             : error.message,
       },
     });
+    localStorage.setItem(
+      'cartItems',
+      JSON.stringify(getState().cart.cartItems),
+    );
   }
+};
+
+export const saveShippingAddress = (formData) => async (dispatch) => {
+  dispatch({
+    type: CART_SAVE_SHIPPING_ADDRESS,
+    payload: formData,
+  });
+  localStorage.setItem('shippingAddress', JSON.stringify(formData));
+};
+
+export const savePaymentMethod = (formData) => async (dispatch) => {
+  dispatch({
+    type: CART_SAVE_PAYMENT_METHOD,
+    payload: formData,
+  });
+  //localStorage.setItem('paymentMethod', JSON.stringify(formData));
 };

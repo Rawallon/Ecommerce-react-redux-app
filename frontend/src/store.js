@@ -7,11 +7,14 @@ import {
 } from './reducers/productsReducer';
 import { cartListReducer, cartReducer } from './reducers/cartReducer';
 import {
-  userDetailsReducer,
   userLoginReducer,
   userRegisterReducer,
   userUpdateProfileReducer,
 } from './reducers/userReducer';
+import {
+  orderCreateReducer,
+  orderDetailsReducer,
+} from './reducers/orderReducer';
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -21,10 +24,16 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  orderCreate: orderCreateReducer,
+  orderDetails: orderDetailsReducer,
 });
 
 const storageCartItems = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
+  : [];
+
+const shippingAdressFromStorage = localStorage.getItem('shippingAddress')
+  ? JSON.parse(localStorage.getItem('shippingAddress'))
   : [];
 
 const storageUserInfo = localStorage.getItem('userInfo')
@@ -32,7 +41,10 @@ const storageUserInfo = localStorage.getItem('userInfo')
   : null;
 
 const initialState = {
-  cart: { cartItems: storageCartItems },
+  cart: {
+    cartItems: storageCartItems,
+    shippingAddress: shippingAdressFromStorage,
+  },
   userLogin: { userInfo: storageUserInfo },
 };
 

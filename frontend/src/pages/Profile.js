@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, Col, Row } from 'react-bootstrap';
-import { getUserDetails, updateUserProfile } from '../actions/userAction';
+import { updateUserProfile } from '../actions/userAction';
 import Message from '../components/Message';
 import Loader from '../components/FormLoader';
 
 export function Profile({
-  location,
-  getUserDetails,
   history,
   loading,
   error,
-  userRegister,
   userInfo,
   loggedId,
   updateUserProfile,
@@ -26,14 +23,10 @@ export function Profile({
   useEffect(() => {
     if (!loggedId) history.push('/login');
     else {
-      if (!userInfo) {
-        getUserDetails('profile');
-      } else {
-        setName(userInfo.name);
-        setEmail(userInfo.email);
-      }
+      setName(userInfo.name);
+      setEmail(userInfo.email);
     }
-  }, [history, userInfo, getUserDetails, loggedId]);
+  }, [history, userInfo, loggedId]);
   function submitHandler(e) {
     e.preventDefault();
     if (
@@ -151,7 +144,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  getUserDetails,
   updateUserProfile,
 };
 

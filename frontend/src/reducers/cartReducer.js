@@ -7,6 +7,8 @@ import {
   CART_LIST_REQUEST,
   CART_LIST_SUCCESS,
   CART_REM_ITEM,
+  CART_SAVE_SHIPPING_ADDRESS,
+  CART_SAVE_PAYMENT_METHOD,
 } from '../types';
 
 export const cartReducer = (
@@ -39,13 +41,33 @@ export const cartReducer = (
         ...state,
         cartItems: res,
       };
-
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: payload,
+      };
+    case CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: payload,
+      };
+    case CART_LIST_FAIL:
+      const { [payload._id]: __, ...restFail } = state.cartItems;
+      return {
+        ...state,
+        cartItems: restFail,
+        error: payload.error,
+        loading: false,
+      };
     default:
       return state;
   }
 };
 
-export const cartListReducer = (state = { products: {} }, action) => {
+export const cartListReducer = (
+  state = { products: {}, cartItems: {} },
+  action,
+) => {
   const { type, payload } = action;
   switch (type) {
     case CART_LIST_REQUEST:
@@ -59,18 +81,12 @@ export const cartListReducer = (state = { products: {} }, action) => {
           [payload._id]: { ...payload, loading: false },
         },
       };
-    case CART_LIST_FAIL:
-      return {
-        products: {
-          ...state.products,
-          [payload._id]: { ...payload, loading: false },
-        },
-      };
     case CART_REM_ITEM:
       const { [payload.pId]: _, ...rest } = state.products;
       return {
         ...state,
         products: rest,
+        loading: false,
       };
 
     default:

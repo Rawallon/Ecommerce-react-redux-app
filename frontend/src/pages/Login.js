@@ -6,6 +6,7 @@ import FormContainer from '../components/FormContainer';
 import { login } from '../actions/userAction';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import FormGroup from '../components/FormGroup';
 
 export function Login({ location, login, history, loading, error, userInfo }) {
   const [email, setEmail] = useState('');
@@ -26,24 +27,20 @@ export function Login({ location, login, history, loading, error, userInfo }) {
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
-        <Form.Group controlId="email">
-          <Form.Label>Email:</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password:</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Email"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
+        <FormGroup
+          name="email"
+          type="email"
+          value={email}
+          onChange={setEmail}
+          required
+        />
+        <FormGroup
+          name="password"
+          type="password"
+          value={password}
+          onChange={setPassword}
+          required
+        />
 
         <Button type="submit" variant="primary">
           Sign in

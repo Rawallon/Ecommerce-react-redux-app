@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import jwt, { decode } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import UserModel from '../models/UserModel.js';
 
 const protect = asyncHandler(async (req, res, next) => {
@@ -15,13 +15,13 @@ const protect = asyncHandler(async (req, res, next) => {
       next();
     } catch (error) {
       res.status(401);
-      throw new Error('Erro!');
+      throw new Error('Error!');
     }
   }
 
   if (!token) {
     res.status(401);
-    throw new Error('Erro');
+    throw new Error('Error');
   }
 });
 

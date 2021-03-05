@@ -7,17 +7,18 @@ const orderSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
+    orderItemsQty: {
+      type: Object,
+      required: true,
+    },
     orderItems: [
       {
-        name: { type: String, required: true },
-        qty: { type: Number, required: true },
-        image: { type: String, required: true },
-        price: { type: Number, required: true },
-        product: {
+        id: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
           ref: 'Product',
         },
+        price: { type: Number, required: true },
       },
     ],
     shippingAddress: {
@@ -28,9 +29,9 @@ const orderSchema = mongoose.Schema(
     },
     paymentMethod: { type: String, required: true },
     paymentResult: {
-      id: { type: String, required: true },
-      status: { type: String, required: true },
-      email: { type: String, required: true },
+      id: { type: String },
+      status: { type: String },
+      email: { type: String },
     },
     taxPrice: { type: Number, required: true, default: 0.0 },
     shippingPrice: { type: Number, required: true, default: 0.0 },

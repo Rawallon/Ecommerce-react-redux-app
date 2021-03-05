@@ -27,6 +27,7 @@ export function Product({
   listProductDetails,
   clearProductDetails,
   addToCart,
+  history,
 }) {
   useEffect(() => {
     listProductDetails(match.params.id);
@@ -37,6 +38,7 @@ export function Product({
 
   function addToCartHandler(pId) {
     addToCart(pId);
+    history.push('/cart');
   }
 
   function renderPrefetch() {

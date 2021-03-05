@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Button, Col, ListGroup } from 'react-bootstrap';
 
-export const CartSubtotal = ({ qty, products }) => {
+export const CartSubtotal = ({ checkoutHandler, qty, products }) => {
   const [totalValue, setTotalValue] = useState(0);
   const [itemQty, setItemQty] = useState(0);
   useEffect(() => {
@@ -40,7 +40,7 @@ export const CartSubtotal = ({ qty, products }) => {
           <div>-</div>
         </Col>
         <Col className="mt-4">
-          <Button variant="outline-success" block>
+          <Button variant="outline-success" onClick={checkoutHandler} block>
             Continue to checkout!
           </Button>
         </Col>

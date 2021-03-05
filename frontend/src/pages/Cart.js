@@ -10,31 +10,32 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import CartProduct from '../components/CartProduct';
 import CartSubtotal from '../components/CartSubtotal';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 export function Cart({
-  match,
+  history,
   isLoading = false,
   error = '',
   cartItems = {},
-  listProductDetails,
-  clearProductDetails,
 }) {
-  const [totalValue, setTotalValue] = useState({});
   const [cartItemsArray, setCartItemsArray] = useState([]);
   useEffect(() => {
     setCartItemsArray(Object.keys(cartItems));
   }, [cartItems]);
 
-  function addTotalValue(itemId, price) {
-    setTotalValue({ ...totalValue, [itemId]: price });
-  }
-
   function renderPrefetch() {
     if (error) return <Message variant="danger">{error}</Message>;
     if (isLoading) return <Loader />;
   }
+
+  const checkoutHandler = () => {
+    history.push('/login?redirect=shipping');
+  };
+
   return (
     <>
+      <CheckoutSteps step1 />
+
       <h1>Cart Items</h1>
       <Row>
         {renderPrefetch()}
@@ -47,17 +48,13 @@ export function Cart({
                 </Message>
               )}
               {cartItemsArray.map((item) => (
-                <CartProduct
-                  key={item}
-                  pId={item}
-                  addTotalValue={addTotalValue}
-                />
+                <CartProduct key={item} pId={item} />
               ))}
             </ListGroup>
           </Card>
         </Col>
         <Col md={4}>
-          <CartSubtotal />
+          <CartSubtotal checkoutHandler={checkoutHandler} />
         </Col>
       </Row>
     </>

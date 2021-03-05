@@ -10,6 +10,10 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import Shipping from './pages/Shipping';
+import Payment from './pages/Payment';
+import PlaceOrder from './pages/PlaceOrder';
+import Order from './pages/Order';
 
 function App() {
   return (
@@ -19,6 +23,10 @@ function App() {
         <Container>
           <main className="py-3">
             <Switch>
+              <Route path="/order/:id" component={Order} />
+              <Route path="/placeorder" component={PlaceOrder} />
+              <Route path="/payment" component={Payment} />
+              <Route path="/shipping" component={Shipping} />
               <Route path="/profile" component={Profile} />
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />
