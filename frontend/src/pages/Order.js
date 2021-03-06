@@ -1,36 +1,97 @@
-import React, { useEffect } from 'react';
-import { Col, ListGroup, Row } from 'react-bootstrap';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
+import { PayPalButton } from 'react-paypal-button-v2';
 import { connect } from 'react-redux';
-import { clearOrderDetails, getOrderDetails } from '../actions/orderAction';
+import {
+  clearOrderDetails,
+  clearPaymentDetails,
+  getOrderDetails,
+  setOrderPayment,
+} from '../actions/orderAction';
 import CheckoutProduct from '../components/CheckoutProduct';
-import CheckoutSteps from '../components/CheckoutSteps';
-import CheckoutSubtotal from '../components/CheckoutSubtotal';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
 export const Order = ({
   match,
-  order,
   getOrderDetails,
   clearOrderDetails,
   orderDetails,
   history,
   loggedId,
+  orderPayment,
+  clearPaymentDetails,
+  setOrderPayment,
 }) => {
-  const { loading, error } = orderDetails;
+  const [sdkReady, setSdkReady] = useState(false);
+
+  const { loading, error, order } = orderDetails;
+  const { success: sucPay, loading: loaPay, error: errPay } = orderPayment;
   const orderId = match.params.id;
   useEffect(() => {
-    if (!loggedId) history.push('/login');
-    getOrderDetails(orderId);
-    return () => {
-      clearOrderDetails();
+    const addPayPalScript = async () => {
+      const { data: clientId } = await axios.get('/api/config/paypal');
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.async = true;
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&buyer-country=BR&currency=BRL`;
+      script.onload = () => setSdkReady(true);
+      document.body.append(script);
     };
-  }, [match]);
+
+    //if (!loggedId) history.push('/login');
+    if ((order !== undefined && Object.keys(order).length === 0) || sucPay) {
+      getOrderDetails(orderId);
+      clearPaymentDetails();
+    } else if (order !== undefined && !order.isPaid) {
+      if (!window.paypal) {
+        addPayPalScript();
+      } else {
+        setSdkReady(true);
+      }
+    }
+  }, [
+    order,
+    sucPay,
+    clearOrderDetails,
+    getOrderDetails,
+    history,
+    loggedId,
+    orderId,
+    sdkReady,
+  ]);
+
+  function renderPaypalBtn() {
+    if (orderPayment.loading) return <Loader />;
+    if (!order.isPaid) {
+      if (!sdkReady) {
+        return <Loader />;
+      } else {
+        return (
+          <PayPalButton
+            currency="BRL"
+            amount={(
+              order.totalValue +
+              order.shippingValue +
+              order.taxValue
+            ).toFixed(2)}
+            onSuccess={succesPaymentHandler}
+          />
+        );
+      }
+    }
+  }
+
+  function succesPaymentHandler(payRes) {
+    setOrderPayment(orderId, payRes);
+  }
 
   function renderPrefetch() {
     if (error) return <Message variant="danger">{error}</Message>;
     if (loading) return <Loader />;
   }
+
   if (loading || error) {
     return renderPrefetch();
   } else
@@ -90,7 +151,55 @@ export const Order = ({
             </ListGroup>
           </Col>
           <Col md={4}>
-            <CheckoutSubtotal />
+            <>
+              <Card>
+                <Card.Header>Order Summary</Card.Header>
+                <Card.Body>
+                  <ListGroup variant="flush">
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>Item</Col>
+                        <Col className="text-right">${order.totalPrice}</Col>
+                      </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>Shipping</Col>
+                        <Col className="text-right">${order.shippingPrice}</Col>
+                      </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>Tax</Col>
+                        <Col className="text-right">${order.taxPrice}</Col>
+                      </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item variant="dark">
+                      <Row>
+                        <Col className="font-weight-bold">Total</Col>
+                        <Col className="text-right font-weight-bold">
+                          $
+                          {(
+                            order.totalPrice +
+                            order.shippingPrice +
+                            order.taxPrice
+                          ).toFixed(2)}
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  </ListGroup>
+                  <Col className="mt-4">
+                    {order.paymentMethod == 'Paypal' ? (
+                      renderPaypalBtn()
+                    ) : (
+                      <Button onClick={() => alert('todo!')} block>
+                        Another payment method!
+                      </Button>
+                    )}
+                  </Col>
+                </Card.Body>
+              </Card>
+            </>
           </Col>
         </Row>
       </div>
@@ -100,13 +209,15 @@ export const Order = ({
 const mapStateToProps = (state) => ({
   loggedId: state.userLogin.userInfo?._id,
   cart: state.cart,
-  order: state.orderDetails.order,
   orderDetails: state.orderDetails,
+  orderPayment: state.orderPayment,
 });
 
 const mapDispatchToProps = {
   getOrderDetails,
   clearOrderDetails,
+  clearPaymentDetails,
+  setOrderPayment,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Order);

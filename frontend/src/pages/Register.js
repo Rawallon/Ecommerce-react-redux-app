@@ -6,6 +6,7 @@ import FormContainer from '../components/FormContainer';
 import { register } from '../actions/userAction';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import FormGroup from '../components/FormGroup';
 
 export function Register({
   location,
@@ -60,46 +61,40 @@ export function Register({
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
-        <Form.Group controlId="name">
-          <Form.Label>Name:</Form.Label>
-          <Form.Control
-            type="text"
-            isInvalid={!!message['name']}
-            placeholder="Complete name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group controlId="email">
-          <Form.Label>Email:</Form.Label>
-          <Form.Control
-            type="email"
-            isInvalid={!!message['email']}
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password:</Form.Label>
-          <Form.Control
-            isInvalid={!!message['password']}
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group controlId="confirmPassword">
-          <Form.Label>Confirm password:</Form.Label>
-          <Form.Control
-            type="password"
-            isInvalid={!!message['confirmPassword']}
-            placeholder="Confirm password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </Form.Group>
+        <FormGroup
+          name="name"
+          type="text"
+          value={name}
+          isInvalid={!!message['name']}
+          placeholder="Complete name"
+          onChange={setName}
+        />
+        <FormGroup
+          name="email"
+          type="email"
+          value={email}
+          isInvalid={!!message['email']}
+          onChange={setEmail}
+        />
+        <FormGroup
+          name="password"
+          disabled={loading}
+          isInvalid={!!message['password']}
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={setPassword}
+        />
+        <FormGroup
+          name="confirmPassword"
+          disabled={loading}
+          isInvalid={!!message['confirmPassword']}
+          type="password"
+          label="Confirm Password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={setConfirmPassword}
+        />
 
         <Button type="submit" variant="primary">
           Register

@@ -16,7 +16,6 @@ export const PlaceOrder = ({ cart, createOrder, orderCreate, history }) => {
       paymentMethod: cart.paymentMethod,
     });
   }
-  console.log(cart.cartItems);
   const { order, success, error } = orderCreate;
   useEffect(() => {
     if (success) {

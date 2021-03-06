@@ -29,7 +29,7 @@ export const Payment = ({
       <h1>Payment Method</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group>
-          <Form.Label as="legend">Select Methoed</Form.Label>
+          <Form.Label as="legend">Select Method</Form.Label>
           <Col>
             <Form.Check
               type="radio"
@@ -38,7 +38,7 @@ export const Payment = ({
               name="paymentMethod"
               value="PayPal"
               checked
-              onChange={(e) => setPaymentMethod(e.targed.value)}
+              onChange={(e) => setPaymentMethod(e.target.value)}
             />
             <Form.Check
               type="radio"
@@ -46,7 +46,7 @@ export const Payment = ({
               id="BoaCompra"
               name="paymentMethod"
               value="BoaCompra"
-              onChange={(e) => setPaymentMethod(e.targed.value)}
+              onChange={(e) => setPaymentMethod(e.target.value)}
             />
           </Col>
         </Form.Group>

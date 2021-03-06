@@ -7,20 +7,26 @@ const capitalize = (s) => {
 };
 
 export default function FormGroup({
-  name = 'name',
+  name,
   type = 'text',
   value = '',
-  labeltxt,
+  label,
   onChange,
+  isInvalid,
   required = false,
+  disabled = false,
+  placeholder,
 }) {
-  let lbl = labeltxt || name;
+  let lbl = label || placeholder || name;
+  let phd = placeholder || lbl;
   return (
     <Form.Group controlId={name}>
       <Form.Label>{capitalize(lbl)}:</Form.Label>
       <Form.Control
+        isInvalid={isInvalid}
         type={type}
-        placeholder={capitalize(name)}
+        disabled={disabled}
+        placeholder={capitalize(phd)}
         value={value}
         required={required}
         onChange={(e) => onChange(e.target.value)}
