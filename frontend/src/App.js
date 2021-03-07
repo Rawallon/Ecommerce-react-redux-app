@@ -23,7 +23,7 @@ function App() {
         <Container>
           <main className="py-3">
             <Switch>
-              <Route path="/order/:id" component={Order} />
+              <Route path="/order/:id/:pay?" component={Order} />
               <Route path="/placeorder" component={PlaceOrder} />
               <Route path="/payment" component={Payment} />
               <Route path="/shipping" component={Shipping} />

@@ -42,10 +42,10 @@ export const Payment = ({
             />
             <Form.Check
               type="radio"
-              label="BoaCompra"
-              id="BoaCompra"
+              label="MercadoPago"
+              id="MercadoPago"
               name="paymentMethod"
-              value="BoaCompra"
+              value="MercadoPago"
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
           </Col>

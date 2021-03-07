@@ -1,3 +1,4 @@
+import mercadopago from 'mercadopago';
 import asyncHandler from 'express-async-handler';
 import OrderModel from '../models/orderModel.js';
 import ProductModel from '../models/productModel.js';
@@ -32,22 +33,78 @@ export const addOrderItems = asyncHandler(async (req, res) => {
         });
     }
 
+    let pref;
     let shippingPrice = +itemsPrice > 100 ? 0 : 100;
     let taxPrice = Number(0.15 * +itemsPrice).toFixed(2);
     let totalPrice = +itemsPrice + +taxPrice + +shippingPrice;
-    const order = new OrderModel({
+
+    if (paymentMethod === 'MercadoPago') {
+      mercadopago.configurations.setAccessToken(
+        process.env.MERCADO_PAGO_ACCESS_TOKEN,
+      );
+      let preference = {
+        items: [
+          {
+            title: 'Ecommerce Test!',
+            quantity: 1,
+            unit_price: totalPrice,
+          },
+        ],
+        back_urls: {
+          success: `http://localhost:3000/profile`,
+          failure: `http://localhost:3000/profile`,
+          pending: `http://localhost:3000/profile`,
+        },
+        auto_return: 'approved',
+      };
+      await mercadopago.preferences
+        .create(preference)
+        .then(function (response) {
+          pref = response.body.id;
+          //res.json({ id: response.body.id });
+        })
+        .catch(function (error) {
+          console.log(error);
+          res.status(500);
+          throw new Error('MercadoPago API Error, try again');
+        });
+    }
+
+    var order = new OrderModel({
       user: req.user._id,
       orderItems: iArr,
       orderItemsQty: sanitize(orderItemsQty),
       shippingAddress: sanitize(shippingAddress),
       paymentMethod: sanitize(paymentMethod || 'Paypal'),
+      paymentId: pref,
       itemsPrice: sanitize(itemsPrice),
       taxPrice,
       shippingPrice,
       totalPrice,
     });
 
+    if (paymentMethod === 'MercadoPago') {
+      const config = {
+        headers: {
+          Authorization: 'Bearer ' + process.env.MERCADO_PAGO_ACCESS_TOKEN,
+        },
+      };
+      const data = {
+        back_urls: {
+          success: `http://localhost:3000/order/${order._id}/pay`,
+          failure: `http://localhost:3000/order/${order._id}/pay`,
+          pending: `http://localhost:3000/order/${order._id}/pay`,
+        },
+      };
+      axios.put(
+        `https://api.mercadopago.com/checkout/preferences/${pref}`,
+        data,
+        config,
+      );
+    }
+
     const createdOrder = await order.save();
+
     res.status(201).json(createdOrder);
   }
 });
@@ -70,20 +127,40 @@ export const getOrderById = asyncHandler(async (req, res) => {
 });
 
 // @desc Update order to paid
-// @route GET /api/orders/:id/pay
+// @route PUT /api/orders/:id/pay
 // @access Private
-export const updateOrderToPaid = asyncHandler(async (req, res) => {
+export const putUpdateOrderPay = asyncHandler(async (req, res) => {
   const order = await OrderModel.findById(sanitize(req.params.id));
 
   if (order) {
-    order.isPaid = true;
-    order.paidAt = Date.now();
-    order.paymentResult = {
-      id: req.body.id,
-      status: req.body.status,
-      update_time: req.body.update_time,
-      email_Address: req.body.payer.email_address,
-    };
+    switch (order.paymentMethod) {
+      case 'MercadoPago':
+        order.isPaid = req.body.status === 'approved';
+        order.paidAt = req.body.status === 'approved' ? Date.now() : null;
+        order.paymentResult = {
+          id: req.body.payment_id,
+          status: req.body.status,
+          update_time: Date.now(),
+          email_Address: null,
+        };
+        break;
+
+      case 'Paypal':
+        order.isPaid = true;
+        order.paidAt = Date.now();
+        order.paymentResult = {
+          id: req.body.id,
+          status: req.body.status,
+          update_time: req.body.update_time,
+          email_Address: req.body.payer.email_address,
+        };
+        break;
+
+      default:
+        res.status(500);
+        throw new Error('Error with the paying method from your order');
+        break;
+    }
 
     const updatedOrder = await order.save();
 

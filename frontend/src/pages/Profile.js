@@ -25,7 +25,6 @@ export function Profile({
   const [oldPassword, setOldPassword] = useState('');
   const [message, setMessage] = useState({});
 
-  console.log(orderList);
   useEffect(() => {
     if (!loggedId) history.push('/login');
     else {
@@ -70,7 +69,7 @@ export function Profile({
       oldPassword,
     });
   }
-  console.log(orderList.orders);
+
   function renderMyOrders() {
     if (orderList.loading) return <Spinner />;
     if (orderList.error)

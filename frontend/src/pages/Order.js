@@ -23,21 +23,51 @@ export const Order = ({
   orderPayment,
   clearPaymentDetails,
   setOrderPayment,
+  location,
 }) => {
   const [sdkReady, setSdkReady] = useState(false);
-
   const { loading, error, order } = orderDetails;
   const { success: sucPay, loading: loaPay, error: errPay } = orderPayment;
   const orderId = match.params.id;
+
+  function parseQuery(queryString) {
+    var query = {};
+    var pairs = queryString.substr(1).split('&');
+    for (var i = 0; i < pairs.length; i++) {
+      var pair = pairs[i].split('=');
+      query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+    }
+    return query;
+  }
+
   useEffect(() => {
-    const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get('/api/config/paypal');
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.async = true;
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&buyer-country=BR&currency=BRL`;
-      script.onload = () => setSdkReady(true);
-      document.body.append(script);
+    if (!loading && order && match.params.pay && !order.isPaid) {
+      switch (order.paymentMethod) {
+        case 'MercadoPago':
+          succesPaymentHandler(parseQuery(location.search));
+          break;
+      }
+    }
+
+    const addPaymentScript = async () => {
+      if (order.paymentMethod === 'Paypal') {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        const { data: clientId } = await axios.get('/api/config/paypal');
+        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&buyer-country=BR&currency=BRL`;
+        document.body.append(script);
+        script.onload = () => setSdkReady(true);
+      } else if (order.paymentMethod === 'MercadoPago') {
+        var script = document.createElement('script');
+        script.src =
+          'https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js';
+        script.type = 'text/javascript';
+        script.dataset.preferenceId = order.paymentId;
+        document.getElementById('button-checkout').innerHTML = '';
+        document.querySelector('#button-checkout').appendChild(script);
+        script.onload = () => setSdkReady(true);
+      }
     };
 
     //if (!loggedId) history.push('/login');
@@ -46,7 +76,7 @@ export const Order = ({
       clearPaymentDetails();
     } else if (order !== undefined && !order.isPaid) {
       if (!window.paypal) {
-        addPayPalScript();
+        addPaymentScript();
       } else {
         setSdkReady(true);
       }
@@ -72,9 +102,9 @@ export const Order = ({
           <PayPalButton
             currency="BRL"
             amount={(
-              order.totalValue +
-              order.shippingValue +
-              order.taxValue
+              order.totalPrice +
+              order.shippingPrice +
+              order.taxPrice
             ).toFixed(2)}
             onSuccess={succesPaymentHandler}
           />
@@ -192,9 +222,7 @@ export const Order = ({
                     {order.paymentMethod == 'Paypal' ? (
                       renderPaypalBtn()
                     ) : (
-                      <Button onClick={() => alert('todo!')} block>
-                        Another payment method!
-                      </Button>
+                      <div id="button-checkout"></div>
                     )}
                   </Col>
                 </Card.Body>

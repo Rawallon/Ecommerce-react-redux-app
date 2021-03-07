@@ -15,7 +15,9 @@
   "keywords": [],
   "author": "Rawallon Cardoso",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "mercadopago": "^1.5.5"
+  },
   "devDependencies": {
     "concurrently": "^6.0.0",
     "nodemon": "^2.0.7"
