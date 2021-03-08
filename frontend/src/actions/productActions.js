@@ -10,6 +10,12 @@ import {
   PRODUCT_DELETE_ADMIN_REQUEST,
   PRODUCT_DELETE_ADMIN_SUCCESS,
   PRODUCT_DELETE_ADMIN_FAILED,
+  PRODUCT_CREATE_ADMIN_REQUEST,
+  PRODUCT_CREATE_ADMIN_SUCCESS,
+  PRODUCT_CREATE_ADMIN_FAILED,
+  PRODUCT_UPDATE_ADMIN_REQUEST,
+  PRODUCT_UPDATE_ADMIN_SUCCESS,
+  PRODUCT_UPDATE_ADMIN_FAILED,
 } from '../types';
 
 export const listProducts = () => async (dispatch) => {
@@ -120,7 +126,7 @@ export const updateProductAdmin = (objectId, formData) => async (
 ) => {
   try {
     dispatch({
-      type: PRODUCT_DELETE_ADMIN_REQUEST,
+      type: PRODUCT_UPDATE_ADMIN_REQUEST,
     });
 
     const config = {
@@ -129,15 +135,46 @@ export const updateProductAdmin = (objectId, formData) => async (
         Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
       },
     };
-    console.log(formData);
-    await axios.patch('/api/products/' + objectId, formData, config);
+    const { data } = await axios.patch(
+      '/api/products/' + objectId,
+      formData,
+      config,
+    );
     dispatch({
-      type: PRODUCT_DELETE_ADMIN_SUCCESS,
-      payload: objectId,
+      type: PRODUCT_UPDATE_ADMIN_SUCCESS,
+      payload: data,
     });
   } catch (error) {
     dispatch({
-      type: PRODUCT_DELETE_ADMIN_FAILED,
+      type: PRODUCT_UPDATE_ADMIN_FAILED,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const createProductAdmin = (formData) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PRODUCT_CREATE_ADMIN_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+      },
+    };
+    const { data } = await axios.post('/api/products/', formData, config);
+    dispatch({
+      type: PRODUCT_CREATE_ADMIN_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_CREATE_ADMIN_FAILED,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

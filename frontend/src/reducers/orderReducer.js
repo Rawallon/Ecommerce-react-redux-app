@@ -43,7 +43,7 @@ export const orderDetailsReducer = (
     case ORDER_DETAILS_FAILED:
       return { loading: false, error: payload };
     case ORDER_DETAILS_CLEAR:
-      return { loading: true };
+      return { loading: true, orderItems: [], order: {} };
     default:
       return state;
   }

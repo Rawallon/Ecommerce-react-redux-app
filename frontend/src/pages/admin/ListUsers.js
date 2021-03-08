@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Button, Col, Row, Spinner, Table } from 'react-bootstrap';
+import { Button, Col, Row, Table } from 'react-bootstrap';
 import { clearListUsersAdmin, listUsersAdmin } from '../../actions/userAction';
 import Message from '../../components/Message';
-import EditUser from './EditUser';
 import { LinkContainer } from 'react-router-bootstrap';
+import Loader from '../../components/Loader';
 
 export const ListUsers = ({
   match,
@@ -14,7 +14,6 @@ export const ListUsers = ({
   listUsersAdmin,
   clearListUsersAdmin,
 }) => {
-  const [selectedUser, setSelectedUser] = useState(null);
   const [listingIndex, setListingIndex] = useState(1);
   const [arrPaginated, setArrPaginated] = useState([]);
   const userId = match?.params?.id;
@@ -34,14 +33,14 @@ export const ListUsers = ({
         userList.users.slice(listingIndex * 10 - 10, listingIndex * 10),
       );
     }
-  }, [userList, listingIndex]);
+  }, [userId, userList, listingIndex]);
 
   function renderUsers() {
     if (userList.loading)
       return (
         <tr>
           <td>
-            <Spinner />
+            <Loader />
           </td>
         </tr>
       );
@@ -65,11 +64,8 @@ export const ListUsers = ({
           <td>{user.name}</td>
           <td>{user.email}</td>
           <td>
-            <LinkContainer to={user._id}>
-              <Button
-                variant="primary"
-                className="btn-sm w-100"
-                onClick={() => setSelectedUser(user._id)}>
+            <LinkContainer to={`/admin/users/${user._id}`}>
+              <Button variant="primary" className="btn-sm w-100">
                 Edit
               </Button>
             </LinkContainer>
@@ -80,49 +76,39 @@ export const ListUsers = ({
   }
   return (
     <div>
-      {!selectedUser && !userId && (
-        <>
-          <Table striped bordered responsive className="table-sm">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>EMAIL</th>
-                <th>EDIT</th>
-              </tr>
-            </thead>
-            <tbody>{renderUsers()}</tbody>
-          </Table>
-          {arrPaginated.length >= 10 && (
-            <Row>
-              <Col>
-                <Button
-                  variant="outline-primary"
-                  onClick={() => setListingIndex(listingIndex - 1)}
-                  disabled={!(listingIndex > 1)}>
-                  &#171; Previous Page
-                </Button>
-              </Col>
-              <Col className="d-flex justify-content-end">
-                <Button
-                  variant="outline-primary"
-                  disabled={arrPaginated.length === listingIndex}
-                  onClick={() => setListingIndex(listingIndex + 1)}>
-                  Next Page &#187;
-                </Button>
-              </Col>
-            </Row>
-          )}
-        </>
-      )}
-
-      {(selectedUser || userId) && (
-        <EditUser
-          selectedUser={selectedUser}
-          setSelectedUser={setSelectedUser}
-          fetchUser={userId}
-        />
-      )}
+      <>
+        <Table striped bordered responsive className="table-sm">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>NAME</th>
+              <th>EMAIL</th>
+              <th>EDIT</th>
+            </tr>
+          </thead>
+          <tbody>{renderUsers()}</tbody>
+        </Table>
+        {arrPaginated.length >= 10 && (
+          <Row>
+            <Col>
+              <Button
+                variant="outline-primary"
+                onClick={() => setListingIndex(listingIndex - 1)}
+                disabled={!(listingIndex > 1)}>
+                &#171; Previous Page
+              </Button>
+            </Col>
+            <Col className="d-flex justify-content-end">
+              <Button
+                variant="outline-primary"
+                disabled={arrPaginated.length === listingIndex}
+                onClick={() => setListingIndex(listingIndex + 1)}>
+                Next Page &#187;
+              </Button>
+            </Col>
+          </Row>
+        )}
+      </>
     </div>
   );
 };

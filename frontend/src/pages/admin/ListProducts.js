@@ -72,13 +72,13 @@ export const ListProducts = ({
           <td>{product.brand}</td>
           <td>
             <LinkContainer to={`/admin/products/${product._id}`}>
-              <Button variant="light" className="btn-sm">
+              <Button variant="light" className="btn-sm w-50">
                 <i className="fas fa-edit"></i>
               </Button>
             </LinkContainer>
             <Button
               variant="danger"
-              className="btn-sm"
+              className="btn-sm w-50"
               onClick={() => deleteHandler(product._id)}>
               <i className="fas fa-trash"></i>
             </Button>
@@ -99,7 +99,16 @@ export const ListProducts = ({
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
-                <th></th>
+                <th>
+                  <LinkContainer to={`/admin/products/create`}>
+                    <Button
+                      variant="outline-secondary"
+                      className="btn-sm "
+                      block>
+                      Create
+                    </Button>
+                  </LinkContainer>
+                </th>
               </tr>
             </thead>
             <tbody>{renderProducts()}</tbody>

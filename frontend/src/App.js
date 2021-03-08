@@ -29,6 +29,7 @@ function App() {
           <main className="py-3">
             <Switch>
               <Route path="/admin/orders" component={ListOrders} />
+              <Route path="/admin/products/create" component={EditProducts} />
               <Route path="/admin/products/:id" component={EditProducts} />
               <Route path="/admin/products" component={ListProducts} />
               <Route path="/admin/users/:id" component={EditUser} />

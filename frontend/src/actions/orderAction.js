@@ -173,3 +173,30 @@ export const getAllOrdersListAdmin = () => async (dispatch, getState) => {
     });
   }
 };
+
+export const setAsDeliveredAdmin = (orderId) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_DETAILS_REQUEST,
+    });
+    const config = {
+      headers: {
+        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+      },
+    };
+    const { data } = await axios.put(
+      `/api/orders/${orderId}/deliver`,
+      {},
+      config,
+    );
+    dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: ORDER_DETAILS_FAILED,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

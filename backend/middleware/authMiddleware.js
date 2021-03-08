@@ -15,13 +15,13 @@ export const protect = asyncHandler(async (req, res, next) => {
       next();
     } catch (error) {
       res.status(401);
-      throw new Error('Error!');
+      throw new Error('Bad token');
     }
   }
 
   if (!token) {
     res.status(401);
-    throw new Error('Error');
+    throw new Error('No token');
   }
 });
 

@@ -8,6 +8,7 @@ import {
   clearPaymentDetails,
   getOrderDetails,
   setOrderPayment,
+  setAsDeliveredAdmin,
 } from '../actions/orderAction';
 import CheckoutProduct from '../components/CheckoutProduct';
 import Loader from '../components/Loader';
@@ -20,10 +21,12 @@ export const Order = ({
   orderDetails,
   history,
   loggedId,
+  isAdmin,
   orderPayment,
   clearPaymentDetails,
   setOrderPayment,
   location,
+  setAsDeliveredAdmin,
 }) => {
   const [sdkReady, setSdkReady] = useState(false);
   const { loading, error, order } = orderDetails;
@@ -41,8 +44,14 @@ export const Order = ({
   }
 
   useEffect(() => {
+    return () => {
+      clearOrderDetails();
+    };
+  }, []);
+  useEffect(() => {
     if (!loggedId) history.push('/login');
-    if (orderDetails.order?.user?._id !== loggedId) history.push('/login');
+    if (!isAdmin && orderDetails.order?.user?._id !== loggedId)
+      history.push('/profile');
 
     if (!loading && order && match.params.pay && !order.isPaid) {
       switch (order.paymentMethod) {
@@ -227,6 +236,15 @@ export const Order = ({
                       <div id="button-checkout"></div>
                     )}
                   </Col>
+                  {isAdmin && (
+                    <Col className="mt-3">
+                      <Button
+                        block
+                        onClick={() => setAsDeliveredAdmin(orderId)}>
+                        Set as delivered
+                      </Button>
+                    </Col>
+                  )}
                 </Card.Body>
               </Card>
             </>
@@ -237,6 +255,7 @@ export const Order = ({
 };
 
 const mapStateToProps = (state) => ({
+  isAdmin: state.userLogin.userInfo?.isAdmin,
   loggedId: state.userLogin.userInfo?._id,
   cart: state.cart,
   orderDetails: state.orderDetails,
@@ -248,6 +267,7 @@ const mapDispatchToProps = {
   clearOrderDetails,
   clearPaymentDetails,
   setOrderPayment,
+  setAsDeliveredAdmin,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Order);

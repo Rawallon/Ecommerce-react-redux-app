@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import { Button, Form, Col, Row } from 'react-bootstrap';
 import Message from '../../components/Message';
 import Loader from '../../components/FormLoader';
@@ -10,9 +11,11 @@ import {
 } from '../../actions/userAction';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
+  createProductAdmin,
   listProductDetails,
   updateProductAdmin,
 } from '../../actions/productActions';
+import FormLoader from '../../components/FormLoader';
 
 export function EditProducts({
   match,
@@ -21,13 +24,16 @@ export function EditProducts({
   productDetails,
   listProductDetails,
   updateProductAdmin,
+  createProductAdmin,
 }) {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
+  const [image, setImage] = useState('');
   const [category, setCategory] = useState('');
   const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
   const [countStock, setCountStock] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   const [message, setMessage] = useState({});
   const itemId = match.params.id;
@@ -42,7 +48,7 @@ export function EditProducts({
   useEffect(() => {
     if (!userInfo?._id) history.push('/login');
     if (!userInfo?.isAdmin) history.push('/profile');
-    if (!itemId) history.push('./');
+    //if (!itemId) history.push('./');
 
     if (productDetails.product && itemId) fillFields();
   }, [history, userInfo, productDetails, itemId]);
@@ -51,11 +57,36 @@ export function EditProducts({
     const selProd = productDetails.product;
     setName(selProd.name);
     setPrice(selProd.price);
+    setImage(selProd.image);
     setCategory(selProd.category);
     setBrand(selProd.brand);
     setDescription(selProd.description);
     setCountStock(selProd.countInStock);
   }
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const { data } = await axios.post('/api/upload', formData, config);
+      console.log(data);
+      if (Object.keys(data).length > 0) setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
+  };
+
   function submitHandler(e) {
     e.preventDefault();
     if (
@@ -77,15 +108,28 @@ export function EditProducts({
       return;
     }
 
-    updateProductAdmin(itemId, {
-      _id: itemId,
-      name,
-      price,
-      category,
-      brand,
-      description,
-      countInStock: countStock,
-    });
+    if (itemId) {
+      updateProductAdmin(itemId, {
+        _id: itemId,
+        name,
+        price,
+        image,
+        category,
+        brand,
+        description,
+        countInStock: countStock,
+      });
+    } else {
+      createProductAdmin({
+        name,
+        price,
+        image,
+        category,
+        brand,
+        description,
+        countInStock: countStock,
+      });
+    }
   }
 
   return (
@@ -109,6 +153,22 @@ export function EditProducts({
             onChange={setPrice}
             isInvalid={!!message['price']}
           />
+          <FormGroup
+            name="image"
+            type="text"
+            value={image}
+            onChange={setImage}
+            isInvalid={!!message['image']}
+          />
+          <Form.Group controlId={image}>
+            <Form.Label>Image:</Form.Label>
+            <Form.File
+              id="image-file"
+              label="Choose file"
+              onChange={uploadFileHandler}
+            />
+            {uploading && <FormLoader />}
+          </Form.Group>
           <FormGroup
             name="category"
             type="text"
@@ -137,7 +197,7 @@ export function EditProducts({
             value={description}
             onChange={setDescription}
             isInvalid={!!message['description']}
-            textarea
+            asField="textarea"
           />
           <Row>
             <Col>
@@ -164,6 +224,10 @@ const mapStateToProps = (state) => ({
   productDetails: state.productDetails,
 });
 
-const mapDispatchToProps = { listProductDetails, updateProductAdmin };
+const mapDispatchToProps = {
+  listProductDetails,
+  updateProductAdmin,
+  createProductAdmin,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProducts);

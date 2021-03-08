@@ -55,12 +55,35 @@ export const deletProductAdmin = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Create a product
+// @route PUT /api/product/
+// @access Private
+export const createProductAdmin = asyncHandler(async (req, res) => {
+  console.log(createProductAdmin);
+  const object = new ProductModel({
+    user: req.user._id,
+    name: sanitize(req.body.name),
+    image: sanitize(req.body.image),
+    price: sanitize(req.body.price),
+    category: sanitize(req.body.category),
+    brand: sanitize(req.body.brand),
+    description: sanitize(req.body.description),
+    countInStock: sanitize(req.body.countInStock),
+    rating: 0,
+    numReviews: 0,
+    reviews: [],
+  });
+  const createdObj = await object.save();
+  res.json(createdObj);
+});
+
 // @desc Update product data
 // @route PATCH /api/product/
 // @access Private
 export const updateProductAdmin = asyncHandler(async (req, res) => {
   const object = await ProductModel.findById(sanitize(req.params.id));
   if (object) {
+    object.image = sanitize(req.body.image) || object.image;
     object.name = sanitize(req.body.name) || object.name;
     object.price = sanitize(req.body.price) || object.price;
     object.category = sanitize(req.body.category) || object.category;
@@ -70,7 +93,7 @@ export const updateProductAdmin = asyncHandler(async (req, res) => {
       sanitize(req.body.countInStock) || object.countInStock;
 
     const updatedObj = await object.save();
-    res.json(updatedObj);
+    res.status(201).json(updatedObj);
   } else {
     res.status(404);
     throw new Error('User not found');

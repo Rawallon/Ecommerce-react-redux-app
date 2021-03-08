@@ -12,6 +12,9 @@ import {
   PRODUCT_UPDATE_ADMIN_REQUEST,
   PRODUCT_UPDATE_ADMIN_SUCCESS,
   PRODUCT_UPDATE_ADMIN_FAILED,
+  PRODUCT_CREATE_ADMIN_REQUEST,
+  PRODUCT_CREATE_ADMIN_SUCCESS,
+  PRODUCT_CREATE_ADMIN_FAILED,
 } from '../types';
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -46,12 +49,16 @@ export const productDetailsReducer = (
 ) => {
   const { type, payload } = action;
   switch (type) {
+    case PRODUCT_CREATE_ADMIN_REQUEST:
     case PRODUCT_UPDATE_ADMIN_REQUEST:
     case PRODUCT_DETAILS_REQUEST:
       return { loading: true };
+    case PRODUCT_CREATE_ADMIN_SUCCESS:
     case PRODUCT_UPDATE_ADMIN_SUCCESS:
     case PRODUCT_DETAILS_SUCCESS:
+      console.log(payload);
       return { loading: false, product: payload };
+    case PRODUCT_CREATE_ADMIN_FAILED:
     case PRODUCT_UPDATE_ADMIN_FAILED:
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: payload };
