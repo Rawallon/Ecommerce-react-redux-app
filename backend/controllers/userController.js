@@ -48,7 +48,7 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 // @route PATCH /api/users/profile
 // @access Private
 export const updateUserProfile = asyncHandler(async (req, res) => {
-  const user = await UserModel.findById(req.user._id);
+  const user = await UserModel.findById(sanitize(req.body._id));
   if (user) {
     //TODO
     // if (user.password !== req.body.oldPassword) {
@@ -101,5 +101,25 @@ export const registerUser = asyncHandler(async (req, res) => {
   } else {
     res.status(400);
     throw new Error('Invalid user data');
+  }
+});
+
+// @desc Gets all users profile
+// @route GET /api/users/(:id)
+// @access Private
+export const getUsersAdmin = asyncHandler(async (req, res) => {
+  var users;
+  if (!req.params.id) {
+    users = await UserModel.find({}).select('-password');
+  } else {
+    users = await UserModel.findById(req.params.id).select('-password');
+  }
+
+  if (users) {
+    if (!req.params.id) res.json(users);
+    else res.json([users]);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
   }
 });

@@ -126,6 +126,20 @@ export const getOrderById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Get all orders
+// @route GET /api/orders/:id
+// @access Private
+export const getAllOrders = asyncHandler(async (req, res) => {
+  const orders = await OrderModel.find({}).populate('user', 'name email');
+
+  if (orders) {
+    res.json(orders);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
+
 // @desc Update order to paid
 // @route PUT /api/orders/:id/pay
 // @access Private

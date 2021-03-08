@@ -9,6 +9,13 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAILED,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAILED,
+  USER_LIST_CLEAR,
+  USER_UPDATE_ADMIN_REQUEST,
+  USER_UPDATE_ADMIN_SUCCESS,
+  USER_UPDATE_ADMIN_FAILED,
 } from '../types';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -55,6 +62,29 @@ export const userUpdateProfileReducer = (
     case USER_UPDATE_PROFILE_FAILED:
       return { loading: false, error: payload };
     case USER_LOGOUT:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const userListReducer = (state = {}, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case USER_UPDATE_ADMIN_REQUEST:
+      return { ...state, loading: true };
+    case USER_LIST_REQUEST:
+      return { loading: true };
+    case USER_LIST_SUCCESS:
+      return { loading: false, users: payload };
+    case USER_UPDATE_ADMIN_SUCCESS:
+      var newUsers = state.users.filter((el) => el._id !== payload._id);
+      newUsers = [...newUsers, payload];
+      return { loading: false, users: newUsers };
+    case USER_UPDATE_ADMIN_FAILED:
+    case USER_LIST_FAILED:
+      return { loading: false, error: payload };
+    case USER_LIST_CLEAR:
       return {};
     default:
       return state;

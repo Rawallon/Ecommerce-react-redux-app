@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Col, Row } from 'react-bootstrap';
+import { Breadcrumb, Col, Row } from 'react-bootstrap';
 import Product from '../components/Product';
 import { listCategoryProducts } from '../actions/productActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 
 export function Category({
   match,
@@ -25,11 +26,14 @@ export function Category({
 
   return (
     <>
-      <Link className="btn btn-light my-3" to="/">
-        <i className="fas fa-home"></i>
-      </Link>
-      <span className="btn">/</span>
-      <div className="btn my-3">{match.params.cat}</div>
+      <Breadcrumb>
+        <LinkContainer to="/">
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+        </LinkContainer>
+        <LinkContainer to={`/category/${match.params.cat}`}>
+          <Breadcrumb.Item active>{match.params.cat}</Breadcrumb.Item>
+        </LinkContainer>
+      </Breadcrumb>
       <Row>
         {renderPrefetch()}
         {!isLoading &&

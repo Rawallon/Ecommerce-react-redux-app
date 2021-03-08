@@ -9,6 +9,13 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAILED,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAILED,
+  USER_LIST_CLEAR,
+  USER_UPDATE_ADMIN_REQUEST,
+  USER_UPDATE_ADMIN_SUCCESS,
+  USER_UPDATE_ADMIN_FAILED,
 } from '../types';
 import axios from 'axios';
 
@@ -101,6 +108,91 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_UPDATE_PROFILE_FAILED,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listUserByIdAdmin = (uId) => async (dispatch, getState) => {
+  console.log('listUserByIdAdmin');
+  try {
+    dispatch({
+      type: USER_LIST_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+      },
+    };
+    const { data } = await axios.get('/api/users/' + uId, config);
+    dispatch({
+      type: USER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_LIST_FAILED,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listUsersAdmin = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_LIST_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+      },
+    };
+    const { data } = await axios.get('/api/users', config);
+    dispatch({
+      type: USER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_LIST_FAILED,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const clearListUsersAdmin = (pId) => async (dispatch) => {
+  dispatch({
+    type: USER_LIST_CLEAR,
+  });
+};
+
+export const updateUserProfileAdmin = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_ADMIN_REQUEST,
+    });
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+      },
+    };
+    const { data } = await axios.patch('/api/users/profile', user, config);
+    dispatch({ type: USER_UPDATE_ADMIN_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_ADMIN_FAILED,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

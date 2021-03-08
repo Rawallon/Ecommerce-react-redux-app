@@ -41,6 +41,9 @@ export const Order = ({
   }
 
   useEffect(() => {
+    if (!loggedId) history.push('/login');
+    if (orderDetails.order?.user?._id !== loggedId) history.push('/login');
+
     if (!loading && order && match.params.pay && !order.isPaid) {
       switch (order.paymentMethod) {
         case 'MercadoPago':
@@ -70,7 +73,6 @@ export const Order = ({
       }
     };
 
-    //if (!loggedId) history.push('/login');
     if ((order !== undefined && Object.keys(order).length === 0) || sucPay) {
       getOrderDetails(orderId);
       clearPaymentDetails();

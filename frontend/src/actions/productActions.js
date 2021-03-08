@@ -7,6 +7,9 @@ import {
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_CLEAR,
+  PRODUCT_DELETE_ADMIN_REQUEST,
+  PRODUCT_DELETE_ADMIN_SUCCESS,
+  PRODUCT_DELETE_ADMIN_FAILED,
 } from '../types';
 
 export const listProducts = () => async (dispatch) => {
@@ -73,6 +76,68 @@ export const listCategoryProducts = (cat) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deleteProductAdmin = (objectId) => async (dispatch, getState) => {
+  console.log('deleteProductAdmin');
+  try {
+    dispatch({
+      type: PRODUCT_DELETE_ADMIN_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+      },
+    };
+
+    await axios.delete('/api/products/' + objectId, config);
+    dispatch({
+      type: PRODUCT_DELETE_ADMIN_SUCCESS,
+      payload: objectId,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DELETE_ADMIN_FAILED,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateProductAdmin = (objectId, formData) => async (
+  dispatch,
+  getState,
+) => {
+  try {
+    dispatch({
+      type: PRODUCT_DELETE_ADMIN_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+      },
+    };
+    console.log(formData);
+    await axios.patch('/api/products/' + objectId, formData, config);
+    dispatch({
+      type: PRODUCT_DELETE_ADMIN_SUCCESS,
+      payload: objectId,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DELETE_ADMIN_FAILED,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

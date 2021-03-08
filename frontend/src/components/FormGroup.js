@@ -16,6 +16,7 @@ export default function FormGroup({
   required = false,
   disabled = false,
   placeholder,
+  textarea,
 }) {
   let lbl = label || placeholder || name;
   let phd = placeholder || lbl;
@@ -30,6 +31,7 @@ export default function FormGroup({
         value={value}
         required={required}
         onChange={(e) => onChange(e.target.value)}
+        as={textarea ? 'textarea' : 'input'}
       />
     </Form.Group>
   );
