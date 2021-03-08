@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
+import morgan from 'morgan';
 
 import uploadRoutes from './routes/uploadRoutes.js';
 import productRoutes from './routes/productRoutes.js';
@@ -16,6 +17,10 @@ connectDB();
 const app = express();
 
 app.use(express.json());
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 const __dirname = path.resolve(); // Not avaliable using ESM
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));

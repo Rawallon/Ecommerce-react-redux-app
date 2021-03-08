@@ -15,6 +15,10 @@ import {
   PRODUCT_CREATE_ADMIN_REQUEST,
   PRODUCT_CREATE_ADMIN_SUCCESS,
   PRODUCT_CREATE_ADMIN_FAILED,
+  PRODUCT_CREATE_REVIEW_CLEAR,
+  PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_CREATE_REVIEW_REQUEST,
 } from '../types';
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -64,6 +68,24 @@ export const productDetailsReducer = (
       return { loading: false, error: payload };
     case PRODUCT_DETAILS_CLEAR:
       return { ...state, product: { reviews: [] } };
+
+    default:
+      return state;
+  }
+};
+
+export const productReviewCreateReducer = (state = {}, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case PRODUCT_CREATE_REVIEW_REQUEST:
+      return { loading: true };
+    case PRODUCT_CREATE_REVIEW_SUCCESS:
+      console.log(payload);
+      return { loading: false, success: true };
+    case PRODUCT_CREATE_REVIEW_FAIL:
+      return { loading: false, error: payload };
+    case PRODUCT_CREATE_REVIEW_CLEAR:
+      return {};
 
     default:
       return state;

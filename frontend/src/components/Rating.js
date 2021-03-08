@@ -14,7 +14,7 @@ export default function Rating({ rating, count, color = 'yellow' }) {
       <i style={{ color: color }} className={returnStarIcon(rating, 3)}></i>
       <i style={{ color: color }} className={returnStarIcon(rating, 4)}></i>
       <i style={{ color: color }} className={returnStarIcon(rating, 5)}></i>
-      <span className="ml-2">({count})</span>
+      {count && <span className="ml-2">({count})</span>}
     </div>
   );
 }

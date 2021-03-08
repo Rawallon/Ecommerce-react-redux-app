@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  addReview,
   createProductAdmin,
   deletProductAdmin,
   getProductByCategory,
@@ -20,5 +21,7 @@ router
   .patch(protect, isAdmin, updateProductAdmin);
 
 router.route('/category/:cat').get(getProductByCategory);
+
+router.route('/:id/reviews').post(protect, addReview);
 
 export default router;

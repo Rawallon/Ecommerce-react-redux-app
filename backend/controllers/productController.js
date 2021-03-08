@@ -99,3 +99,37 @@ export const updateProductAdmin = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
+
+// @desc Creates a new reviews
+// @route POST /api/product/:id/reviews
+// @access Private
+export const addReview = asyncHandler(async (req, res) => {
+  const object = await ProductModel.findById(sanitize(req.params.id));
+  if (object) {
+    const alrRev = object.reviews.find(
+      (rev) => rev.user.toString() === req.user._id.toString(),
+    );
+    if (alrRev) {
+      res.status(400);
+      throw new Error('Already reviewed');
+    }
+
+    const objReview = {
+      user: req.user._id,
+      name: req.user.name,
+      rating: req.body.rating,
+      comment: req.body.comment,
+    };
+    object.reviews.push(objReview);
+    object.numReviews = object.reviews.length;
+    object.rating =
+      object.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      object.reviews.length;
+
+    const updatedObj = await object.save();
+    res.status(201).json(updatedObj);
+  } else {
+    res.status(404);
+    throw new Error('Product not found');
+  }
+});

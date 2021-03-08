@@ -16,6 +16,10 @@ import {
   PRODUCT_UPDATE_ADMIN_REQUEST,
   PRODUCT_UPDATE_ADMIN_SUCCESS,
   PRODUCT_UPDATE_ADMIN_FAILED,
+  PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_CREATE_REVIEW_CLEAR,
 } from '../types';
 
 export const listProducts = () => async (dispatch) => {
@@ -181,4 +185,39 @@ export const createProductAdmin = (formData) => async (dispatch, getState) => {
           : error.message,
     });
   }
+};
+
+export const createProductReview = (objectId, formData) => async (
+  dispatch,
+  getState,
+) => {
+  try {
+    dispatch({
+      type: PRODUCT_CREATE_REVIEW_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+      },
+    };
+    await axios.post(`/api/products/${objectId}/reviews`, formData, config);
+    dispatch({
+      type: PRODUCT_CREATE_REVIEW_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_CREATE_REVIEW_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const clearProductReview = () => async (dispatch) => {
+  dispatch({
+    type: PRODUCT_CREATE_REVIEW_CLEAR,
+  });
 };
