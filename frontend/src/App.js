@@ -30,10 +30,13 @@ function App() {
             <Switch>
               <Route path="/admin/orders" component={ListOrders} />
               <Route path="/admin/products/create" component={EditProducts} />
-              <Route path="/admin/products/:id" component={EditProducts} />
-              <Route path="/admin/products" component={ListProducts} />
-              <Route path="/admin/users/:id" component={EditUser} />
-              <Route path="/admin/users/" component={ListUsers} />
+              <Route path="/admin/products/edit/:id" component={EditProducts} />
+              <Route
+                path="/admin/products/:pageNumber?"
+                component={ListProducts}
+              />
+              <Route path="/admin/users/edit/:id?" component={EditUser} />
+              <Route path="/admin/users/:pageNumber?" component={ListUsers} />
               <Route path="/order/:id/:pay?" component={Order} />
               <Route path="/placeorder" component={PlaceOrder} />
               <Route path="/payment" component={Payment} />
@@ -44,6 +47,13 @@ function App() {
               <Route path="/cart" component={Cart} />
               <Route path="/category/:cat" component={Category} />
               <Route path="/product/:id" component={Product} />
+              <Route
+                path="/search/:keyword/page/:pageNumber"
+                exact
+                component={Home}
+              />
+              <Route path="/search/:keyword" exact component={Home} />
+              <Route path="/page/:pageNumber" exact component={Home} />
               <Route path="/" exact component={Home} />
               <Route path="*" component={Footer} />
             </Switch>

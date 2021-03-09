@@ -1,3 +1,24 @@
 main {
   min-height: 90vh;
 }
+
+.search-btn {
+  position: absolute;
+  left: 90%;
+  height: 100%;
+}
+
+.search-show {
+  position: absolute;
+  left: 0%;
+  top: 0;
+  opacity: 100%;
+  transition-property: opacity, visibility, left !important;
+  transition-duration: 0.3s !important;
+}
+
+.search-hide {
+  left: -650%;
+  opacity: 5%;
+  /* visibility: hidden; */
+}

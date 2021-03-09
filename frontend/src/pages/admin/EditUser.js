@@ -27,21 +27,22 @@ export function EditUser({
     if (userId) {
       listUserByIdAdmin(userId);
     }
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     if (!userInfo?._id) history.push('/login');
     if (!userInfo?.isAdmin) history.push('/profile');
-    if (!userId) history.push('./');
+    if (!userId) history.push('/admin/users');
 
-    if (userList.users && userId) fillFields();
+    if (userList.user?.user && userId) fillFields();
   }, [history, userInfo, userList, userId]);
   const { error, loading } = userList;
 
   function fillFields() {
-    const selUSer = userList.users.filter((user) => user._id === userId)[0];
-    setName(selUSer.name);
-    setEmail(selUSer.email);
+    if (userList.user?.user) {
+      setName(userList.user?.user.name);
+      setEmail(userList.user?.user.email);
+    }
   }
 
   function submitHandler(e) {
@@ -78,7 +79,7 @@ export function EditUser({
           />
           <Row>
             <Col>
-              <LinkContainer to="./">
+              <LinkContainer to="/admin/users">
                 <Button type="submit" variant="outline-secondary" block>
                   Back
                 </Button>

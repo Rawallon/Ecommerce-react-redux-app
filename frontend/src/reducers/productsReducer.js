@@ -21,13 +21,21 @@ import {
   PRODUCT_CREATE_REVIEW_REQUEST,
 } from '../types';
 
-export const productListReducer = (state = { products: [] }, action) => {
+export const productListReducer = (
+  state = { products: [], pages: [], page: [] },
+  action,
+) => {
   const { type, payload } = action;
   switch (type) {
     case PRODUCT_LIST_REQUEST:
       return { loading: true, products: [] };
     case PRODUCT_LIST_SUCCESS:
-      return { loading: false, products: payload };
+      return {
+        loading: false,
+        products: payload.products,
+        pages: payload.pages,
+        page: payload.page,
+      };
     case PRODUCT_LIST_FAIL:
       return { loading: false, error: payload };
     case PRODUCT_DELETE_ADMIN_REQUEST:

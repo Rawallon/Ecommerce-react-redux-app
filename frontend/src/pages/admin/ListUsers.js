@@ -5,6 +5,7 @@ import { clearListUsersAdmin, listUsersAdmin } from '../../actions/userAction';
 import Message from '../../components/Message';
 import { LinkContainer } from 'react-router-bootstrap';
 import Loader from '../../components/Loader';
+import { Pageinate } from '../../components/Pageinate';
 
 export const ListUsers = ({
   match,
@@ -14,26 +15,16 @@ export const ListUsers = ({
   listUsersAdmin,
   clearListUsersAdmin,
 }) => {
-  const [listingIndex, setListingIndex] = useState(1);
-  const [arrPaginated, setArrPaginated] = useState([]);
-  const userId = match?.params?.id;
+  const pageNumber = match.params.pageNumber || 1;
 
   React.useEffect(() => {
     if (!userInfo?._id) history.push('/login');
     if (!userInfo?.isAdmin) history.push('/profile');
-    listUsersAdmin();
+    listUsersAdmin(pageNumber);
     return () => {
       clearListUsersAdmin();
     };
-  }, [clearListUsersAdmin, history, listUsersAdmin, userInfo]);
-
-  React.useEffect(() => {
-    if (userList?.users && !userId) {
-      setArrPaginated(
-        userList.users.slice(listingIndex * 10 - 10, listingIndex * 10),
-      );
-    }
-  }, [userId, userList, listingIndex]);
+  }, [clearListUsersAdmin, history, listUsersAdmin, userInfo, pageNumber]);
 
   function renderUsers() {
     if (userList.loading)
@@ -58,13 +49,13 @@ export const ListUsers = ({
         </tr>
       );
     } else {
-      return arrPaginated.map((user) => (
+      return userList.users.map((user) => (
         <tr key={user._id} className={user.isAdmin ? 'text-info' : ''}>
           <td>{user._id}</td>
           <td>{user.name}</td>
           <td>{user.email}</td>
           <td>
-            <LinkContainer to={`/admin/users/${user._id}`}>
+            <LinkContainer to={`/admin/users/edit/${user._id}`}>
               <Button variant="primary" className="btn-sm w-100">
                 Edit
               </Button>
@@ -88,26 +79,11 @@ export const ListUsers = ({
           </thead>
           <tbody>{renderUsers()}</tbody>
         </Table>
-        {arrPaginated.length >= 10 && (
-          <Row>
-            <Col>
-              <Button
-                variant="outline-primary"
-                onClick={() => setListingIndex(listingIndex - 1)}
-                disabled={!(listingIndex > 1)}>
-                &#171; Previous Page
-              </Button>
-            </Col>
-            <Col className="d-flex justify-content-end">
-              <Button
-                variant="outline-primary"
-                disabled={arrPaginated.length === listingIndex}
-                onClick={() => setListingIndex(listingIndex + 1)}>
-                Next Page &#187;
-              </Button>
-            </Col>
-          </Row>
-        )}
+        <Pageinate
+          pages={userList.pages}
+          page={userList.page}
+          isAdmin="users"
+        />
       </>
     </div>
   );

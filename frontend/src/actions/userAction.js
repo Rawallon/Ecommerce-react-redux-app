@@ -16,6 +16,9 @@ import {
   USER_UPDATE_ADMIN_REQUEST,
   USER_UPDATE_ADMIN_SUCCESS,
   USER_UPDATE_ADMIN_FAILED,
+  USER_LIST_DETAILS_REQUEST,
+  USER_LIST_DETAILS_SUCCESS,
+  USER_LIST_DETAILS_FAILED,
 } from '../types';
 import axios from 'axios';
 
@@ -117,10 +120,9 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 };
 
 export const listUserByIdAdmin = (uId) => async (dispatch, getState) => {
-  console.log('listUserByIdAdmin');
   try {
     dispatch({
-      type: USER_LIST_REQUEST,
+      type: USER_LIST_DETAILS_REQUEST,
     });
 
     const config = {
@@ -130,12 +132,12 @@ export const listUserByIdAdmin = (uId) => async (dispatch, getState) => {
     };
     const { data } = await axios.get('/api/users/' + uId, config);
     dispatch({
-      type: USER_LIST_SUCCESS,
+      type: USER_LIST_DETAILS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: USER_LIST_FAILED,
+      type: USER_LIST_DETAILS_FAILED,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -144,7 +146,7 @@ export const listUserByIdAdmin = (uId) => async (dispatch, getState) => {
   }
 };
 
-export const listUsersAdmin = () => async (dispatch, getState) => {
+export const listUsersAdmin = (page = '') => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_LIST_REQUEST,
@@ -155,7 +157,7 @@ export const listUsersAdmin = () => async (dispatch, getState) => {
         Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
       },
     };
-    const { data } = await axios.get('/api/users', config);
+    const { data } = await axios.get(`/api/users/?pageNumber=${page}`, config);
     dispatch({
       type: USER_LIST_SUCCESS,
       payload: data,

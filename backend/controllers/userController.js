@@ -108,18 +108,23 @@ export const registerUser = asyncHandler(async (req, res) => {
 // @route GET /api/users/(:id)
 // @access Private
 export const getUsersAdmin = asyncHandler(async (req, res) => {
-  var users;
-  if (!req.params.id) {
-    users = await UserModel.find({}).select('-password');
+  const pageSize = 10;
+  const page = Number(req.query.pageNumber);
+  const sId = req.params.id ? req.params.id : null;
+  if (!sId) {
+    const count = await UserModel.countDocuments(sId);
+    const users = await UserModel.find(sId)
+      .select('-password')
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
+    res.json({ users, page, pages: Math.ceil(count / pageSize) });
   } else {
-    users = await UserModel.findById(req.params.id).select('-password');
-  }
-
-  if (users) {
-    if (!req.params.id) res.json(users);
-    else res.json([users]);
-  } else {
-    res.status(404);
-    throw new Error('User not found');
+    const user = await UserModel.findById(sId).select('-password');
+    if (user) {
+      res.json({ user });
+    } else {
+      res.status(404);
+      throw new Error('User not found');
+    }
   }
 });

@@ -5,20 +5,20 @@ import Product from '../components/Product';
 import { listProducts } from '../actions/productActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import { Pageinate } from '../components/Pageinate';
 
-export function Home({
-  isLoading = true,
-  error = '',
-  products = [],
-  listProducts,
-}) {
+export function Home({ productList, products = [], listProducts, match }) {
+  const { error, loading } = productList;
+  const keyword = match.params.keyword;
+  const pageNumber = match.params.pageNumber || 1;
+
   useEffect(() => {
-    listProducts();
-  }, [listProducts]);
+    listProducts(keyword, pageNumber);
+  }, [listProducts, keyword, pageNumber]);
 
   function renderPrefetch() {
     if (error) return <Message variant="danger">{error}</Message>;
-    if (isLoading) return <Loader />;
+    if (loading) return <Loader />;
   }
 
   return (
@@ -26,7 +26,7 @@ export function Home({
       <h1>Latest Products</h1>
       <Row>
         {renderPrefetch()}
-        {!isLoading &&
+        {!loading &&
           !error &&
           products.map((product) => (
             <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
@@ -34,14 +34,18 @@ export function Home({
             </Col>
           ))}
       </Row>
+      <Pageinate
+        pages={productList.pages}
+        page={productList.page}
+        keyword={keyword}
+      />
     </>
   );
 }
 
 const mapStateToProps = (state) => ({
+  productList: state.productList,
   products: state.productList.products,
-  isLoading: state.productList.loading,
-  error: state.productList.error,
 });
 
 const mapDispatchToProps = {

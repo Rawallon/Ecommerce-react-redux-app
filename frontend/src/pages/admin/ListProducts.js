@@ -5,6 +5,8 @@ import { deleteProductAdmin, listProducts } from '../../actions/productActions';
 import Message from '../../components/Message';
 import EditUser from './EditUser';
 import { LinkContainer } from 'react-router-bootstrap';
+import { Pageinate } from '../../components/Pageinate';
+import Loader from '../../components/Loader';
 
 export const ListProducts = ({
   userInfo,
@@ -12,23 +14,15 @@ export const ListProducts = ({
   history,
   listProducts,
   deleteProductAdmin,
+  match,
 }) => {
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [listingIndex, setListingIndex] = useState(1);
-  const [arrPaginated, setArrPaginated] = useState([]);
+  const pageNumber = match.params.pageNumber || 1;
+
   React.useEffect(() => {
     if (!userInfo?._id) history.push('/login');
     if (!userInfo?.isAdmin) history.push('/profile');
-    listProducts();
-  }, [history, listProducts, userInfo]);
-
-  React.useEffect(() => {
-    if (productList?.products) {
-      setArrPaginated(
-        productList.products.slice(listingIndex * 10 - 10, listingIndex * 10),
-      );
-    }
-  }, [productList, listingIndex]);
+    listProducts('', pageNumber);
+  }, [history, listProducts, userInfo, pageNumber]);
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
@@ -36,16 +30,12 @@ export const ListProducts = ({
     }
   };
 
-  const createProductHandler = () => {
-    //dispatch(createProduct());
-  };
-
   function renderProducts() {
     if (productList.loading)
       return (
         <tr>
           <td>
-            <Spinner />
+            <Loader />
           </td>
         </tr>
       );
@@ -60,10 +50,15 @@ export const ListProducts = ({
       return (
         <tr>
           <td>No Products</td>
+          <td>No Products</td>
+          <td>No Products</td>
+          <td>No Products</td>
+          <td>No Products</td>
+          <td>No Products</td>
         </tr>
       );
     } else {
-      return arrPaginated.map((product) => (
+      return productList.products.map((product) => (
         <tr key={product._id}>
           <td>{product._id}</td>
           <td>{product.name}</td>
@@ -71,7 +66,7 @@ export const ListProducts = ({
           <td>{product.category}</td>
           <td>{product.brand}</td>
           <td>
-            <LinkContainer to={`/admin/products/${product._id}`}>
+            <LinkContainer to={`/admin/products/edit/${product._id}`}>
               <Button variant="light" className="btn-sm w-50">
                 <i className="fas fa-edit"></i>
               </Button>
@@ -88,61 +83,32 @@ export const ListProducts = ({
     }
   }
   return (
-    <div>
-      {!selectedUser && (
-        <>
-          <Table striped bordered responsive className="table-sm">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
-                <th>
-                  <LinkContainer to={`/admin/products/create`}>
-                    <Button
-                      variant="outline-secondary"
-                      className="btn-sm "
-                      block>
-                      Create
-                    </Button>
-                  </LinkContainer>
-                </th>
-              </tr>
-            </thead>
-            <tbody>{renderProducts()}</tbody>
-          </Table>
-          {arrPaginated.length >= 10 && (
-            <Row>
-              <Col>
-                <Button
-                  variant="outline-primary"
-                  onClick={() => setListingIndex(listingIndex - 1)}
-                  disabled={!(listingIndex > 1)}>
-                  &#171; Previous Page
+    <>
+      <Table striped bordered responsive className="table-sm">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>PRICE</th>
+            <th>CATEGORY</th>
+            <th>BRAND</th>
+            <th>
+              <LinkContainer to={`/admin/products/create`}>
+                <Button variant="outline-secondary" className="btn-sm " block>
+                  Create
                 </Button>
-              </Col>
-              <Col className="d-flex justify-content-end">
-                <Button
-                  variant="outline-primary"
-                  disabled={arrPaginated.length === listingIndex}
-                  onClick={() => setListingIndex(listingIndex + 1)}>
-                  Next Page &#187;
-                </Button>
-              </Col>
-            </Row>
-          )}
-        </>
-      )}
-
-      {selectedUser && (
-        <EditUser
-          selectedUser={selectedUser}
-          setSelectedUser={setSelectedUser}
-        />
-      )}
-    </div>
+              </LinkContainer>
+            </th>
+          </tr>
+        </thead>
+        <tbody>{renderProducts()}</tbody>
+      </Table>
+      <Pageinate
+        pages={productList.pages}
+        page={productList.page}
+        isAdmin="products"
+      />
+    </>
   );
 };
 
