@@ -6,6 +6,8 @@ import { listProducts } from '../actions/productActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { Pageinate } from '../components/Pageinate';
+import ProductCarousel from '../components/ProductCarousel';
+import Meta from '../components/Meta';
 
 export function Home({ productList, products = [], listProducts, match }) {
   const { error, loading } = productList;
@@ -23,6 +25,8 @@ export function Home({ productList, products = [], listProducts, match }) {
 
   return (
     <>
+      <Meta title="Home" />
+      {!keyword && <ProductCarousel />}
       <h1>Latest Products</h1>
       <Row>
         {renderPrefetch()}

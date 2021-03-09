@@ -36,9 +36,6 @@ export default function SearchBox({ history }) {
           value={searchField}
           onChange={(e) => setSearchField(e.target.value)}
           ref={refSearch}
-          inputRef={(ref) => {
-            this.input = ref;
-          }}
         />
         <Button
           className="rounded-right search-btn"

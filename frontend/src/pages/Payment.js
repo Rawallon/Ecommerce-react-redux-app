@@ -4,6 +4,7 @@ import { Button, Form, Col } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
 import { savePaymentMethod } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Meta from '../components/Meta';
 
 export const Payment = ({
   shippingAddress,
@@ -25,6 +26,7 @@ export const Payment = ({
 
   return (
     <FormContainer>
+      <Meta title="Order details" />
       <CheckoutSteps step1 step2 step3 />
       <h1>Payment Method</h1>
       <Form onSubmit={submitHandler}>

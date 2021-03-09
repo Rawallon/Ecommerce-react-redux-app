@@ -19,6 +19,9 @@ import {
   PRODUCT_CREATE_REVIEW_FAIL,
   PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_TOP_REQUEST,
+  PRODUCT_TOP_SUCCESS,
+  PRODUCT_TOP_FAILED,
 } from '../types';
 
 export const productListReducer = (
@@ -94,6 +97,25 @@ export const productReviewCreateReducer = (state = {}, action) => {
       return { loading: false, error: payload };
     case PRODUCT_CREATE_REVIEW_CLEAR:
       return {};
+
+    default:
+      return state;
+  }
+};
+
+export const productTopRatedReducer = (
+  state = { loading: true, products: [] },
+  action,
+) => {
+  const { type, payload } = action;
+  switch (type) {
+    case PRODUCT_TOP_REQUEST:
+      return { loading: true, products: [] };
+    case PRODUCT_TOP_SUCCESS:
+      console.log(payload);
+      return { loading: false, products: payload };
+    case PRODUCT_TOP_FAILED:
+      return { loading: false, error: payload };
 
     default:
       return state;

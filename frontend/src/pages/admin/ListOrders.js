@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Button, Col, Row, Spinner, Table } from 'react-bootstrap';
-import { listProducts } from '../../actions/productActions';
 import Message from '../../components/Message';
-import EditUser from './EditUser';
 import {
   clearOrderList,
   getAllOrdersListAdmin,
@@ -27,7 +25,7 @@ export const ListOrders = ({
     return () => {
       clearOrderList();
     };
-  }, [history, userInfo]);
+  }, [history, userInfo, clearOrderList, getAllOrdersListAdmin]);
 
   React.useEffect(() => {
     if (orderList?.orders) {

@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Col, Row, Spinner, Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { deleteProductAdmin, listProducts } from '../../actions/productActions';
 import Message from '../../components/Message';
-import EditUser from './EditUser';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Pageinate } from '../../components/Pageinate';
 import Loader from '../../components/Loader';

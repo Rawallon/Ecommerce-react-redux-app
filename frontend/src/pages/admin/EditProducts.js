@@ -5,10 +5,6 @@ import { Button, Form, Col, Row } from 'react-bootstrap';
 import Message from '../../components/Message';
 import Loader from '../../components/FormLoader';
 import FormGroup from '../../components/FormGroup';
-import {
-  listUserByIdAdmin,
-  updateUserProfileAdmin,
-} from '../../actions/userAction';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
   createProductAdmin,
@@ -40,18 +36,17 @@ export function EditProducts({
   const { error, loading } = productDetails;
 
   useEffect(() => {
-    if (itemId) {
-      listProductDetails(itemId);
-    }
-  }, []);
+    if (productDetails.product && itemId) fillFields();
+  }, [productDetails]);
 
   useEffect(() => {
     if (!userInfo?._id) history.push('/login');
     if (!userInfo?.isAdmin) history.push('/profile');
-    //if (!itemId) history.push('./');
-
-    if (productDetails.product && itemId) fillFields();
-  }, [history, userInfo, productDetails, itemId]);
+    if (!itemId) history.push('/admin/products/');
+    if (itemId && !productDetails?.product.name) {
+      listProductDetails(itemId);
+    }
+  }, [history, userInfo, itemId]);
 
   function fillFields() {
     const selProd = productDetails.product;

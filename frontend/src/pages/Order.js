@@ -13,6 +13,7 @@ import {
 import CheckoutProduct from '../components/CheckoutProduct';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import Meta from '../components/Meta';
 
 export const Order = ({
   match,
@@ -138,6 +139,7 @@ export const Order = ({
   } else
     return (
       <div>
+        <Meta title="Order details" />
         <Row>
           <Col md={8}>
             <ListGroup>

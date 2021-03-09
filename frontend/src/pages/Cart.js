@@ -11,6 +11,7 @@ import Loader from '../components/Loader';
 import CartProduct from '../components/CartProduct';
 import CartSubtotal from '../components/CartSubtotal';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Meta from '../components/Meta';
 
 export function Cart({
   history,
@@ -34,6 +35,7 @@ export function Cart({
 
   return (
     <>
+      <Meta title="Cart" />
       <CheckoutSteps step1 />
 
       <h1>Cart Items</h1>

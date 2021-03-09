@@ -7,6 +7,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
+import Meta from '../components/Meta';
 
 export function Category({
   match,
@@ -26,6 +27,7 @@ export function Category({
 
   return (
     <>
+      <Meta title={match.params.cat} />
       <Breadcrumb>
         <LinkContainer to="/">
           <Breadcrumb.Item>Home</Breadcrumb.Item>

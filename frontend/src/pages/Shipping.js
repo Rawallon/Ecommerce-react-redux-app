@@ -5,6 +5,7 @@ import FormContainer from '../components/FormContainer';
 import FormGroup from '../components/FormGroup';
 import { saveShippingAddress } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Meta from '../components/Meta';
 
 export const Shipping = ({
   shippingAddress,
@@ -34,6 +35,7 @@ export const Shipping = ({
 
   return (
     <FormContainer>
+      <Meta title="Shipping details" />
       <CheckoutSteps step1 step2 />
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>

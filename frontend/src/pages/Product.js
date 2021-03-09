@@ -22,6 +22,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { addToCart } from '../actions/cartActions';
 import { Link } from 'react-router-dom';
+import Meta from '../components/Meta';
 
 export function Product({
   match,
@@ -77,6 +78,7 @@ export function Product({
       {renderPrefetch()}
       {!isLoading && !error && (
         <>
+          <Meta title={product.name} />
           <Breadcrumb>
             <LinkContainer to="/">
               <Breadcrumb.Item>Home</Breadcrumb.Item>

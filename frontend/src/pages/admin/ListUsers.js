@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Col, Row, Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { clearListUsersAdmin, listUsersAdmin } from '../../actions/userAction';
 import Message from '../../components/Message';
 import { LinkContainer } from 'react-router-bootstrap';

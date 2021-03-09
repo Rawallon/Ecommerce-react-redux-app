@@ -27,23 +27,19 @@ export function EditUser({
     if (userId) {
       listUserByIdAdmin(userId);
     }
-  }, [userId]);
+  }, [userId, listUserByIdAdmin]);
 
   useEffect(() => {
     if (!userInfo?._id) history.push('/login');
     if (!userInfo?.isAdmin) history.push('/profile');
     if (!userId) history.push('/admin/users');
 
-    if (userList.user?.user && userId) fillFields();
+    if (userList.user?.user && userId) {
+      setName(userList.user.user.name);
+      setEmail(userList.user.user.email);
+    }
   }, [history, userInfo, userList, userId]);
   const { error, loading } = userList;
-
-  function fillFields() {
-    if (userList.user?.user) {
-      setName(userList.user?.user.name);
-      setEmail(userList.user?.user.email);
-    }
-  }
 
   function submitHandler(e) {
     e.preventDefault();

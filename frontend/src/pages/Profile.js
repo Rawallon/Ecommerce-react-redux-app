@@ -7,6 +7,7 @@ import Message from '../components/Message';
 import Loader from '../components/FormLoader';
 import { getOrderList } from '../actions/orderAction';
 import FormGroup from '../components/FormGroup';
+import Meta from '../components/Meta';
 
 export function Profile({
   history,
@@ -124,6 +125,7 @@ export function Profile({
 
   return (
     <Row>
+      <Meta title="Profile" />
       <Col md={3}>
         <h2>Profile</h2>
         {error && <Message variant="danger">{error}</Message>}

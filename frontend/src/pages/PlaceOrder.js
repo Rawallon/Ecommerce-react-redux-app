@@ -6,6 +6,7 @@ import CheckoutProduct from '../components/CheckoutProduct';
 import CheckoutSteps from '../components/CheckoutSteps';
 import CheckoutSubtotal from '../components/CheckoutSubtotal';
 import Message from '../components/Message';
+import Meta from '../components/Meta';
 
 export const PlaceOrder = ({ cart, createOrder, orderCreate, history }) => {
   function placeOrderHandler() {
@@ -24,6 +25,7 @@ export const PlaceOrder = ({ cart, createOrder, orderCreate, history }) => {
   }, [success, history, order]);
   return (
     <div>
+      <Meta title="Confirm order" />
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         {error && <Message variant="danger">{error}</Message>}

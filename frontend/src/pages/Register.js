@@ -7,6 +7,7 @@ import { register } from '../actions/userAction';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormGroup from '../components/FormGroup';
+import Meta from '../components/Meta';
 
 export function Register({
   location,
@@ -57,6 +58,8 @@ export function Register({
   }
   return (
     <FormContainer>
+      <Meta title="Sign up" />
+
       <h1>Sign up</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
