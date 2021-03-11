@@ -19,6 +19,8 @@ import ListProducts from './pages/admin/ListProducts';
 import ListOrders from './pages/admin/ListOrders';
 import EditUser from './pages/admin/EditUser';
 import EditProducts from './pages/admin/EditProducts';
+import MissingPage from './pages/MissingPage';
+import Search from './pages/Search';
 
 function App() {
   return (
@@ -50,12 +52,13 @@ function App() {
               <Route
                 path="/search/:keyword/page/:pageNumber"
                 exact
-                component={Home}
+                component={Search}
               />
-              <Route path="/search/:keyword" exact component={Home} />
+              <Route path="/search/:keyword" exact component={Search} />
               <Route path="/page/:pageNumber" exact component={Home} />
               <Route path="/" exact component={Home} />
-              <Route path="*" component={Footer} />
+              <Route path="/404" exact component={MissingPage} />
+              <Route path="*" component={MissingPage} />
             </Switch>
           </main>
         </Container>

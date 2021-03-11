@@ -5,7 +5,7 @@ import { clearListUsersAdmin, listUsersAdmin } from '../../actions/userAction';
 import Message from '../../components/Message';
 import { LinkContainer } from 'react-router-bootstrap';
 import Loader from '../../components/Loader';
-import { Pageinate } from '../../components/Pageinate';
+import PageSelect from '../../components/PageSelect';
 
 export const ListUsers = ({
   match,
@@ -79,7 +79,7 @@ export const ListUsers = ({
           </thead>
           <tbody>{renderUsers()}</tbody>
         </Table>
-        <Pageinate
+        <PageSelect
           pages={userList.pages}
           page={userList.page}
           isAdmin="users"

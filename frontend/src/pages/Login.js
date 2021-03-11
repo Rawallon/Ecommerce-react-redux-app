@@ -4,14 +4,14 @@ import { Button, Form, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import FormContainer from '../components/FormContainer';
 import { login } from '../actions/userAction';
-import Message from '../components/Message';
-import Loader from '../components/Loader';
 import FormGroup from '../components/FormGroup';
+import Prefetch from '../components/Prefetch';
 
-export function Login({ location, login, history, loading, error, userInfo }) {
+export function Login({ location, login, history, userLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const redirect = location.search ? location.search.split('=')[1] : '/';
+  const { loading, error, userInfo } = userLogin;
 
   useEffect(() => {
     if (userInfo) history.push(redirect);
@@ -24,8 +24,7 @@ export function Login({ location, login, history, loading, error, userInfo }) {
   return (
     <FormContainer>
       <h1>Sign in</h1>
-      {error && <Message variant="danger">{error}</Message>}
-      {loading && <Loader />}
+      <Prefetch error={error} loading={loading} />
       <Form onSubmit={submitHandler}>
         <FormGroup
           name="email"
@@ -60,9 +59,7 @@ export function Login({ location, login, history, loading, error, userInfo }) {
 }
 
 const mapStateToProps = (state) => ({
-  userInfo: state.userLogin.userInfo,
-  error: state.userLogin.error,
-  loading: state.userLogin.loading,
+  userLogin: state.userLogin,
 });
 
 const mapDispatchToProps = {

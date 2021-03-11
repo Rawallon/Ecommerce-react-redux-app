@@ -3,27 +3,22 @@ import { connect } from 'react-redux';
 import { Breadcrumb, Col, Row } from 'react-bootstrap';
 import Product from '../components/Product';
 import { listCategoryProducts } from '../actions/productActions';
-import Message from '../components/Message';
-import Loader from '../components/Loader';
-import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import Meta from '../components/Meta';
+import Prefetch from '../components/Prefetch';
 
 export function Category({
+  history,
   match,
-  isLoading = true,
-  error = '',
-  products = [],
+  productList,
   listCategoryProducts,
 }) {
-  useEffect(() => {
-    listCategoryProducts(match.params.cat);
-  }, [listCategoryProducts, match]);
+  const { error, loading, products } = productList;
 
-  function renderPrefetch() {
-    if (error) return <Message variant="danger">{error}</Message>;
-    if (isLoading) return <Loader />;
-  }
+  useEffect(() => {
+    if (error) history.push('/404');
+    listCategoryProducts(match.params.cat);
+  }, [history, listCategoryProducts, match, error]);
 
   return (
     <>
@@ -32,28 +27,22 @@ export function Category({
         <LinkContainer to="/">
           <Breadcrumb.Item>Home</Breadcrumb.Item>
         </LinkContainer>
-        <LinkContainer to={`/category/${match.params.cat}`}>
-          <Breadcrumb.Item active>{match.params.cat}</Breadcrumb.Item>
-        </LinkContainer>
+        <Breadcrumb.Item active>{match.params.cat}</Breadcrumb.Item>
       </Breadcrumb>
       <Row>
-        {renderPrefetch()}
-        {!isLoading &&
-          !error &&
-          products.map((product) => (
-            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-              <Product product={product} />
-            </Col>
-          ))}
+        <Prefetch loading={loading} />
+        {products?.map((product) => (
+          <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+            <Product product={product} />
+          </Col>
+        ))}
       </Row>
     </>
   );
 }
 
 const mapStateToProps = (state) => ({
-  products: state.productList.products,
-  isLoading: state.productList.loading,
-  error: state.productList.error,
+  productList: state.productList,
 });
 
 const mapDispatchToProps = {

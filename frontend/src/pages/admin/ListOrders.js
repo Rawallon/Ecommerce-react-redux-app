@@ -17,7 +17,6 @@ export const ListOrders = ({
 }) => {
   const [listingIndex, setListingIndex] = useState(1);
   const [arrPaginated, setArrPaginated] = useState([]);
-  console.log(orderList.orders);
   React.useEffect(() => {
     if (!userInfo?._id) history.push('/login');
     if (!userInfo?.isAdmin) history.push('/profile');

@@ -71,14 +71,13 @@ export const productDetailsReducer = (
     case PRODUCT_CREATE_ADMIN_SUCCESS:
     case PRODUCT_UPDATE_ADMIN_SUCCESS:
     case PRODUCT_DETAILS_SUCCESS:
-      console.log(payload);
       return { loading: false, product: payload };
     case PRODUCT_CREATE_ADMIN_FAILED:
     case PRODUCT_UPDATE_ADMIN_FAILED:
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: payload };
     case PRODUCT_DETAILS_CLEAR:
-      return { ...state, product: { reviews: [] } };
+      return { loading: false, product: { reviews: [] } };
 
     default:
       return state;
@@ -91,7 +90,6 @@ export const productReviewCreateReducer = (state = {}, action) => {
     case PRODUCT_CREATE_REVIEW_REQUEST:
       return { loading: true };
     case PRODUCT_CREATE_REVIEW_SUCCESS:
-      console.log(payload);
       return { loading: false, success: true };
     case PRODUCT_CREATE_REVIEW_FAIL:
       return { loading: false, error: payload };
@@ -112,7 +110,6 @@ export const productTopRatedReducer = (
     case PRODUCT_TOP_REQUEST:
       return { loading: true, products: [] };
     case PRODUCT_TOP_SUCCESS:
-      console.log(payload);
       return { loading: false, products: payload };
     case PRODUCT_TOP_FAILED:
       return { loading: false, error: payload };

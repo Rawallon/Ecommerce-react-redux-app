@@ -1,10 +1,9 @@
 import React from 'react';
-import propTypes from 'prop-types';
 
 export default function Rating({ rating, count, color = 'yellow' }) {
   function returnStarIcon(value, compare) {
     if (value >= compare) return 'fas fa-star';
-    else if (value - 0.5) return 'fas fa-star-half-alt';
+    else if (Math.round(value) >= compare) return 'fas fa-star-half-alt';
     else return 'far fa-star';
   }
   return (
@@ -18,9 +17,3 @@ export default function Rating({ rating, count, color = 'yellow' }) {
     </div>
   );
 }
-
-Rating.propTypes = {
-  rating: propTypes.number,
-  count: propTypes.number,
-  color: propTypes.string,
-};

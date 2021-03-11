@@ -18,8 +18,8 @@ main {
 }
 
 .search-hide {
-  left: -650%;
-  opacity: 5%;
+  left: -800%;
+  opacity: 0%;
   /* visibility: hidden; */
 }
 
@@ -52,5 +52,39 @@ main {
 @media (max-width: 900px) {
   .carousel-caption h2 {
     font-size: 2.5vw;
+  }
+}
+
+.missing span {
+  display: inline-block;
+  animation-name: bounce;
+  animation-timing-function: ease-in-out;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.missing span:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.missing span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.missing span:nth-child(3) {
+  animation-delay: 0.5s;
+}
+.missing span:nth-child(4) {
+  animation-delay: 0.7s;
+}
+.missing span:nth-child(5) {
+  animation-delay: 0.9s;
+}
+@keyframes bounce {
+  0% {
+    transform: translateY(-30px);
+  }
+  50% {
+    transform: translateY(30px);
+  }
+  100% {
+    transform: translateY(-30px);
   }
 }

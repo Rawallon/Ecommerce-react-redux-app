@@ -4,32 +4,21 @@ import { Link } from 'react-router-dom';
 import { Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
 import { changeQtyCart, listProductCart } from '../actions/cartActions';
 import { remCart } from '../actions/cartActions';
-import Loader from '../components/Loader';
-import Message from './Message';
+import Prefetch from './Prefetch';
 
 export const CartProduct = ({
-  product = [],
+  product,
   listProductCart,
   changeQtyCart,
   pId,
-  isLoading = true,
-  error = '',
   remCart,
   qty,
+  loading,
+  error,
 }) => {
   useEffect(() => {
     listProductCart(pId);
   }, [listProductCart, pId]);
-  useEffect(() => {
-    if (qty > product.countInStock) {
-      remCart(pId);
-    }
-  }, [qty, product, pId, remCart]);
-
-  function renderPrefetch() {
-    if (error) return <Message variant="danger">{error}</Message>;
-    if (isLoading) return <Loader />;
-  }
 
   function changeQty(e) {
     if (qty > product.countInStock || +e.target.value === 0) {
@@ -38,10 +27,11 @@ export const CartProduct = ({
     }
     changeQtyCart(pId, e.target.value);
   }
+
   return (
     <>
-      {renderPrefetch()}
-      {!isLoading && !error && (
+      <Prefetch loading={loading} error={error} />
+      {product && (
         <ListGroup.Item>
           <Row>
             <Col md={3}>
@@ -92,7 +82,7 @@ export const CartProduct = ({
 const mapStateToProps = (state, ownProps) => ({
   qty: state.cart.cartItems[ownProps.pId],
   product: state.cartList.products[ownProps.pId],
-  isLoading: state.cartList.products[ownProps.pId]?.loading,
+  loading: state.cartList.products[ownProps.pId]?.loading,
   error: state.cartList.products[ownProps.pId]?.error,
 });
 

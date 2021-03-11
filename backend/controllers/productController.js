@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import ProductModel from '../models/productModel.js';
 import sanitize from '../utils/sanitize.js';
+import Mongoose from 'mongoose';
 
 // @desc Fetch all products
 // @route GET /api/products
@@ -30,6 +31,10 @@ export const getProducts = asyncHandler(async (req, res) => {
 // @route GET /api/products/:id
 // @access Public
 export const getProductById = asyncHandler(async (req, res) => {
+  if (!Mongoose.Types.ObjectId.isValid(sanitize(req.params.id))) {
+    res.status(404);
+    throw new Error('Bad ObjectId');
+  }
   const product = await ProductModel.findById(sanitize(req.params.id));
 
   if (product) {
@@ -44,12 +49,21 @@ export const getProductById = asyncHandler(async (req, res) => {
 // @route GET /api/products/category/:cat
 // @access Public
 export const getProductByCategory = asyncHandler(async (req, res) => {
-  const category = await ProductModel.find({
+  const pageSize = 10;
+  const page = Number(req.query.pageNumber);
+
+  const count = await ProductModel.countDocuments({
     category: sanitize(req.params.cat),
   });
 
+  const category = await ProductModel.find({
+    category: sanitize(req.params.cat),
+  })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
   if (category.length > 0) {
-    res.json(category);
+    res.json({ page, pages: Math.ceil(count / pageSize), products: category });
   } else {
     res.status(404);
     throw new Error('Category is empty');
@@ -75,7 +89,6 @@ export const deletProductAdmin = asyncHandler(async (req, res) => {
 // @route PUT /api/product/
 // @access Private
 export const createProductAdmin = asyncHandler(async (req, res) => {
-  console.log(createProductAdmin);
   const object = new ProductModel({
     user: req.user._id,
     name: sanitize(req.body.name),

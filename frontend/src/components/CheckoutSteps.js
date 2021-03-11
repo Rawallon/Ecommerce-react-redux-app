@@ -2,6 +2,7 @@ import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 export default function CheckoutSteps({ step1, step2, step3, step4 }) {
+  // (Maybe) not hardcode the steps name to make component more reusable(?)
   return (
     <Nav className="justify-content-center mb-4">
       <Nav.Item>

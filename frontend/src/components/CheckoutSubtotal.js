@@ -26,7 +26,7 @@ export const CartSubtotal = ({ qty, products, placeOrderHandler }) => {
   }, [products, qty]);
 
   function checkoutHandler() {
-    placeOrderHandler();
+    if (itemQty > 0) placeOrderHandler();
   }
 
   if (Object.keys(products).length === 0) return null;
@@ -67,7 +67,7 @@ export const CartSubtotal = ({ qty, products, placeOrderHandler }) => {
             </ListGroup.Item>
           </ListGroup>
           <Col className="mt-4">
-            <Button onClick={checkoutHandler} block>
+            <Button disabled={itemQty === 0} onClick={checkoutHandler} block>
               Continue to checkout!
             </Button>
           </Col>

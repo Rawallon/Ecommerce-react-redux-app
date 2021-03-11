@@ -3,6 +3,7 @@ import {
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
   ORDER_CREATE_FAILED,
+  ORDER_CREATE_CLEAR,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAILED,
@@ -39,6 +40,12 @@ export const createOrder = (order) => async (dispatch, getState) => {
           : error.message,
     });
   }
+};
+
+export const clearCreateOrder = () => async (dispatch) => {
+  dispatch({
+    type: ORDER_CREATE_CLEAR,
+  });
 };
 
 export const getOrderDetails = (orderId) => async (dispatch, getState) => {

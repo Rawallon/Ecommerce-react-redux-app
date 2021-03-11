@@ -1,14 +1,29 @@
 import React, { useEffect } from 'react';
 import { Col, ListGroup, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { createOrder } from '../actions/orderAction';
+import { clearCreateOrder, createOrder } from '../actions/orderAction';
 import CheckoutProduct from '../components/CheckoutProduct';
 import CheckoutSteps from '../components/CheckoutSteps';
 import CheckoutSubtotal from '../components/CheckoutSubtotal';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
 
-export const PlaceOrder = ({ cart, createOrder, orderCreate, history }) => {
+export const PlaceOrder = ({
+  cart,
+  createOrder,
+  orderCreate,
+  history,
+  clearCreateOrder,
+}) => {
+  const { order, success, error } = orderCreate;
+  useEffect(() => {
+    if (!cart.paymentMethod) history.push(`/payment`);
+    if (success) {
+      history.push(`/order/${order._id}`);
+      clearCreateOrder();
+    }
+  }, [success, history, order, clearCreateOrder, cart]);
+
   function placeOrderHandler() {
     createOrder({
       orderItems: Object.keys(cart.cartItems),
@@ -17,12 +32,7 @@ export const PlaceOrder = ({ cart, createOrder, orderCreate, history }) => {
       paymentMethod: cart.paymentMethod,
     });
   }
-  const { order, success, error } = orderCreate;
-  useEffect(() => {
-    if (success) {
-      history.push(`/order/${order._id}`);
-    }
-  }, [success, history, order]);
+
   return (
     <div>
       <Meta title="Confirm order" />
@@ -74,6 +84,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   createOrder,
+  clearCreateOrder,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaceOrder);

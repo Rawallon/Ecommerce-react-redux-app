@@ -2,32 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Card, Col, ListGroup, Row } from 'react-bootstrap';
-import {
-  clearProductDetails,
-  listProductDetails,
-} from '../actions/productActions';
+
 import Message from '../components/Message';
-import Loader from '../components/Loader';
 import CartProduct from '../components/CartProduct';
 import CartSubtotal from '../components/CartSubtotal';
 import CheckoutSteps from '../components/CheckoutSteps';
 import Meta from '../components/Meta';
 
-export function Cart({
-  history,
-  isLoading = false,
-  error = '',
-  cartItems = {},
-}) {
+export function Cart({ history, cartItems = {} }) {
   const [cartItemsArray, setCartItemsArray] = useState([]);
+
   useEffect(() => {
+    // Cart items format is "{ itemId: qty }"
     setCartItemsArray(Object.keys(cartItems));
   }, [cartItems]);
-
-  function renderPrefetch() {
-    if (error) return <Message variant="danger">{error}</Message>;
-    if (isLoading) return <Loader />;
-  }
 
   const checkoutHandler = () => {
     history.push('/login?redirect=shipping');
@@ -40,18 +28,18 @@ export function Cart({
 
       <h1>Cart Items</h1>
       <Row>
-        {renderPrefetch()}
         <Col md={8}>
           <Card className="w-100">
             <ListGroup variant="flush">
-              {cartItemsArray.length === 0 && (
+              {cartItemsArray.length === 0 ? (
                 <Message>
                   Your cart is empty, <Link to="/">go back</Link>
                 </Message>
+              ) : (
+                cartItemsArray.map((item) => (
+                  <CartProduct key={item} pId={item} />
+                ))
               )}
-              {cartItemsArray.map((item) => (
-                <CartProduct key={item} pId={item} />
-              ))}
             </ListGroup>
           </Card>
         </Col>
@@ -65,14 +53,6 @@ export function Cart({
 
 const mapStateToProps = (state) => ({
   cartItems: state.cart.cartItems,
-  product: state.productDetails.product,
-  isLoading: state.productDetails.loading,
-  error: state.productDetails.error,
 });
 
-const mapDispatchToProps = {
-  listProductDetails,
-  clearProductDetails,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, null)(Cart);

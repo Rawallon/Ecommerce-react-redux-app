@@ -3,6 +3,7 @@ import asyncHandler from 'express-async-handler';
 import OrderModel from '../models/orderModel.js';
 import ProductModel from '../models/productModel.js';
 import sanitize from '../utils/sanitize.js';
+import Mongoose from 'mongoose';
 
 // @desc Create new order
 // @route POST /api/orders
@@ -82,7 +83,6 @@ export const addOrderItems = asyncHandler(async (req, res) => {
       shippingPrice,
       totalPrice,
     });
-
     if (paymentMethod === 'MercadoPago') {
       const config = {
         headers: {
@@ -96,11 +96,18 @@ export const addOrderItems = asyncHandler(async (req, res) => {
           pending: `http://localhost:3000/order/${order._id}/pay`,
         },
       };
-      axios.put(
-        `https://api.mercadopago.com/checkout/preferences/${pref}`,
-        data,
-        config,
-      );
+      // axios.put(
+      //   `https://api.mercadopago.com/checkout/preferences/${pref}`,
+      //   data,
+      //   config,
+      // );
+      await fetch(`https://api.mercadopago.com/checkout/preferences/${pref}`, {
+        method: 'PUT',
+        headers: config,
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
     }
 
     const createdOrder = await order.save();
@@ -113,6 +120,10 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 // @route GET /api/orders/:id
 // @access Private
 export const getOrderById = asyncHandler(async (req, res) => {
+  if (!Mongoose.Types.ObjectId.isValid(sanitize(req.params.id))) {
+    res.status(404);
+    throw new Error('Order not found');
+  }
   const order = await OrderModel.findById(sanitize(req.params.id)).populate(
     'user',
     'name email',

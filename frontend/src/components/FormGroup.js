@@ -6,6 +6,7 @@ const capitalize = (s) => {
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
 
+// This is a general use form group since I'm using bootstrap
 export default function FormGroup({
   name,
   type = 'text',
@@ -18,6 +19,7 @@ export default function FormGroup({
   placeholder,
   asField,
 }) {
+  // To make sure it always has a label/placeholder, even if I don't explicitly set it
   let lbl = label || placeholder || name;
   let phd = placeholder || lbl;
   return (
@@ -33,6 +35,11 @@ export default function FormGroup({
         onChange={(e) => onChange(e.target.value)}
         as={asField ? asField : 'input'}
       />
+      {/* 
+      Since the forms are pretty simple I decided not to include this
+      <Form.Control.Feedback type="invalid">
+        ErrorMessage
+      </Form.Control.Feedback> */}
     </Form.Group>
   );
 }

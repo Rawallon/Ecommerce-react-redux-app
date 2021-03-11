@@ -2,6 +2,7 @@ import {
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
   ORDER_CREATE_FAILED,
+  ORDER_CREATE_CLEAR,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAILED,
@@ -25,13 +26,15 @@ export const orderCreateReducer = (state = {}, action) => {
       return { loading: false, success: true, order: payload };
     case ORDER_CREATE_FAILED:
       return { loading: false, error: payload };
+    case ORDER_CREATE_CLEAR:
+      return {};
     default:
       return state;
   }
 };
 
 export const orderDetailsReducer = (
-  state = { loading: true, orderItems: [], order: {} },
+  state = { loading: false, orderItems: [] },
   action,
 ) => {
   const { type, payload } = action;
@@ -43,7 +46,7 @@ export const orderDetailsReducer = (
     case ORDER_DETAILS_FAILED:
       return { loading: false, error: payload };
     case ORDER_DETAILS_CLEAR:
-      return { loading: true, orderItems: [], order: {} };
+      return { loading: false, orderItems: [] };
     default:
       return state;
   }

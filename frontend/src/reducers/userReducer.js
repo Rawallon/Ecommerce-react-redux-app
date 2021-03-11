@@ -95,7 +95,6 @@ export const userListReducer = (
     case USER_UPDATE_ADMIN_SUCCESS:
       return { loading: false, success: true };
     case USER_LIST_DETAILS_SUCCESS:
-      console.log(payload);
       return { loading: false, user: payload };
     case USER_LIST_DETAILS_FAILED:
     case USER_UPDATE_ADMIN_FAILED:

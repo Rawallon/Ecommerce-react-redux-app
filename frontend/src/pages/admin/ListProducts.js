@@ -4,7 +4,7 @@ import { Button, Table } from 'react-bootstrap';
 import { deleteProductAdmin, listProducts } from '../../actions/productActions';
 import Message from '../../components/Message';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Pageinate } from '../../components/Pageinate';
+import PageSelect from '../../components/PageSelect';
 import Loader from '../../components/Loader';
 
 export const ListProducts = ({
@@ -102,7 +102,7 @@ export const ListProducts = ({
         </thead>
         <tbody>{renderProducts()}</tbody>
       </Table>
-      <Pageinate
+      <PageSelect
         pages={productList.pages}
         page={productList.page}
         isAdmin="products"

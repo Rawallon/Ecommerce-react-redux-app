@@ -19,16 +19,14 @@ import {
   listProductDetails,
 } from '../actions/productActions';
 import Message from '../components/Message';
-import Loader from '../components/Loader';
 import { addToCart } from '../actions/cartActions';
 import { Link } from 'react-router-dom';
 import Meta from '../components/Meta';
+import Prefetch from '../components/Prefetch';
 
 export function Product({
+  productDetails,
   match,
-  isLoading = true,
-  error = '',
-  product = [],
   listProductDetails,
   clearProductDetails,
   addToCart,
@@ -45,11 +43,19 @@ export function Product({
     error: revError,
     success: revSucc,
   } = productReviewCreate;
+  const { error, loading, product } = productDetails;
+
   function reviewCreateHandler(e) {
-    //loggedUser;
     e.preventDefault();
-    createProductReview(match.params.id, { rating, comment });
+    if (loggedUser) {
+      createProductReview(match.params.id, { rating, comment });
+    }
   }
+
+  useEffect(() => {
+    // This hook gets called two time, it's seperate to avoid useless call
+    if (error) history.push('/404');
+  }, [error, history]);
 
   useEffect(() => {
     if (revSucc) {
@@ -62,21 +68,23 @@ export function Product({
     return () => {
       clearProductDetails();
     };
-  }, [listProductDetails, clearProductDetails, match, revSucc]);
+  }, [
+    listProductDetails,
+    clearProductDetails,
+    match,
+    revSucc,
+    clearProductReview,
+  ]);
 
   function addToCartHandler(pId) {
     addToCart(pId);
     history.push('/cart');
   }
 
-  function renderPrefetch() {
-    if (error) return <Message variant="danger">{error}</Message>;
-    if (isLoading) return <Loader />;
-  }
   return (
     <>
-      {renderPrefetch()}
-      {!isLoading && !error && (
+      <Prefetch loading={loading} error={error} />
+      {product && (
         <>
           <Meta title={product.name} />
           <Breadcrumb>
@@ -150,7 +158,7 @@ export function Product({
                 {product.reviews.map((review) => (
                   <ListGroup.Item key={review._id}>
                     <strong>{review.name}</strong>
-                    <Rating rating={review.rating} />
+                    <Rating rating={review.rating} count={false} />
                     <p>{review.createdAt.substring(0, 10)}</p>
                     <p>{review.comment}</p>
                   </ListGroup.Item>
@@ -205,9 +213,7 @@ export function Product({
 }
 
 const mapStateToProps = (state) => ({
-  product: state.productDetails.product,
-  isLoading: state.productDetails.loading,
-  error: state.productDetails.error,
+  productDetails: state.productDetails,
   productReviewCreate: state.productReviewCreate,
   loggedUser: state.userLogin.userInfo,
 });

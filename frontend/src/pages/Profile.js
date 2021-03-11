@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Button, Form, Col, Row, Spinner, Table } from 'react-bootstrap';
+import { Button, Form, Col, Row, Table } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { updateUserProfile } from '../actions/userAction';
-import Message from '../components/Message';
-import Loader from '../components/FormLoader';
-import { getOrderList } from '../actions/orderAction';
+import { clearOrderList, getOrderList } from '../actions/orderAction';
 import FormGroup from '../components/FormGroup';
 import Meta from '../components/Meta';
+import Prefetch from '../components/Prefetch';
+import Message from '../components/Message';
 
 export function Profile({
   history,
@@ -18,13 +18,21 @@ export function Profile({
   updateUserProfile,
   orderList,
   getOrderList,
+  clearOrderList,
+  userUpdateProfile,
 }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [oldPassword, setOldPassword] = useState('');
   const [message, setMessage] = useState({});
+
+  // Using it to call when the component unmounts
+  useEffect(() => {
+    return () => {
+      clearOrderList();
+    };
+  }, [clearOrderList]);
 
   useEffect(() => {
     if (!loggedId) history.push('/login');
@@ -33,15 +41,15 @@ export function Profile({
       setEmail(userInfo.email);
     }
 
-    if (!orderList.order) getOrderList();
-  }, [history, userInfo, loggedId]);
+    if (!orderList.loading && !orderList.orders) getOrderList();
+  }, [history, userInfo, loggedId, getOrderList, orderList]);
 
   function submitHandler(e) {
     e.preventDefault();
     if (
-      name.length === 0 &&
-      email.length === 0 &&
-      password.length === 0 &&
+      name.length === 0 ||
+      email.length === 0 ||
+      password.length === 0 ||
       confirmPassword.length === 0
     ) {
       setMessage({
@@ -49,7 +57,6 @@ export function Profile({
         email: email.length === 0,
         password: password.length === 0,
         confirmPassword: confirmPassword.length === 0,
-        oldPassword: oldPassword.length === 0,
       });
       return;
     }
@@ -62,65 +69,44 @@ export function Profile({
       });
       return;
     }
+
     updateUserProfile({
       _id: userInfo._id,
       name,
       email,
       password,
-      oldPassword,
     });
   }
 
-  function renderMyOrders() {
-    if (orderList.loading) return <Spinner />;
-    if (orderList.error)
-      return <Message variant="danger">{orderList.error}</Message>;
-
-    if (orderList.orders)
-      return (
-        <Table striped bordered hover responsive className="table-sm">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {orderList.orders.map((order) => (
-              <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.createdAt.substring(0, 10)}</td>
-                <td>{order.totalPrice}</td>
-                <td>
-                  {order.isPaid ? (
-                    order.paidAt.substring(0, 10)
-                  ) : (
-                    <i className="fas fa-times" style={{ color: 'red' }}></i>
-                  )}
-                </td>
-                <td>
-                  {order.isDelivered ? (
-                    order.deliveredAt.substring(0, 10)
-                  ) : (
-                    <i className="fas fa-times" style={{ color: 'red' }}></i>
-                  )}
-                </td>
-                <td>
-                  <LinkContainer to={`/order/${order._id}`}>
-                    <Button variant="light" className="btn-sm">
-                      Details
-                    </Button>
-                  </LinkContainer>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      );
+  function renderRowOrder(order) {
+    return (
+      <tr key={order._id}>
+        <td>{order._id}</td>
+        <td>{order.createdAt.substring(0, 10)}</td>
+        <td>{Number(order.totalPrice).toFixed(2)}</td>
+        <td>
+          {order.isPaid ? (
+            order.paidAt.substring(0, 10)
+          ) : (
+            <i className="fas fa-times fa-2x" style={{ color: 'red' }}></i>
+          )}
+        </td>
+        <td>
+          {order.isDelivered ? (
+            order.deliveredAt.substring(0, 10)
+          ) : (
+            <i className="fas fa-times fa-2x" style={{ color: 'red' }}></i>
+          )}
+        </td>
+        <td>
+          <LinkContainer to={`/order/${order._id}`}>
+            <Button variant="outline-secondary" size="sm" block>
+              Details
+            </Button>
+          </LinkContainer>
+        </td>
+      </tr>
+    );
   }
 
   return (
@@ -128,8 +114,12 @@ export function Profile({
       <Meta title="Profile" />
       <Col md={3}>
         <h2>Profile</h2>
-        {error && <Message variant="danger">{error}</Message>}
-        {loading && <Loader />}
+        {userUpdateProfile.success && (
+          <Message variant="success">Profile updated</Message>
+        )}
+
+        <Prefetch error={error} loading={loading} />
+
         <Form onSubmit={submitHandler}>
           <FormGroup name="name" type="text" value={name} onChange={setName} />
           <FormGroup
@@ -157,16 +147,6 @@ export function Profile({
             value={confirmPassword}
             onChange={setConfirmPassword}
           />
-          <FormGroup
-            name="oldPassword"
-            disabled={loading}
-            type="password"
-            isInvalid={!!message['oldPassword']}
-            label="Old password"
-            placeholder="Old password"
-            value={oldPassword}
-            onChange={setOldPassword}
-          />
 
           <Button type="submit" variant="primary" block>
             Update
@@ -175,7 +155,38 @@ export function Profile({
       </Col>
       <Col md={9}>
         <h2>My orders</h2>
-        <Col>{renderMyOrders()}</Col>
+        <Col>
+          <Table striped bordered hover responsive size="sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>DATE</th>
+                <th>TOTAL</th>
+                <th>PAID</th>
+                <th>DELIVERED</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                // This if is necessary since I wrapped Prefetch with tr and td
+                orderList && (orderList.error || orderList.loading) && (
+                  <tr>
+                    <td colSpan="6">
+                      <Prefetch
+                        error={orderList.error}
+                        loading={orderList.loading}
+                      />
+                    </td>
+                  </tr>
+                )
+              }
+              {!orderList.error &&
+                !orderList.loading &&
+                orderList.orders?.map((order) => renderRowOrder(order))}
+            </tbody>
+          </Table>
+        </Col>
       </Col>
     </Row>
   );
@@ -184,14 +195,14 @@ export function Profile({
 const mapStateToProps = (state) => ({
   loggedId: state.userLogin.userInfo?._id,
   userInfo: state.userLogin.userInfo,
-  error: state.userUpdateProfile.error,
-  loading: state.userUpdateProfile.loading,
+  userUpdateProfile: state.userUpdateProfile,
   orderList: state.orderList,
 });
 
 const mapDispatchToProps = {
   updateUserProfile,
   getOrderList,
+  clearOrderList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

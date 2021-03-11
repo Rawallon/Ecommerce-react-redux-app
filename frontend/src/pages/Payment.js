@@ -12,7 +12,8 @@ export const Payment = ({
   history,
   userInfo,
 }) => {
-  const [paymentMethod, setPaymentMethod] = useState('Paypal');
+  const [paymentMethod, setPaymentMethod] = useState('PayPal');
+
   function submitHandler(e) {
     e.preventDefault();
     savePaymentMethod(paymentMethod);
@@ -39,7 +40,7 @@ export const Payment = ({
               id="Paypal"
               name="paymentMethod"
               value="PayPal"
-              checked
+              checked={paymentMethod === 'PayPal'}
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
             <Form.Check
@@ -48,6 +49,7 @@ export const Payment = ({
               id="MercadoPago"
               name="paymentMethod"
               value="MercadoPago"
+              checked={paymentMethod === 'MercadoPago'}
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
           </Col>

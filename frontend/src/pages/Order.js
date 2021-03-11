@@ -14,6 +14,7 @@ import CheckoutProduct from '../components/CheckoutProduct';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
+import PageLoader from '../components/PageLoader';
 
 export const Order = ({
   match,
@@ -31,7 +32,7 @@ export const Order = ({
 }) => {
   const [sdkReady, setSdkReady] = useState(false);
   const { loading, error, order } = orderDetails;
-  const { success: sucPay, loading: loaPay, error: errPay } = orderPayment;
+  const { success: sucPay } = orderPayment;
   const orderId = match.params.id;
 
   function parseQuery(queryString) {
@@ -44,26 +45,34 @@ export const Order = ({
     return query;
   }
 
+  // Using it to call when the component unmounts
   useEffect(() => {
     return () => {
       clearOrderDetails();
     };
-  }, []);
-  useEffect(() => {
-    if (!loggedId) history.push('/login');
-    if (!isAdmin && orderDetails.order?.user?._id !== loggedId)
-      history.push('/profile');
+  }, [clearOrderDetails]);
 
+  useEffect(() => {
+    // Check if the user logged
+    if (!loggedId) history.push('/login');
+
+    // Check the if the id of the order owner is same visiting the page
+    if (!loading && order && !isAdmin && order.user._id !== loggedId)
+      history.push('/profile');
+  }, [history, loggedId, isAdmin, order, loading]);
+
+  useEffect(() => {
+    // This needed because Mercado Pago are passed as query
     if (!loading && order && match.params.pay && !order.isPaid) {
-      switch (order.paymentMethod) {
-        case 'MercadoPago':
-          succesPaymentHandler(parseQuery(location.search));
-          break;
+      if (order.paymentMethod === 'MercadoPago') {
+        succesPaymentHandler(parseQuery(location.search));
       }
     }
 
+    // Adds sdk according to the payment method
     const addPaymentScript = async () => {
       if (order.paymentMethod === 'Paypal') {
+        // Ps: Paypal SDK doesn't create a button
         const script = document.createElement('script');
         script.type = 'text/javascript';
         script.async = true;
@@ -72,6 +81,7 @@ export const Order = ({
         document.body.append(script);
         script.onload = () => setSdkReady(true);
       } else if (order.paymentMethod === 'MercadoPago') {
+        // MercadoPago SDK creates the button
         var script = document.createElement('script');
         script.src =
           'https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js';
@@ -83,25 +93,30 @@ export const Order = ({
       }
     };
 
-    if ((order !== undefined && Object.keys(order).length === 0) || sucPay) {
+    if ((!loading && !order) || sucPay) {
       getOrderDetails(orderId);
+      // In case of payment it clears to stop a infinte loop
       clearPaymentDetails();
-    } else if (order !== undefined && !order.isPaid) {
-      if (!window.paypal) {
-        addPaymentScript();
-      } else {
-        setSdkReady(true);
+    } else {
+      if (order && !order.isPaid) {
+        if (!window.paypal) {
+          addPaymentScript();
+        } else {
+          setSdkReady(true);
+        }
       }
     }
   }, [
+    succesPaymentHandler,
+    match,
+    location,
+    loading,
     order,
     sucPay,
-    clearOrderDetails,
     getOrderDetails,
-    history,
-    loggedId,
     orderId,
     sdkReady,
+    clearPaymentDetails,
   ]);
 
   function renderPaypalBtn() {
@@ -129,14 +144,10 @@ export const Order = ({
     setOrderPayment(orderId, payRes);
   }
 
-  function renderPrefetch() {
-    if (error) return <Message variant="danger">{error}</Message>;
-    if (loading) return <Loader />;
-  }
-
-  if (loading || error) {
-    return renderPrefetch();
-  } else
+  if (!error && !loading && !order) return <Loader />;
+  if (error) return <Message variant="danger">{error}</Message>;
+  if (loading) return <PageLoader />;
+  if (order)
     return (
       <div>
         <Meta title="Order details" />
@@ -202,7 +213,9 @@ export const Order = ({
                     <ListGroup.Item>
                       <Row>
                         <Col>Item</Col>
-                        <Col className="text-right">${order.totalPrice}</Col>
+                        <Col className="text-right">
+                          ${Number(order.totalPrice).toFixed(2)}
+                        </Col>
                       </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>
@@ -232,7 +245,7 @@ export const Order = ({
                     </ListGroup.Item>
                   </ListGroup>
                   <Col className="mt-4">
-                    {order.paymentMethod == 'Paypal' ? (
+                    {order.paymentMethod === 'Paypal' ? (
                       renderPaypalBtn()
                     ) : (
                       <div id="button-checkout"></div>

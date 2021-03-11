@@ -3,28 +3,24 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Col, Image, ListGroup, Row } from 'react-bootstrap';
 import { listProductCart } from '../actions/cartActions';
-import Loader from '../components/Loader';
-import Message from './Message';
+import Prefetch from './Prefetch';
 
 export const CheckoutProduct = ({
   product = [],
   listProductCart,
   pId,
-  isLoading = true,
-  error = '',
   qty,
   propPrice,
   propQty,
 }) => {
+  const { loading, error } = product;
+
   useEffect(() => {
     listProductCart(pId);
   }, [listProductCart, pId]);
 
-  function renderPrefetch() {
-    if (error) return <Message variant="danger">{error}</Message>;
-    if (isLoading) return <Loader />;
-  }
-
+  // The value of the item should be store when the order is made (in case it changes later)
+  // In case something goes haywire and the value isn't stored with the order it will display the item's current price
   function renderPrice() {
     if (propPrice && propQty)
       return (
@@ -39,10 +35,11 @@ export const CheckoutProduct = ({
         </>
       );
   }
+
   return (
     <>
-      {renderPrefetch()}
-      {!isLoading && !error && (
+      <Prefetch loading={loading} error={error} />
+      {product && (
         <ListGroup.Item>
           <Row>
             <Col md={1}>
@@ -64,8 +61,6 @@ export const CheckoutProduct = ({
 const mapStateToProps = (state, ownProps) => ({
   qty: state.cart.cartItems[ownProps.pId],
   product: state.cartList.products[ownProps.pId],
-  isLoading: state.cartList.products[ownProps.pId]?.loading,
-  error: state.cartList.products[ownProps.pId]?.error,
 });
 
 const mapDispatchToProps = {

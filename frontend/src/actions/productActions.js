@@ -84,7 +84,7 @@ export const listCategoryProducts = (cat) => async (dispatch) => {
       type: PRODUCT_LIST_REQUEST,
     });
 
-    const { data } = await axios.get('/api/products/category/' + cat);
+    const { data } = await axios.get(`/api/products/category/${cat}`);
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
       payload: data,

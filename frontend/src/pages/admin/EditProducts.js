@@ -35,29 +35,29 @@ export function EditProducts({
   const itemId = match.params.id;
   const { error, loading } = productDetails;
 
-  useEffect(() => {
-    if (productDetails.product && itemId) fillFields();
-  }, [productDetails]);
+  // useEffect(() => {
+  //   if (productDetails.product && itemId) fillFields();
+  // }, [productDetails, itemId, fillFields]);
 
   useEffect(() => {
     if (!userInfo?._id) history.push('/login');
     if (!userInfo?.isAdmin) history.push('/profile');
     if (!itemId) history.push('/admin/products/');
-    if (itemId && !productDetails?.product.name) {
+    if (itemId && !loading && productDetails.product._id !== itemId) {
       listProductDetails(itemId);
     }
-  }, [history, userInfo, itemId]);
 
-  function fillFields() {
-    const selProd = productDetails.product;
-    setName(selProd.name);
-    setPrice(selProd.price);
-    setImage(selProd.image);
-    setCategory(selProd.category);
-    setBrand(selProd.brand);
-    setDescription(selProd.description);
-    setCountStock(selProd.countInStock);
-  }
+    if (productDetails.product && itemId) {
+      const selProd = productDetails.product;
+      setName(selProd.name);
+      setPrice(selProd.price);
+      setImage(selProd.image);
+      setCategory(selProd.category);
+      setBrand(selProd.brand);
+      setDescription(selProd.description);
+      setCountStock(selProd.countInStock);
+    }
+  }, [history, userInfo, productDetails, itemId, listProductDetails, loading]);
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
@@ -73,7 +73,6 @@ export function EditProducts({
       };
 
       const { data } = await axios.post('/api/upload', formData, config);
-      console.log(data);
       if (Object.keys(data).length > 0) setImage(data);
       setUploading(false);
     } catch (error) {

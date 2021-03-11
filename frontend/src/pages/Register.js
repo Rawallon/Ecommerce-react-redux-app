@@ -4,17 +4,14 @@ import { Button, Form, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import FormContainer from '../components/FormContainer';
 import { register } from '../actions/userAction';
-import Message from '../components/Message';
-import Loader from '../components/Loader';
 import FormGroup from '../components/FormGroup';
 import Meta from '../components/Meta';
+import Prefetch from '../components/Prefetch';
 
 export function Register({
   location,
   register,
   history,
-  loading,
-  error,
   userRegister,
   userInfo,
 }) {
@@ -24,6 +21,7 @@ export function Register({
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState({});
   const redirect = location.search ? location.search.split('=')[1] : '/';
+  const { error, loading } = userRegister;
 
   useEffect(() => {
     if (userInfo) history.push(redirect);
@@ -32,9 +30,9 @@ export function Register({
   function submitHandler(e) {
     e.preventDefault();
     if (
-      name.length === 0 &&
-      email.length === 0 &&
-      password.length === 0 &&
+      name.length === 0 ||
+      email.length === 0 ||
+      password.length === 0 ||
       confirmPassword.length === 0
     ) {
       setMessage({
@@ -61,8 +59,9 @@ export function Register({
       <Meta title="Sign up" />
 
       <h1>Sign up</h1>
-      {error && <Message variant="danger">{error}</Message>}
-      {loading && <Loader />}
+
+      <Prefetch error={error} loading={loading} />
+
       <Form onSubmit={submitHandler}>
         <FormGroup
           name="name"
@@ -99,12 +98,12 @@ export function Register({
           onChange={setConfirmPassword}
         />
 
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" block>
           Register
         </Button>
       </Form>
 
-      <Row className="py-3">
+      <Row className="py-3 w-100">
         <Col>
           Already registered?{' '}
           <Link to={redirect ? `/login?redirect=${redirect}` : `/register`}>
@@ -119,8 +118,6 @@ export function Register({
 const mapStateToProps = (state) => ({
   userInfo: state.userLogin.userInfo,
   userRegister: state.userRegister,
-  error: state.userRegister.error,
-  loading: state.userRegister.loading,
 });
 
 const mapDispatchToProps = {

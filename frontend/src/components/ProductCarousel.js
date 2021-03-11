@@ -3,21 +3,23 @@ import { Carousel, Image } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { listTopProducts } from '../actions/productActions';
-import Loader from './Loader';
-import Message from './Message';
+import Prefetch from './Prefetch';
 
 export const ProductCarousel = ({ productTopRated, listTopProducts }) => {
-  //const { loading, error, products } = productTopRated;
   useEffect(() => {
+    // On component mount fetch items
     listTopProducts();
+    // Might be worth making a "clear" function if it displayed
+    // more than one array, eg: FeaturedList,TopList,etc.
   }, [listTopProducts]);
 
-  function renderPrefetch() {
-    if (productTopRated.error)
-      return <Message variant="danger">{productTopRated.error}</Message>;
-    if (productTopRated.loading) return <Loader />;
-  }
-  if (productTopRated.loading) return renderPrefetch();
+  if (productTopRated.loading || productTopRated.error)
+    return (
+      <Prefetch
+        error={productTopRated.error}
+        loading={productTopRated.loading}
+      />
+    );
   else
     return (
       <Carousel pause="hover" className="bg-dark">

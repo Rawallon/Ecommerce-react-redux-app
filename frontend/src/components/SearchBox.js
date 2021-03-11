@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, Form, Nav } from 'react-bootstrap';
 
 // history is being passed as a renderprop from Route
@@ -6,6 +6,10 @@ export default function SearchBox({ history }) {
   const [showField, setShowField] = useState(false);
   const refSearch = useRef(null);
   const [searchField, setSearchField] = useState('');
+  useEffect(() => {
+    if (history.location.pathname.split('/')[1] !== 'search')
+      setShowField(false);
+  }, [history.location]);
 
   function submitHandler(e) {
     e.preventDefault();
