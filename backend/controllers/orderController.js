@@ -4,6 +4,7 @@ import OrderModel from '../models/orderModel.js';
 import ProductModel from '../models/productModel.js';
 import sanitize from '../utils/sanitize.js';
 import Mongoose from 'mongoose';
+import axios from 'axios';
 
 // @desc Create new order
 // @route POST /api/orders
@@ -70,7 +71,6 @@ export const addOrderItems = asyncHandler(async (req, res) => {
           throw new Error('MercadoPago API Error, try again');
         });
     }
-
     var order = new OrderModel({
       user: req.user._id,
       orderItems: iArr,
@@ -96,18 +96,18 @@ export const addOrderItems = asyncHandler(async (req, res) => {
           pending: `http://localhost:3000/order/${order._id}/pay`,
         },
       };
-      // axios.put(
-      //   `https://api.mercadopago.com/checkout/preferences/${pref}`,
-      //   data,
-      //   config,
-      // );
-      await fetch(`https://api.mercadopago.com/checkout/preferences/${pref}`, {
-        method: 'PUT',
-        headers: config,
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
+      axios.put(
+        `https://api.mercadopago.com/checkout/preferences/${pref}`,
+        data,
+        config,
+      );
+      // await fetch(`https://api.mercadopago.com/checkout/preferences/${pref}`, {
+      //   method: 'PUT',
+      //   headers: config,
+      //   body: data,
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => console.log(data));
     }
 
     const createdOrder = await order.save();

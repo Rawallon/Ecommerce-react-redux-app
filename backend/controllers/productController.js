@@ -73,7 +73,7 @@ export const getProductByCategory = asyncHandler(async (req, res) => {
 // @desc Delete a product
 // @route GET /api/products/:id
 // @access Private
-export const deletProductAdmin = asyncHandler(async (req, res) => {
+export const deleteProductAdmin = asyncHandler(async (req, res) => {
   const object = await ProductModel.findById(sanitize(req.params.id));
 
   if (object) {

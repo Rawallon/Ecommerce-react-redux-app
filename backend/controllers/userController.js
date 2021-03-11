@@ -25,36 +25,12 @@ export const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Gets user profile
-// @route GET /api/users/profile
-// @access Private
-export const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await UserModel.findById(req.user._id);
-
-  if (user) {
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-    });
-  } else {
-    res.status(404);
-    throw new Error('User not found');
-  }
-});
-
 // @desc Update user profile
 // @route PATCH /api/users/profile
 // @access Private
 export const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await UserModel.findById(sanitize(req.body._id));
   if (user) {
-    //TODO
-    // if (user.password !== req.body.oldPassword) {
-    //   res.status(401);
-    //   throw new Error('Wrong old password');
-    // }
     user.name = sanitize(req.body.name) || user.name;
     user.email = sanitize(req.body.email) || user.email;
     if (req.body.password) {

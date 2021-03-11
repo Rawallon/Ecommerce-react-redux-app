@@ -1,0 +1,874 @@
+{
+    "_type":"export",
+    "__export_format":4,
+    "__export_date":"2021-03-11T16:20:07.687Z",
+    "__export_source":"insomnia.desktop.app:v2021.1.0",
+    "resources":[
+       {
+          "_id":"req_3c5be7d65d5845789d990279f36b71fc",
+          "parentId":"fld_460709e34f93410f9db61cef826c836f",
+          "modified":1615131787441,
+          "created":1615131755511,
+          "url":"{{url}}/api/users/",
+          "name":"Get users",
+          "description":"",
+          "method":"GET",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"{{token}}"
+          },
+          "metaSortKey":-1615131755511,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"fld_460709e34f93410f9db61cef826c836f",
+          "parentId":"wrk_2c9096e00d9c42c48ae0bfbce5638b30",
+          "modified":1615131750694,
+          "created":1615131750694,
+          "name":"Admin",
+          "description":"",
+          "environment":{
+             
+          },
+          "environmentPropertyOrder":null,
+          "metaSortKey":-1615131750694,
+          "_type":"request_group"
+       },
+       {
+          "_id":"wrk_2c9096e00d9c42c48ae0bfbce5638b30",
+          "parentId":null,
+          "modified":1614629078896,
+          "created":1614629078896,
+          "name":"ProShop",
+          "description":"",
+          "scope":"collection",
+          "_type":"workspace"
+       },
+       {
+          "_id":"req_93050ce50c9f42ebaac4af75e6ef493a",
+          "parentId":"fld_460709e34f93410f9db61cef826c836f",
+          "modified":1615477985868,
+          "created":1615203557367,
+          "url":"{{url}}/api/products/",
+          "name":"Create a product",
+          "description":"",
+          "method":"POST",
+          "body":{
+             "mimeType":"application/json",
+             "text":"{\n  \"price\": 29.99,\n  \"countInStock\": 4,\n  \"name\": \"Created\",\n  \"image\": \"/images/alexa.jpg\",\n  \"description\": \"Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space\",\n  \"brand\": \"Amazon\",\n  \"category\": \"Electronics\"\n}"
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             {
+                "name":"Content-Type",
+                "value":"application/json",
+                "id":"pair_57e38bc96c1243e7be38e3cc40efb269"
+             }
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"{{token}}"
+          },
+          "metaSortKey":-1615117848980.25,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_8665e68d272f4a618383a85ba6ce27dd",
+          "parentId":"fld_460709e34f93410f9db61cef826c836f",
+          "modified":1615478060054,
+          "created":1615166941574,
+          "url":"http://localhost:5000/api/products/604a3d187df97d17a0f5aa63",
+          "name":"Delete a product",
+          "description":"",
+          "method":"DELETE",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"{{token}}"
+          },
+          "metaSortKey":-1615110895714.875,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_dfd03ef9162b444a8ef24dc57d0ec4b4",
+          "parentId":"fld_460709e34f93410f9db61cef826c836f",
+          "modified":1615479569345,
+          "created":1615214966123,
+          "url":"{{url}}/api/orders/6044bba607a0780f40368637/deliver",
+          "name":"Set as Delivered",
+          "description":"",
+          "method":"PUT",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"{{token}}"
+          },
+          "metaSortKey":-1615107419082.1875,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_1c6cb382d3f545d4baacafcfbf06d792",
+          "parentId":"fld_460709e34f93410f9db61cef826c836f",
+          "modified":1615477906485,
+          "created":1615477765833,
+          "url":"{{url}}/api/products/6046d509e62561191c133468",
+          "name":"Change products",
+          "description":"",
+          "method":"PATCH",
+          "body":{
+             "mimeType":"application/json",
+             "text":"{\n  \"price\": 89.99,\n  \"name\": \"Airpods Wireless Bluetooth Headphones Edited\",\n  \"image\": \"/images/airpods.jpg\",\n  \"description\": \"Bluetooth technology lets you connect it with compatible devices wirelessly High-quality AAC audio offers immersive listening experience Built-in microphone allows you to take calls while working\",\n  \"brand\": \"Apple\",\n  \"category\": \"Electronics\"\n}"
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             {
+                "name":"Content-Type",
+                "value":"application/json",
+                "id":"pair_fa1dfb5030344bbea04c0c7e082ae9b5"
+             }
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"{{token}}"
+          },
+          "metaSortKey":-1615103942449.5,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_7bc5e1d761584064858917a2f194ea0d",
+          "parentId":"fld_7b6bb0f881f745ef81f25bef467c24b3",
+          "modified":1615052234657,
+          "created":1615052089051,
+          "url":"{{url}}/api/orders/6043972024cf81210c4bfae3/pay",
+          "name":"Pay order",
+          "description":"",
+          "method":"GET",
+          "body":{
+             "mimeType":"application/json",
+             "text":"{\"create_time\":\"2021-03-06T17:34:06Z\",\"update_time\":\"2021-03-06T17:34:18Z\",\"id\":\"33E48805DV2164915\",\"intent\":\"CAPTURE\",\"status\":\"COMPLETED\",\"payer\":{\"email_address\":\"sb-43qbmb5320279@personal.example.com\",\"payer_id\":\"ULTJ74PN3T42C\",\"address\":{\"country_code\":\"BR\"},\"name\":{\"given_name\":\"John\",\"surname\":\"Doe\"}},\"purchase_units\":[{\"reference_id\":\"default\",\"soft_descriptor\":\"JOHNDOESTES\",\"amount\":{\"value\":\"1529.48\",\"currency_code\":\"BRL\"},\"payee\":{\"email_address\":\"sb-nd473h5320669@business.example.com\",\"merchant_id\":\"Z5C5TU7F2KDVY\"},\"shipping\":{\"name\":{\"full_name\":\"John Doe\"},\"address\":{\"address_line_1\":\"1234 Rua Main\",\"admin_area_2\":\"Rio De Janeiro\",\"admin_area_1\":\"RJ\",\"postal_code\":\"22021-001\",\"country_code\":\"BR\"}},\"payments\":{\"captures\":[{\"status\":\"COMPLETED\",\"id\":\"2SE06672A8730850N\",\"final_capture\":true,\"create_time\":\"2021-03-06T17:34:18Z\",\"update_time\":\"2021-03-06T17:34:18Z\",\"amount\":{\"value\":\"1529.48\",\"currency_code\":\"BRL\"},\"seller_protection\":{\"status\":\"ELIGIBLE\",\"dispute_categories\":[\"ITEM_NOT_RECEIVED\",\"UNAUTHORIZED_TRANSACTION\"]},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v2/payments/captures/2SE06672A8730850N\",\"rel\":\"self\",\"method\":\"GET\",\"title\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v2/payments/captures/2SE06672A8730850N/refund\",\"rel\":\"refund\",\"method\":\"POST\",\"title\":\"POST\"},{\"href\":\"https://api.sandbox.paypal.com/v2/checkout/orders/33E48805DV2164915\",\"rel\":\"up\",\"method\":\"GET\",\"title\":\"GET\"}]}]}}],\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v2/checkout/orders/33E48805DV2164915\",\"rel\":\"self\",\"method\":\"GET\",\"title\":\"GET\"}]}"
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             {
+                "name":"Content-Type",
+                "value":"application/json",
+                "id":"pair_3e99f899e73440be9bf6219a2933dcc9"
+             }
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDAzY2ViZWI3ZDIzMDdkODdhYjc4NyIsImlhdCI6MTYxNTA1MTYxNCwiZXhwIjoxNjE2MzQ3NjE0fQ.qJ9Py5lxvlwB_ksZJ0FXas--JXum2K7PpvqpfVKDjas"
+          },
+          "metaSortKey":-1615052089051,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"fld_7b6bb0f881f745ef81f25bef467c24b3",
+          "parentId":"wrk_2c9096e00d9c42c48ae0bfbce5638b30",
+          "modified":1614903893452,
+          "created":1614903893452,
+          "name":"Orders",
+          "description":"",
+          "environment":{
+             
+          },
+          "environmentPropertyOrder":null,
+          "metaSortKey":-1614903893452,
+          "_type":"request_group"
+       },
+       {
+          "_id":"req_a59603326f784341b0682856b62e0885",
+          "parentId":"fld_7b6bb0f881f745ef81f25bef467c24b3",
+          "modified":1615059941830,
+          "created":1615059876500,
+          "url":"{{url}}/api/orders/myorders",
+          "name":"My Orders",
+          "description":"",
+          "method":"GET",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"{{token}}"
+          },
+          "metaSortKey":-1614937003635.75,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_66a63864ac5f4334aa91b5680b051791",
+          "parentId":"fld_7b6bb0f881f745ef81f25bef467c24b3",
+          "modified":1615178120562,
+          "created":1615178115376,
+          "url":"{{url}}/api/orders/",
+          "name":"All Orders",
+          "description":"",
+          "method":"GET",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"{{token}}"
+          },
+          "metaSortKey":-1614879460928.125,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_0c7e820a3d6d4512a80c397378451b46",
+          "parentId":"fld_7b6bb0f881f745ef81f25bef467c24b3",
+          "modified":1615052243417,
+          "created":1614896053214,
+          "url":"{{url}}/api/orders/6043972024cf81210c4bfae3",
+          "name":"FindById",
+          "description":"",
+          "method":"GET",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwM2QzOTEwNzQ5Y2MwMmQyODZkMDdjZSIsImlhdCI6MTYxNDgxNzk5MywiZXhwIjoxNjE2MTEzOTkzfQ.OUoVNrMQDzPB1SWUxFdCqBGjK8PB2Fvszq1flaWsP34"
+          },
+          "metaSortKey":-1614821918220.5,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_45176b305bd047d8bbc89e8f0eaf1df3",
+          "parentId":"fld_7b6bb0f881f745ef81f25bef467c24b3",
+          "modified":1615060293425,
+          "created":1614949776811,
+          "url":"{{url}}/api/orders/",
+          "name":"Create Order",
+          "description":"",
+          "method":"POST",
+          "body":{
+             "mimeType":"application/json",
+             "text":"{\n   \"orderItems\":[\n      \"603d3911749cc02d286d07d3\",\n      \"603d3911749cc02d286d07d4\"\n   ],\n   \"orderItemsQty\":{\n      \"603d3911749cc02d286d07d3\":1,\n      \"603d3911749cc02d286d07d4\":1\n   },\n   \"shippingAddress\":{\n      \"address\":\"Rua Progresso, 701\",\n      \"city\":\"Petrolina\",\n      \"postalCode\":\"56308240\",\n      \"country\":\"Brasil\"\n   },\n   \"paymentMethod\":\"Paypal\",\n   \"itemsPrice\":1329.98,\n   \"shippingPrice\":0,\n   \"taxPrice\":199.5,\n   \"totalPrice\":1529.48\n}"
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             {
+                "name":"Content-Type",
+                "value":"application/json",
+                "id":"pair_0c9a02c6e0164cf480f3ebe2b3ffa70b"
+             }
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"{{token}}"
+          },
+          "metaSortKey":-1614780937373.75,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_6db769bc884e42a9ab79acc6844e3ab1",
+          "parentId":"fld_8a26ec56ed7145b1b8fa86ed26438972",
+          "modified":1614741440252,
+          "created":1614739956527,
+          "url":"{{url}}/api/users/login",
+          "name":"Login Wrong",
+          "description":"",
+          "method":"POST",
+          "body":{
+             "mimeType":"application/json",
+             "text":"{\n\t\"email\": \"test@example.com\",\n\t\"password\": \"1234\"\n}"
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             {
+                "name":"Content-Type",
+                "value":"application/json",
+                "id":"pair_22e5808811204191a3655b744cc39f46"
+             }
+          ],
+          "authentication":{
+             "type":"bearer"
+          },
+          "metaSortKey":-1614739956527,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"fld_8a26ec56ed7145b1b8fa86ed26438972",
+          "parentId":"wrk_2c9096e00d9c42c48ae0bfbce5638b30",
+          "modified":1614739942989,
+          "created":1614739942989,
+          "name":"Users",
+          "description":"",
+          "environment":{
+             
+          },
+          "environmentPropertyOrder":null,
+          "metaSortKey":-1614739942989,
+          "_type":"request_group"
+       },
+       {
+          "_id":"req_db69fb41c8654d2782f238dd62685d97",
+          "parentId":"fld_8a26ec56ed7145b1b8fa86ed26438972",
+          "modified":1615326379226,
+          "created":1614741275317,
+          "url":"{{url}}/api/users/login",
+          "name":"Login ",
+          "description":"",
+          "method":"POST",
+          "body":{
+             "mimeType":"application/json",
+             "text":"{\n\t\"email\": \"admin@admin.com\",\n\t\"password\": \"123456\"\n}"
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             {
+                "name":"Content-Type",
+                "value":"application/json",
+                "id":"pair_22e5808811204191a3655b744cc39f46"
+             }
+          ],
+          "authentication":{
+             
+          },
+          "metaSortKey":-1614684538329.5,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_b570a85729c54b1ea7b159746dbabec1",
+          "parentId":"fld_8a26ec56ed7145b1b8fa86ed26438972",
+          "modified":1615326357515,
+          "created":1615170318522,
+          "url":"{{url}}/api/users/6046d508e62561191c133465",
+          "name":"Get Id",
+          "description":"",
+          "method":"GET",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"{{token}}"
+          },
+          "metaSortKey":-1614670683780.125,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_23cd85dcff8145639965bc82a7a1674c",
+          "parentId":"fld_8a26ec56ed7145b1b8fa86ed26438972",
+          "modified":1615476863943,
+          "created":1615171813241,
+          "url":"{{url}}/api/users/",
+          "name":"Get All",
+          "description":"",
+          "method":"GET",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDZkNTA4ZTYyNTYxMTkxYzEzMzQ2NSIsImlhdCI6MTYxNTMyNjM4MCwiZXhwIjoxNjE2NjIyMzgwfQ.iedhGefWseEqMhQYBPHHkvSjqFoCFgxB1aM1_fvX124"
+          },
+          "metaSortKey":-1614663756505.4375,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_ce1f75c95bf240b6a9582f4510e060c6",
+          "parentId":"fld_8a26ec56ed7145b1b8fa86ed26438972",
+          "modified":1614779653152,
+          "created":1614742016060,
+          "url":"{{url}}/api/users/profile",
+          "name":"Profile",
+          "description":"",
+          "method":"GET",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"{{token}}"
+          },
+          "metaSortKey":-1614656829230.75,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_84196cc86bae4731af85aa063313eb28",
+          "parentId":"fld_8a26ec56ed7145b1b8fa86ed26438972",
+          "modified":1614889654432,
+          "created":1614817989837,
+          "url":"{{url}}/api/users/profile",
+          "name":"Update Profile",
+          "description":"",
+          "method":"PATCH",
+          "body":{
+             "mimeType":"application/json",
+             "text":"{\n  \"name\": \"Admin User\",\n\t\"password\": \"123123\",\n\t\"oldPassword\": \"123456\",\n\t\"isAdmin\": false\n}"
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             {
+                "name":"Content-Type",
+                "value":"application/json",
+                "id":"pair_51993b59e20541f7a8616a61af05b537"
+             }
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwM2QzOTEwNzQ5Y2MwMmQyODZkMDdjZSIsImlhdCI6MTYxNDgxNzk5MywiZXhwIjoxNjE2MTEzOTkzfQ.OUoVNrMQDzPB1SWUxFdCqBGjK8PB2Fvszq1flaWsP34"
+          },
+          "metaSortKey":-1614649901956.0625,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_d071ff6f7520431dac9df43e9958fa46",
+          "parentId":"fld_8a26ec56ed7145b1b8fa86ed26438972",
+          "modified":1614780014937,
+          "created":1614779960938,
+          "url":"{{url}}/api/users/",
+          "name":"Register user",
+          "description":"",
+          "method":"POST",
+          "body":{
+             "mimeType":"application/json",
+             "text":"{\n\t\"name\": \"Test J\",\n\t\"email\": \"test@test.com\",\n\t\"password\": \"1234\"\n}"
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             {
+                "name":"Content-Type",
+                "value":"application/json",
+                "id":"pair_e2f6e55b56e34c64a93863539641bc88"
+             }
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":""
+          },
+          "metaSortKey":-1614642974681.375,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_c24e3d7687054deb9fcd2225d6bb03d2",
+          "parentId":"fld_0acf3d75b60745ce9c85014b07bd66ca",
+          "modified":1614629725947,
+          "created":1614629120132,
+          "url":"{{url}}/api/products/",
+          "name":"All",
+          "description":"",
+          "method":"GET",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             
+          },
+          "metaSortKey":-1614629120132,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"fld_0acf3d75b60745ce9c85014b07bd66ca",
+          "parentId":"wrk_2c9096e00d9c42c48ae0bfbce5638b30",
+          "modified":1614629098237,
+          "created":1614629098237,
+          "name":"Items",
+          "description":"",
+          "environment":{
+             
+          },
+          "environmentPropertyOrder":null,
+          "metaSortKey":-1614629098237,
+          "_type":"request_group"
+       },
+       {
+          "_id":"req_3803f12b5c3341f5beaceaa9b2c24435",
+          "parentId":"fld_0acf3d75b60745ce9c85014b07bd66ca",
+          "modified":1615477816101,
+          "created":1614629140999,
+          "url":"{{url}}/api/products/6046d509e62561191c133468",
+          "name":"ID",
+          "description":"",
+          "method":"GET",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             
+          },
+          "metaSortKey":-1614161698622,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_17f386fdc91a456e97200a8ce2d4f652",
+          "parentId":"fld_0acf3d75b60745ce9c85014b07bd66ca",
+          "modified":1615234491959,
+          "created":1615234077562,
+          "url":"{{url}}/api/products/60460d9a7f240b26d486d1b0/reviews",
+          "name":"Create a Review",
+          "description":"",
+          "method":"POST",
+          "body":{
+             "mimeType":"application/json",
+             "text":"{\n\t\"rating\": 5,\n\t\"comment\": \"Muito bom\"\n}"
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             {
+                "name":"Content-Type",
+                "value":"application/json",
+                "id":"pair_d2b15d61a9f24deb84edaf7308860563"
+             }
+          ],
+          "authentication":{
+             "type":"bearer",
+             "token":"{{token}}"
+          },
+          "metaSortKey":-1614154395160.9062,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_b0539a2dd1774594a1f46821c4d7e0a0",
+          "parentId":"fld_0acf3d75b60745ce9c85014b07bd66ca",
+          "modified":1615478068301,
+          "created":1614738741731,
+          "url":"{{url}}/api/products/category/Electronics",
+          "name":"List by Category",
+          "description":"",
+          "method":"GET",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             
+          },
+          "metaSortKey":-1614044843244.5,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"req_7bde2d8996574f8fb4d932eddb071369",
+          "parentId":"fld_0acf3d75b60745ce9c85014b07bd66ca",
+          "modified":1615478111797,
+          "created":1614629158017,
+          "url":"{{url}}/api/products/603d3911749cc02d286d07d0",
+          "name":"Bad ID",
+          "description":"",
+          "method":"GET",
+          "body":{
+             
+          },
+          "parameters":[
+             
+          ],
+          "headers":[
+             
+          ],
+          "authentication":{
+             
+          },
+          "metaSortKey":-1613927987867,
+          "isPrivate":false,
+          "settingStoreCookies":true,
+          "settingSendCookies":true,
+          "settingDisableRenderRequestBody":false,
+          "settingEncodeUrl":true,
+          "settingRebuildPath":true,
+          "settingFollowRedirects":"global",
+          "_type":"request"
+       },
+       {
+          "_id":"env_3b94d8d6260122781d8d4ae16c0e22389f466207",
+          "parentId":"wrk_2c9096e00d9c42c48ae0bfbce5638b30",
+          "modified":1614629079263,
+          "created":1614629079263,
+          "name":"Base Environment",
+          "data":{
+             
+          },
+          "dataPropertyOrder":null,
+          "color":null,
+          "isPrivate":false,
+          "metaSortKey":1614629079263,
+          "_type":"environment"
+       },
+       {
+          "_id":"jar_3b94d8d6260122781d8d4ae16c0e22389f466207",
+          "parentId":"wrk_2c9096e00d9c42c48ae0bfbce5638b30",
+          "modified":1615326406312,
+          "created":1614629079273,
+          "name":"Default Jar",
+          "cookies":[
+             
+          ],
+          "_type":"cookie_jar"
+       },
+       {
+          "_id":"spc_91df2ed1f89c4cdfb6fff5714dc53767",
+          "parentId":"wrk_2c9096e00d9c42c48ae0bfbce5638b30",
+          "modified":1614629078910,
+          "created":1614629078910,
+          "fileName":"ProShop",
+          "contents":"",
+          "contentType":"yaml",
+          "_type":"api_spec"
+       },
+       {
+          "_id":"env_b5ee1dc2e2ac4deeb29d690630bcee4f",
+          "parentId":"env_3b94d8d6260122781d8d4ae16c0e22389f466207",
+          "modified":1615477691813,
+          "created":1614629589137,
+          "name":"PRoshop",
+          "data":{
+             "url":"http://localhost:5000",
+             "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDZkNTA4ZTYyNTYxMTkxYzEzMzQ2NSIsImlhdCI6MTYxNTQ3NzY4MCwiZXhwIjoxNjE1NjUwNDgwfQ.cNzV49ogy6dcDqGi7ID2AiYvs5mn-g4HV9ySlLeU9xo"
+          },
+          "dataPropertyOrder":{
+             "&":[
+                "url",
+                "token"
+             ]
+          },
+          "color":"#c82828",
+          "isPrivate":false,
+          "metaSortKey":1614629589138,
+          "_type":"environment"
+       }
+    ]
+ }

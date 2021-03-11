@@ -1,7 +1,6 @@
 import express from 'express';
 import {
   authUser,
-  getUserProfile,
   getUsersAdmin,
   registerUser,
   updateUserProfile,
@@ -14,9 +13,6 @@ router.post('/login', authUser);
 
 router.route('/:id?').post(registerUser).get(protect, isAdmin, getUsersAdmin);
 
-router
-  .route('/profile')
-  .get(protect, getUserProfile)
-  .patch(protect, updateUserProfile);
+router.route('/profile').patch(protect, updateUserProfile);
 
 export default router;

@@ -81,6 +81,7 @@ export const Order = ({
         document.body.append(script);
         script.onload = () => setSdkReady(true);
       } else if (order.paymentMethod === 'MercadoPago') {
+        console.log('sdk MercadoPago');
         // MercadoPago SDK creates the button
         var script = document.createElement('script');
         script.src =
