@@ -31,6 +31,10 @@ const productModel = mongoose.Schema(
     numReviews: { type: Number, required: true, default: 0 },
     price: { type: Number, required: true, default: 0 },
     countInStock: { type: Number, required: true, default: 0 },
+    bgColor: { type: String, required: true, default: 'f5f5f5' },
+    nameColor: { type: String, required: true, default: '000' },
+    btnColor: { type: String, required: true, default: 'fe696a' },
+    btnColorHover: { type: String, required: true, default: 'fe3638' },
   },
   {
     timestamps: true,

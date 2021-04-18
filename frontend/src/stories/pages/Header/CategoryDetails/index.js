@@ -30,7 +30,7 @@ export default function CategoryDetails({
   };
   const renderRowProducts = (init, final) =>
     dummyData.products.slice(init, final).map((p) => (
-      <Column>
+      <Column key={p.name}>
         <Product {...p} />
       </Column>
     ));

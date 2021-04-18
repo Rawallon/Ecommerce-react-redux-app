@@ -3,6 +3,7 @@ import { Col, Pagination, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 export default function PageSelect({
+  urlLink = 'page',
   pages,
   page,
   isAdmin = null,
@@ -13,8 +14,8 @@ export default function PageSelect({
       if (keyword) return `/search/${keyword}/page/${n + 1}`;
       else return `/admin/${isAdmin}/${n + 1}`;
     } else {
-      if (keyword) return `/search/${keyword}/page/${n + 1}`;
-      else return `/page/${n + 1}`;
+      if (keyword) return `/search/${keyword}/${urlLink}/${n + 1}`;
+      else return `/${urlLink}/${n + 1}`;
     }
   }
   return (

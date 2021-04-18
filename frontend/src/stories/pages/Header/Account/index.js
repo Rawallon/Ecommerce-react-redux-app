@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Hr, StyledButton } from '../../../GlobalStyle.style';
 import {
   Wrapper,
@@ -8,21 +9,20 @@ import {
   MenuWrapper,
 } from './Account.style';
 
-export default function index({ auth }) {
-  if (!auth.user)
+export default function index({ auth, logout }) {
+  if (!auth)
     return (
       <Wrapper>
-        <Header>
-          <h3>Log In</h3>
-        </Header>
         <LoginForm>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <StyledButton>Log in Now</StyledButton>
+          <Link to="/login">
+            <StyledButton>Log in</StyledButton>
+          </Link>
           <Hr marginTop="0.875" />
-          <StyledButton bgColor="4267b2" bgHover="375899">
-            Facebook
-          </StyledButton>
+          <Link to="/register">
+            <StyledButton bgColor="e6e6e6" bgHover="e1e1e1">
+              Register
+            </StyledButton>
+          </Link>
         </LoginForm>
       </Wrapper>
     );
@@ -31,13 +31,17 @@ export default function index({ auth }) {
       <Wrapper>
         <Header>
           <span>Your Account</span>
-          <h3>{auth.user.name}</h3>
+          <h3>{auth.name.split(' ')[0]}</h3>
         </Header>
         <MenuWrapper>
-          <MenuItem>My Account</MenuItem>
-          <MenuItem>My Orders</MenuItem>
+          <Link to="/profile">
+            <MenuItem>My Account</MenuItem>
+          </Link>
+          <Link to="/profile">
+            <MenuItem>My Orders</MenuItem>
+          </Link>
           <Hr />
-          <MenuItem>Logout</MenuItem>
+          <MenuItem onClick={logout}>Logout</MenuItem>
         </MenuWrapper>
       </Wrapper>
     );

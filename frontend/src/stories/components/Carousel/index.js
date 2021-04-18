@@ -56,7 +56,7 @@ export default function Carousel(slides) {
         onMouseUp={(e) => mouseDown(e)}
         active={currentImage === index}
         color={slide.color}
-        key={index}>
+        key={slide._id}>
         <img src={slide.img} alt="" draggable="false" />
       </SlideItem>
     ));
@@ -77,7 +77,7 @@ export default function Carousel(slides) {
       onMouseLeave={() => setIsHover(false)}>
       <Counter>
         {Object.keys(slides).map((s, i) => (
-          <CounterDot active={currentImage === i}> </CounterDot>
+          <CounterDot key={i} active={currentImage === i}></CounterDot>
         ))}
       </Counter>
       <Button show={isHover} onClick={() => changeImage('prev')} isLeft>

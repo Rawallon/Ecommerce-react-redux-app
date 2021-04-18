@@ -7,6 +7,7 @@ export const Header = styled.div`
   height: 70px;
   padding: 1rem;
   position: relative;
+  z-index: 3;
 
   @media (max-width: 576px) {
     padding: 1.5rem;
@@ -18,7 +19,7 @@ export const SubHeader = styled.div`
   background: #fff;
   height: 32px;
   position: relative;
-  /* overflow: hidden; */
+  z-index: 2;
   box-shadow: 0 6px 12px 0 rgb(0 0 0 / 4%);
 
   @media (max-width: 576px) {

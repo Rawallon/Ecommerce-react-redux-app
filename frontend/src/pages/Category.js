@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Breadcrumb, Col, Row } from 'react-bootstrap';
-import Product from '../components/Product';
+import Product from '../stories/components/CategoryProduct/';
 import { listCategoryProducts } from '../actions/productActions';
 import { LinkContainer } from 'react-router-bootstrap';
 import Meta from '../components/Meta';
@@ -33,7 +33,7 @@ export function Category({
         <Prefetch loading={loading} />
         {products?.map((product) => (
           <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-            <Product product={product} />
+            <Product {...product} />
           </Col>
         ))}
       </Row>

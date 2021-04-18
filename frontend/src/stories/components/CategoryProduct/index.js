@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import {
   Card,
@@ -15,8 +16,12 @@ import {
   OnSaleBage,
 } from './CategoryProduct.style';
 import Rating from '../Rating/';
+import { addToCart } from '../../../actions/cartActions';
+import { useHistory } from 'react-router';
 
-export default function CategoryProduct({
+export const CategoryProduct = ({
+  addToCart,
+  loading,
   _id,
   category,
   name,
@@ -25,21 +30,28 @@ export default function CategoryProduct({
   oldPrice,
   price,
   rating,
-  numInStock,
+  countInStock,
   showButtons = true,
   showCategory = true,
-}) {
+}) => {
+  let history = useHistory();
+  function addToCartHandler(pId) {
+    addToCart(pId);
+    history.push('/cart');
+  }
   const renderButtons = () => {
     const viewBtn = (
-      <CardSecondaryButton inStock={numInStock > 0}>
+      <CardSecondaryButton inStock={countInStock > 0}>
         Quick View
       </CardSecondaryButton>
     );
 
-    if (numInStock) {
+    if (countInStock) {
       return (
         <CardButtonsHidden>
-          <CardButton>Add to cart</CardButton>
+          <CardButton onClick={() => addToCartHandler(_id)}>
+            Add to cart
+          </CardButton>
           {viewBtn}
         </CardButtonsHidden>
       );
@@ -52,47 +64,58 @@ export default function CategoryProduct({
       );
     }
   };
-  return (
-    <Card simple={!showButtons}>
-      {oldPrice && <OnSaleBage>Sale</OnSaleBage>}
-      {badge && (
-        <OnSaleBage color={badge[1]} font={badge[2]}>
-          {badge[0]}
-        </OnSaleBage>
-      )}
-      <Cardimg href={`/product/${_id}`}>
-        <img src={image} alt="" />
-      </Cardimg>
-      <CardBody>
-        {showCategory && (
-          <span>
-            <a href={`/category/${category}`}>{category}</a>
-          </span>
+
+  if (loading) return null;
+  else
+    return (
+      <Card simple={!showButtons}>
+        {oldPrice && <OnSaleBage>Sale</OnSaleBage>}
+        {badge && (
+          <OnSaleBage color={badge[1]} font={badge[2]}>
+            {badge[0]}
+          </OnSaleBage>
         )}
-        <h3>
-          <a href={`/product/${_id}`}>{name}</a>
-        </h3>
-        <CardRow inStock={numInStock > 0}>
-          {numInStock ? (
-            <PriceDiv>
-              <PriceSpan>
-                ${price.split('.')[0]}.
-                <small>{price.split('.')[1] || '00'}</small>
-              </PriceSpan>
-              {oldPrice && (
-                <PriceSpan disabled>
-                  ${oldPrice.split('.')[0]}.
-                  <small>{oldPrice.split('.')[1] || '00'}</small>
-                </PriceSpan>
-              )}
-            </PriceDiv>
-          ) : (
-            <NoStockSpan>Out of stock</NoStockSpan>
+        <Cardimg href={`/product/${_id}`}>
+          <img src={image} alt="" />
+        </Cardimg>
+        <CardBody>
+          {showCategory && (
+            <span>
+              <a href={`/category/${category}`}>{category}</a>
+            </span>
           )}
-          <Rating rating={rating} />
-          {renderButtons()}
-        </CardRow>
-      </CardBody>
-    </Card>
-  );
-}
+          <h3>
+            <a href={`/product/${_id}`}>{name}</a>
+          </h3>
+          <CardRow inStock={countInStock > 0}>
+            {countInStock ? (
+              <PriceDiv>
+                <PriceSpan>
+                  ${price.toString().split('.')[0]}.
+                  <small>{price.toString().split('.')[1] || '00'}</small>
+                </PriceSpan>
+                {oldPrice && (
+                  <PriceSpan disabled>
+                    ${oldPrice.toString().split('.')[0]}.
+                    <small>{oldPrice.toString().split('.')[1] || '00'}</small>
+                  </PriceSpan>
+                )}
+              </PriceDiv>
+            ) : (
+              <NoStockSpan>Out of stock</NoStockSpan>
+            )}
+            <Rating rating={rating} />
+            {renderButtons()}
+          </CardRow>
+        </CardBody>
+      </Card>
+    );
+};
+
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = {
+  addToCart,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryProduct);

@@ -38,6 +38,10 @@ export const MenuWrapper = styled.div`
   position: relative;
 
   margin: 0.25rem 0.5rem;
+
+  a {
+    width: 100%;
+  }
 `;
 
 export const LoginForm = styled(MenuWrapper)`
@@ -53,6 +57,10 @@ export const LoginForm = styled(MenuWrapper)`
     border: #b1b1b1 solid 1px;
     box-shadow: inset 0 1px 3px rgb(0 0 0 / 10%);
     color: #4c4c4c;
+  }
+
+  a {
+    width: 100%;
   }
 `;
 

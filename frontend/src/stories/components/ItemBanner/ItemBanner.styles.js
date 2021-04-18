@@ -25,14 +25,15 @@ export const BannerContent = styled.div`
   margin-left: 1rem;
   margin-top: 0;
   margin-bottom: 0;
-  z-index: 1;
-
   h4 {
     font-weight: 300;
     font-size: 1.125rem;
     margin-bottom: 0.5rem;
     line-height: 1.2;
     color: #373f50;
+
+    text-transform: capitalize !important;
+    letter-spacing: 1px !important;
   }
   h3 {
     margin-bottom: 1.5rem;
@@ -40,6 +41,9 @@ export const BannerContent = styled.div`
     font-weight: 500;
     line-height: 1.2;
     color: #373f50;
+
+    text-transform: capitalize !important;
+    letter-spacing: 1px !important;
   }
   button {
     font-weight: normal;

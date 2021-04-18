@@ -1,42 +1,29 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
+import CartProduct from '../CartProduct';
 import { Hr } from '../../../GlobalStyle.style';
 import {
   CardButton,
   CartWrapper,
   Flex,
   Header,
-  ItemAlign,
   ItemCount,
-  ItemDisplay,
-  ItemImage,
-  ItemDetails,
   ItemWrapper,
-  ItemName,
   EmptyCart,
 } from './Cart.style';
 
-export default function index({ items }) {
-  const totalPrice = items.reduce((ac, cv) => ac + Number(cv.price), 0);
-  const renderItems = () => {
-    return items.map((item) => (
-      <ItemDisplay>
-        {' '}
-        <ItemImage>
-          <img src={item.image} alt="" />
-        </ItemImage>
-        <ItemDetails>
-          <ItemName>{item.name}</ItemName>
-          <a href="#">Remove</a>
-        </ItemDetails>
-        {/* <ItemAlign align="start">{item.qty}</ItemAlign> */}
-        <ItemAlign>
-          ${String(item.price * item.qty).split('.')[0]}.
-          {String(item.price * item.qty).split('.')[1] || '00'}
-        </ItemAlign>
-      </ItemDisplay>
-    ));
-  };
+export default function Cart({ items }) {
+  const [totalValue, setTotalValue] = useState(0);
+  useEffect(() => {
+    let total = 0;
+    for (const item in items) {
+      if (!items[item].loading) {
+        total += +items[item].price * 1;
+      }
+    }
+    setTotalValue(total);
+  }, [items]);
   if (items.length === 0)
     return (
       <CartWrapper>
@@ -62,15 +49,19 @@ export default function index({ items }) {
           </ItemCount>
           <Flex>
             <span>
-              ${String(totalPrice).split('.')[0]}.
-              <small>{String(totalPrice).split('.')[1] || '00'}</small>
+              ${totalValue.toString().split('.')[0]}.
+              <small>{totalValue.toString().split('.')[1] || '00'}</small>
             </span>
           </Flex>
           <Flex>
             <CardButton>Go to checkout</CardButton>
           </Flex>
         </Header>
-        <ItemWrapper>{renderItems()}</ItemWrapper>
+        <ItemWrapper>
+          {Object.keys(items).map((item) => (
+            <CartProduct key={item} pId={item} />
+          ))}
+        </ItemWrapper>
       </CartWrapper>
     );
 }

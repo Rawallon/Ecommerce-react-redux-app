@@ -10,7 +10,6 @@ import { FaChevronRight } from 'react-icons/fa';
 
 import Product from '../CategoryProduct/';
 export default function CategoryDisplay({
-  item,
   image,
   titleFeature,
   title,
@@ -32,16 +31,12 @@ export default function CategoryDisplay({
         </CategoryImageLink>
       </CategoryImage>
       <CategoryItems>
-        {product && (
-          <>
-            <Product {...item} />
-            <Product {...item} />
-            <Product {...item} />
-            <Product {...item} />
-            <Product {...item} />
-            <Product {...item} />
-          </>
-        )}
+        {!product.loading &&
+          product.products
+            .slice(0, 6)
+            .map((item) => (
+              <Product key={item._id} showButtons={false} {...item} />
+            ))}
       </CategoryItems>
     </Wrapper>
   );

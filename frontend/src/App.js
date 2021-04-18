@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { Container } from 'react-bootstrap';
-import Header from './components/Header';
+import Header from './stories/pages/Header/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Product from './pages/Product';
@@ -21,6 +21,7 @@ import EditUser from './pages/admin/EditUser';
 import EditProducts from './pages/admin/EditProducts';
 import MissingPage from './pages/MissingPage';
 import Search from './pages/Search';
+import newReleases from './pages/newReleases';
 
 function App() {
   return (
@@ -55,7 +56,12 @@ function App() {
                 component={Search}
               />
               <Route path="/search/:keyword" exact component={Search} />
-              <Route path="/page/:pageNumber" exact component={Home} />
+              <Route
+                path="/new-releases/:pageNumber"
+                exact
+                component={newReleases}
+              />
+              <Route path="/new-releases/" component={newReleases} />
               <Route path="/" exact component={Home} />
               <Route path="/404" exact component={MissingPage} />
               <Route path="*" component={MissingPage} />

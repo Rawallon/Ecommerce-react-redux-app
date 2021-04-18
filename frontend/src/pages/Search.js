@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Breadcrumb, Col, Row } from 'react-bootstrap';
-import Product from '../components/Product';
+import Product from '../stories/components/CategoryProduct/';
 import { listProducts } from '../actions/productActions';
 import PageSelect from '../components/PageSelect';
 import Meta from '../components/Meta';
@@ -31,7 +31,7 @@ export function Search({ productList, listProducts, match }) {
         {products &&
           products.map((product) => (
             <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-              <Product product={product} />
+              <Product {...product} />
             </Col>
           ))}
       </Row>
