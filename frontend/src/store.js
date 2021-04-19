@@ -24,10 +24,14 @@ import {
 import {
   categoriesNamesReducer,
   featuredCategoryReducer,
+  featuredItemsPerCategoryReducer,
+  featuredMessageReducer,
 } from './reducers/shopReducer';
 
 const reducer = combineReducers({
+  featuredItemsPerCategory: featuredItemsPerCategoryReducer,
   categoriesNames: categoriesNamesReducer,
+  featuredMessage: featuredMessageReducer,
   featuredCategory: featuredCategoryReducer,
   productFeatured: productFeaturedReducer,
   productTopRated: productTopRatedReducer,

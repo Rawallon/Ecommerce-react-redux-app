@@ -5,6 +5,15 @@ import {
   SHOP_FEATURED_CATEGORY_REQUEST,
   SHOP_FEATURED_CATEGORY_SUCCESS,
   SHOP_FEATURED_CATEGORY_FAILED,
+  SHOP_FEATURED_CATEGORY_PRODUCTS_REQUEST,
+  SHOP_FEATURED_CATEGORY_PRODUCTS_SUCCESS,
+  SHOP_FEATURED_CATEGORY_PRODUCTS_FAILED,
+  SHOP_FEATURED_CATEGORY_ITEMS_REQUEST,
+  SHOP_FEATURED_CATEGORY_ITEMS_SUCCESS,
+  SHOP_FEATURED_CATEGORY_ITEMS_FAILED,
+  SHOP_FEATURED_MESSAGE_REQUEST,
+  SHOP_FEATURED_MESSAGE_SUCCESS,
+  SHOP_FEATURED_MESSAGE_FAILED,
 } from '../types';
 
 export const categoriesNamesReducer = (
@@ -24,18 +33,58 @@ export const categoriesNamesReducer = (
   }
 };
 
-export const featuredCategoryReducer = (
+export const featuredItemsPerCategoryReducer = (
   state = { loading: true, featuredProducts: {} },
   action,
 ) => {
   const { type, payload } = action;
   switch (type) {
-    case SHOP_FEATURED_CATEGORY_REQUEST:
+    case SHOP_FEATURED_CATEGORY_ITEMS_REQUEST:
       return { loading: true, featuredProducts: {} };
+    case SHOP_FEATURED_CATEGORY_ITEMS_FAILED:
+      return { loading: false, error: payload };
+    case SHOP_FEATURED_CATEGORY_ITEMS_SUCCESS:
+      return { loading: false, featuredProducts: payload };
+    default:
+      return state;
+  }
+};
+
+export const featuredCategoryReducer = (
+  state = { loading: true, featuredCategory: {}, products: {} },
+  action,
+) => {
+  const { type, payload } = action;
+  switch (type) {
+    case SHOP_FEATURED_CATEGORY_REQUEST:
+      return { loading: true, featuredCategory: {}, products: [] };
     case SHOP_FEATURED_CATEGORY_FAILED:
       return { loading: false, error: payload };
     case SHOP_FEATURED_CATEGORY_SUCCESS:
-      return { loading: false, featuredProducts: payload };
+      return { loading: false, featuredCategory: payload };
+    case SHOP_FEATURED_CATEGORY_PRODUCTS_REQUEST:
+      return { ...state, loading: true };
+    case SHOP_FEATURED_CATEGORY_PRODUCTS_FAILED:
+      return { ...state, loading: false, error: payload };
+    case SHOP_FEATURED_CATEGORY_PRODUCTS_SUCCESS:
+      return { ...state, loading: false, products: payload };
+    default:
+      return state;
+  }
+};
+
+export const featuredMessageReducer = (
+  state = { loading: true, featuredMessage: {} },
+  action,
+) => {
+  const { type, payload } = action;
+  switch (type) {
+    case SHOP_FEATURED_MESSAGE_REQUEST:
+      return { loading: true, featuredMessage: {} };
+    case SHOP_FEATURED_MESSAGE_FAILED:
+      return { loading: false, error: payload };
+    case SHOP_FEATURED_MESSAGE_SUCCESS:
+      return { loading: false, featuredMessage: payload };
     default:
       return state;
   }
