@@ -22,6 +22,9 @@ import {
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAILED,
+  PRODUCT_FEATURED_REQUEST,
+  PRODUCT_FEATURED_SUCCESS,
+  PRODUCT_FEATURED_FAILED,
 } from '../types';
 
 export const productListReducer = (
@@ -112,6 +115,24 @@ export const productTopRatedReducer = (
     case PRODUCT_TOP_SUCCESS:
       return { loading: false, products: payload };
     case PRODUCT_TOP_FAILED:
+      return { loading: false, error: payload };
+
+    default:
+      return state;
+  }
+};
+
+export const productFeaturedReducer = (
+  state = { loading: true, products: [] },
+  action,
+) => {
+  const { type, payload } = action;
+  switch (type) {
+    case PRODUCT_FEATURED_REQUEST:
+      return { loading: true, products: [] };
+    case PRODUCT_FEATURED_SUCCESS:
+      return { loading: false, products: payload };
+    case PRODUCT_FEATURED_FAILED:
       return { loading: false, error: payload };
 
     default:

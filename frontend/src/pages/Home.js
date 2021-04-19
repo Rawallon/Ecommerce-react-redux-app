@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import Product from '../stories/components/CategoryProduct/';
-import { listProducts, listTopProducts } from '../actions/productActions';
+import {
+  listFeaturedProducts,
+  listProducts,
+  listTopProducts,
+} from '../actions/productActions';
 import Meta from '../components/Meta';
 import Prefetch from '../components/Prefetch';
 import Carousel from '../stories/components/itemCarousel';
@@ -11,9 +15,11 @@ import CategoryDisplay from '../stories/components/CategoryDisplay';
 
 export function Home({
   productList,
+  productFeatured,
   listProducts,
   listTopProducts,
   productTopRated,
+  listFeaturedProducts,
 }) {
   const { error, loading, products } = productList;
   const asd = {
@@ -34,20 +40,23 @@ export function Home({
     product: productList,
   };
   useEffect(() => {
+    listFeaturedProducts();
     listTopProducts();
     listProducts('', 1);
   }, [listProducts, listTopProducts]);
+  console.log(productFeatured);
   return (
     <>
       <Meta title="Home" />
       <Carousel productTopRated={productTopRated} duration={20000} />
       <Prefetch error={error} loading={loading} />
       <Row>
-        {products?.slice(0, 3).map((product) => (
-          <Col key={product._id} sm={12} md={6} lg={4} xl={4}>
-            <Product {...product} />
-          </Col>
-        ))}
+        {!productFeatured.loading &&
+          productFeatured.products?.slice(0, 3).map((product) => (
+            <Col key={product._id} sm={12} md={6} lg={4} xl={4}>
+              <Product {...product} />
+            </Col>
+          ))}
 
         <ItemBanner {...asd} />
         <CategoryDisplay {...qwe} />
@@ -58,12 +67,14 @@ export function Home({
 //
 const mapStateToProps = (state) => ({
   productList: state.productList,
+  productFeatured: state.productFeatured,
   productTopRated: state.productTopRated,
 });
 
 const mapDispatchToProps = {
   listProducts,
   listTopProducts,
+  listFeaturedProducts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

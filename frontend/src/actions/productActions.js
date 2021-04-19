@@ -23,6 +23,9 @@ import {
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAILED,
+  PRODUCT_FEATURED_REQUEST,
+  PRODUCT_FEATURED_SUCCESS,
+  PRODUCT_FEATURED_FAILED,
 } from '../types';
 
 export const listProducts = (keyword = '', pageNumber = '') => async (
@@ -241,6 +244,31 @@ export const listTopProducts = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_TOP_FAILED,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listFeaturedProducts = (categoryName = '', pageSize = 3) => async (
+  dispatch,
+) => {
+  try {
+    dispatch({
+      type: PRODUCT_FEATURED_REQUEST,
+    });
+    const { data } = await axios.get(
+      `/api/products/featured/${categoryName}?pageSize=${pageSize}`,
+    );
+    dispatch({
+      type: PRODUCT_FEATURED_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_FEATURED_FAILED,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
