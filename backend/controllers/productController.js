@@ -53,11 +53,11 @@ export const getProductByCategory = asyncHandler(async (req, res) => {
   const page = Number(req.query.pageNumber);
 
   const count = await ProductModel.countDocuments({
-    category: sanitize(req.params.cat),
+    category: sanitize(req.params.category),
   });
 
   const category = await ProductModel.find({
-    category: sanitize(req.params.cat),
+    category: sanitize(req.params.category),
   })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
@@ -164,9 +164,16 @@ export const addReview = asyncHandler(async (req, res) => {
 });
 
 // @desc Get top rated products
-// @route POST /api/product/top
+// @route POST /api/product/top/:category
 // @access Public
 export const getTopProducts = asyncHandler(async (req, res) => {
-  const products = await ProductModel.find({}).sort({ rating: -1 }).limit(3);
+  const limitSize = Number(req.query.pageSize) || 3;
+  let queryParams = {};
+  if (req.params.category) {
+    queryParams = { category: sanitize(req.params.category) };
+  }
+  const products = await ProductModel.find(queryParams)
+    .sort({ rating: -1 })
+    .limit(limitSize);
   res.json(products);
 });

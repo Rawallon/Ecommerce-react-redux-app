@@ -3,6 +3,8 @@ import {
   addReview,
   createProductAdmin,
   deleteProductAdmin,
+  getCategoryNames,
+  getFeaturedProducts,
   getProductByCategory,
   getProductById,
   getProducts,
@@ -15,7 +17,7 @@ const router = express.Router();
 
 router.route('/').get(getProducts).post(protect, isAdmin, createProductAdmin);
 
-router.get('/top', getTopProducts);
+router.get('/top/:category?', getTopProducts);
 
 router
   .route('/:id')
@@ -23,7 +25,7 @@ router
   .delete(protect, isAdmin, deleteProductAdmin)
   .patch(protect, isAdmin, updateProductAdmin);
 
-router.route('/category/:cat').get(getProductByCategory);
+router.route('/category/:category').get(getProductByCategory);
 
 router.route('/:id/reviews').post(protect, addReview);
 
