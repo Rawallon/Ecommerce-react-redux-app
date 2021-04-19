@@ -25,6 +25,8 @@ router
   .delete(protect, isAdmin, deleteProductAdmin)
   .patch(protect, isAdmin, updateProductAdmin);
 
+router.route('/category/name').get(getCategoryNames);
+
 router.route('/category/:category').get(getProductByCategory);
 
 router.route('/:id/reviews').post(protect, addReview);

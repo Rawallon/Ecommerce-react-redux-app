@@ -45,6 +45,18 @@ export const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Fetch all categories names
+// @route GET /api/products/category/name
+// @access Public
+export const getCategoryNames = asyncHandler(async (req, res) => {
+  const categoryNames = await ProductModel.distinct('category');
+  if (categoryNames.length > 0) {
+    res.json({ categoryNames });
+  } else {
+    res.json({ categoryNames: [] });
+  }
+});
+
 // @desc Fetch all product of a given category
 // @route GET /api/products/category/:cat
 // @access Public
