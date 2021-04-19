@@ -189,3 +189,18 @@ export const getTopProducts = asyncHandler(async (req, res) => {
     .limit(limitSize);
   res.json(products);
 });
+
+// @desc Get featured products
+// @route POST /api/product/featured/:category
+// @access Public
+export const getFeaturedProducts = asyncHandler(async (req, res) => {
+  const limitSize = Number(req.query.pageSize) || 3;
+  let queryParams = { featured: true };
+  if (req.params.category) {
+    queryParams = { category: sanitize(req.params.category), featured: true };
+  }
+  const products = await ProductModel.find(queryParams)
+    .sort({ rating: -1 })
+    .limit(limitSize);
+  res.json(products);
+});

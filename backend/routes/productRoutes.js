@@ -17,6 +17,8 @@ const router = express.Router();
 
 router.route('/').get(getProducts).post(protect, isAdmin, createProductAdmin);
 
+router.get('/featured/:category?', getFeaturedProducts);
+
 router.get('/top/:category?', getTopProducts);
 
 router
