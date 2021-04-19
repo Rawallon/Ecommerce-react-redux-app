@@ -13,7 +13,7 @@ export const CartWrapper = styled.div`
 
 export const Header = styled.div`
   display: grid;
-  grid-template-columns: 3fr 1fr 2fr;
+  grid-template-columns: 3fr 2fr;
   border-bottom: 1px solid #e6e6e6;
   background: #f2f2f2;
   padding: 1rem;

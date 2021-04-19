@@ -21,8 +21,14 @@ import {
   orderListReducer,
   orderPayReducer,
 } from './reducers/orderReducer';
+import {
+  categoriesNamesReducer,
+  featuredCategoryReducer,
+} from './reducers/shopReducer';
 
 const reducer = combineReducers({
+  categoriesNames: categoriesNamesReducer,
+  featuredCategory: featuredCategoryReducer,
   productFeatured: productFeaturedReducer,
   productTopRated: productTopRatedReducer,
   productList: productListReducer,

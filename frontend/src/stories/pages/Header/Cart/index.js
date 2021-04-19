@@ -15,15 +15,7 @@ import {
 
 export default function Cart({ items }) {
   const [totalValue, setTotalValue] = useState(0);
-  useEffect(() => {
-    let total = 0;
-    for (const item in items) {
-      if (!items[item].loading) {
-        total += +items[item].price * 1;
-      }
-    }
-    setTotalValue(total);
-  }, [items]);
+
   if (items.length === 0)
     return (
       <CartWrapper>
@@ -44,15 +36,10 @@ export default function Cart({ items }) {
           <ItemCount>
             <span>Your shopping cart</span>
             <h3>
-              {items.length} Ite{items.length > 1 ? 'ms' : 'm'} added
+              {Object.keys(items).length} Ite
+              {Object.keys(items).length > 1 ? 'ms' : 'm'} added
             </h3>
           </ItemCount>
-          <Flex>
-            <span>
-              ${totalValue.toString().split('.')[0]}.
-              <small>{totalValue.toString().split('.')[1] || '00'}</small>
-            </span>
-          </Flex>
           <Flex>
             <CardButton>Go to checkout</CardButton>
           </Flex>

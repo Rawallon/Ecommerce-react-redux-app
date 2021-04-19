@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from '../../../GlobalStyle.style';
 import {
   Header,
@@ -24,31 +24,24 @@ import Categories from '../Categories';
 import CategoryDetails from '../CategoryDetails';
 import { Link, useHistory } from 'react-router-dom';
 
-import { logout } from '../../../../actions/userAction';
-import { connect } from 'react-redux';
-
 //export default function StoreHeader({ itemsOnCart, auth, categories }) {
-export function StoreHeader({ userInfo, itemsOnCart, logout }) {
+export default function StoreHeader({
+  userInfo,
+  itemsOnCart,
+  categoriesList,
+  logout,
+  featuredItemPerCategory,
+  fetchFeaturedItems,
+}) {
   const [searchQuery, setSearchQuery] = useState('');
   const [hoverShopping, setHoverShopping] = useState(false);
   const [hoverUser, setHoverUser] = useState(false);
   const [hoverCategories, setHoverCategories] = useState(false);
-  const categories = [
-    { name: 'Components', link: '#' },
-    { name: 'Computer Systems', link: '#' },
-    { name: 'Electronics', link: '#' },
-    { name: 'Gaming', link: '#' },
-    { name: 'Networking', link: '#' },
-    { name: 'Office Solutions', link: '#' },
-    { name: 'Software & Services', link: '#' },
-    { name: 'Home & Tools', link: '#' },
-    { name: 'Health & Sports', link: '#' },
-    { name: 'Apparel & Accessories', link: '#' },
-  ];
-  const subheaderCategories = [
-    { name: 'New Releases', link: '/new-releases' },
-    { name: 'Electronics', link: '/category/Electronics' },
-  ];
+
+  const [hoveredCat, setHoveredCat] = useState('');
+  useEffect(() => {
+    fetchFeaturedItems(hoveredCat);
+  }, [hoveredCat]);
 
   const toggleMenu = (mName) => {
     if (mName === 'User') {
@@ -128,17 +121,25 @@ export function StoreHeader({ userInfo, itemsOnCart, logout }) {
               onMouseLeave={() => setHoverCategories(false)}>
               <FaBars /> Categories
               <CatDropDown active={hoverCategories}>
-                <Categories categories={categories} />
+                <Categories
+                  categories={categoriesList}
+                  hoveredCat={hoveredCat}
+                  setHoveredCat={setHoveredCat}
+                />
               </CatDropDown>
               <CatDetailsWrapper active={hoverCategories}>
-                <CategoryDetails />
+                <CategoryDetails
+                  hoveredCat={hoveredCat}
+                  featuredItems={featuredItemPerCategory}
+                />
               </CatDetailsWrapper>
             </CatSub>
-            {subheaderCategories.map((el) => (
-              <CatLink key={el.name} href={el.link}>
-                {el.name}
-              </CatLink>
-            ))}
+            {!categoriesList.loading &&
+              categoriesList.categoryList.map((el) => (
+                <CatLink key={el} href={'/category/' + el}>
+                  {el}
+                </CatLink>
+              ))}
             <CatLink color="FF0000" href="#">
               Sale
             </CatLink>
@@ -148,12 +149,3 @@ export function StoreHeader({ userInfo, itemsOnCart, logout }) {
     </>
   );
 }
-
-const mapStateToProps = (state) => ({
-  userInfo: state.userLogin.userInfo,
-  itemsOnCart: state.cart.cartItems,
-});
-
-const mapDispatchToProps = { logout };
-
-export default connect(mapStateToProps, mapDispatchToProps)(StoreHeader);

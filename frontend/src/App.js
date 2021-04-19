@@ -1,8 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { Container } from 'react-bootstrap';
-import Header from './stories/pages/Header/Header';
-import Footer from './components/Footer';
 import Home from './pages/Home';
 import Product from './pages/Product';
 import Category from './pages/Category';
@@ -22,53 +20,57 @@ import EditProducts from './pages/admin/EditProducts';
 import MissingPage from './pages/MissingPage';
 import Search from './pages/Search';
 import newReleases from './pages/newReleases';
+import Layout from './components/Layout';
 
 function App() {
   return (
     <BrowserRouter>
       <div>
-        <Header />
-        <Container>
-          <main className="py-3">
-            <Switch>
-              <Route path="/admin/orders" component={ListOrders} />
-              <Route path="/admin/products/create" component={EditProducts} />
-              <Route path="/admin/products/edit/:id" component={EditProducts} />
-              <Route
-                path="/admin/products/:pageNumber?"
-                component={ListProducts}
-              />
-              <Route path="/admin/users/edit/:id?" component={EditUser} />
-              <Route path="/admin/users/:pageNumber?" component={ListUsers} />
-              <Route path="/order/:id/:pay?" component={Order} />
-              <Route path="/placeorder" component={PlaceOrder} />
-              <Route path="/payment" component={Payment} />
-              <Route path="/shipping" component={Shipping} />
-              <Route path="/profile" component={Profile} />
-              <Route path="/register" component={Register} />
-              <Route path="/login" component={Login} />
-              <Route path="/cart" component={Cart} />
-              <Route path="/category/:cat" component={Category} />
-              <Route path="/product/:id" component={Product} />
-              <Route
-                path="/search/:keyword/page/:pageNumber"
-                exact
-                component={Search}
-              />
-              <Route path="/search/:keyword" exact component={Search} />
-              <Route
-                path="/new-releases/:pageNumber"
-                exact
-                component={newReleases}
-              />
-              <Route path="/new-releases/" component={newReleases} />
-              <Route path="/" exact component={Home} />
-              <Route path="/404" exact component={MissingPage} />
-              <Route path="*" component={MissingPage} />
-            </Switch>
-          </main>
-        </Container>
-        <Footer />
+        <Layout>
+          <Container>
+            <main className="py-3">
+              <Switch>
+                <Route path="/admin/orders" component={ListOrders} />
+                <Route path="/admin/products/create" component={EditProducts} />
+                <Route
+                  path="/admin/products/edit/:id"
+                  component={EditProducts}
+                />
+                <Route
+                  path="/admin/products/:pageNumber?"
+                  component={ListProducts}
+                />
+                <Route path="/admin/users/edit/:id?" component={EditUser} />
+                <Route path="/admin/users/:pageNumber?" component={ListUsers} />
+                <Route path="/order/:id/:pay?" component={Order} />
+                <Route path="/placeorder" component={PlaceOrder} />
+                <Route path="/payment" component={Payment} />
+                <Route path="/shipping" component={Shipping} />
+                <Route path="/profile" component={Profile} />
+                <Route path="/register" component={Register} />
+                <Route path="/login" component={Login} />
+                <Route path="/cart" component={Cart} />
+                <Route path="/category/:cat" component={Category} />
+                <Route path="/product/:id" component={Product} />
+                <Route
+                  path="/search/:keyword/page/:pageNumber"
+                  exact
+                  component={Search}
+                />
+                <Route path="/search/:keyword" exact component={Search} />
+                <Route
+                  path="/new-releases/:pageNumber"
+                  exact
+                  component={newReleases}
+                />
+                <Route path="/new-releases/" component={newReleases} />
+                <Route path="/" exact component={Home} />
+                <Route path="/404" exact component={MissingPage} />
+                <Route path="*" component={MissingPage} />
+              </Switch>
+            </main>
+          </Container>
+        </Layout>
       </div>
     </BrowserRouter>
   );

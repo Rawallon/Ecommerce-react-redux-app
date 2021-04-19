@@ -5,27 +5,34 @@ import {
   MenuWrapper,
 } from './Categories.style';
 import { FiChevronRight, FiChevronsRight } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
-export default function Categories({ categories }) {
-  const [hoverCat, setHoverCat] = useState(0);
+export default function Categories({ categories, hoveredCat, setHoveredCat }) {
+  const { loading, categoryList } = categories;
 
-  return (
-    <>
-      <Wrapper>
-        <MenuWrapper>
-          {categories.map((category, index) => (
-            <MenuItem
-              active={hoverCat === index}
-              onMouseEnter={() => setHoverCat(index)}
-              key={category.name}>
-              <a href={category.link}>
-                {category.name}
-                {hoverCat === index ? <FiChevronsRight /> : <FiChevronRight />}
-              </a>
-            </MenuItem>
-          ))}
-        </MenuWrapper>
-      </Wrapper>
-    </>
-  );
+  if (loading) return <div>loading</div>;
+  else
+    return (
+      <div>
+        <Wrapper>
+          <MenuWrapper>
+            {categoryList.map((category, index) => (
+              <MenuItem
+                active={hoveredCat === 'category'}
+                onMouseEnter={() => setHoveredCat(category)}
+                key={category}>
+                <Link to={'/category/' + category}>
+                  {category}
+                  {hoveredCat === category ? (
+                    <FiChevronsRight />
+                  ) : (
+                    <FiChevronRight />
+                  )}
+                </Link>
+              </MenuItem>
+            ))}
+          </MenuWrapper>
+        </Wrapper>
+      </div>
+    );
 }

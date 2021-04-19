@@ -40,6 +40,19 @@ export default function index({ auth, logout }) {
           <Link to="/profile">
             <MenuItem>My Orders</MenuItem>
           </Link>
+          {auth.isAdmin && (
+            <>
+              <Link to="/admin/users">
+                <MenuItem>Users</MenuItem>
+              </Link>
+              <Link to="/admin/products">
+                <MenuItem>Products</MenuItem>
+              </Link>
+              <Link to="/admin/orders">
+                <MenuItem>Orders</MenuItem>
+              </Link>
+            </>
+          )}
           <Hr />
           <MenuItem onClick={logout}>Logout</MenuItem>
         </MenuWrapper>
