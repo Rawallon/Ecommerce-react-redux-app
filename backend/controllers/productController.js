@@ -51,9 +51,9 @@ export const getProductById = asyncHandler(async (req, res) => {
 export const getCategoryNames = asyncHandler(async (req, res) => {
   const categoryNames = await ProductModel.distinct('category');
   if (categoryNames.length > 0) {
-    res.json({ categoryNames });
+    res.json(categoryNames);
   } else {
-    res.json({ categoryNames: [] });
+    res.json([]);
   }
 });
 
