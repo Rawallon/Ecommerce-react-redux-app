@@ -3,6 +3,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 
+import homeRoutes from './routes/homeRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
   console.warn('Hit the API!');
 });
 
+app.use('/api/homepage', homeRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
