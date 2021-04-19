@@ -13,8 +13,8 @@ import {
   SlideItemText,
 } from './itemCarousel.style';
 
-export default function Carousel({ productTopRated, duration }) {
-  const { loading, products } = productTopRated;
+export default function Carousel({ productList, duration }) {
+  const { loading, products } = productList;
   const [currentImage, setCurrentImage] = useState(0);
   const [isHover, setIsHover] = useState(false);
   const [intName, setIntName] = useState(null);

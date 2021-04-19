@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { listFeaturedCategoryItems } from '../../../actions/shopActions';
+
 import {
   CategoryImage,
   CategoryImageLink,
@@ -9,35 +12,56 @@ import {
 import { FaChevronRight } from 'react-icons/fa';
 
 import Product from '../CategoryProduct/';
-export default function CategoryDisplay({
-  image,
-  titleFeature,
-  title,
-  categoryName,
-  background,
-  product,
+export function CategoryDisplay({
+  loading,
+  featuredCategory,
+  featuredCategoryProducts,
+  listFeaturedCategoryItems,
 }) {
+  const {
+    featuredCategoryImage,
+    featuredCategoryTitle,
+    featuredCategoryColor,
+    featuredCategoryCategoryName,
+  } = featuredCategory || {};
+  useEffect(() => {
+    if (featuredCategoryCategoryName)
+      listFeaturedCategoryItems(featuredCategoryCategoryName);
+  }, [
+    featuredCategoryCategoryName,
+    featuredCategoryTitle,
+    listFeaturedCategoryItems,
+  ]);
   return (
     <Wrapper>
-      <CategoryImage background={background}>
+      <CategoryImage background={featuredCategoryColor}>
         <CategoryTitle>
-          <h3>{titleFeature}</h3>
-          <a href={`/category/${categoryName}`}>
-            Shop for {title} <FaChevronRight size={15} />
+          <h3>{featuredCategoryTitle}</h3>
+          <a href={`/category/${featuredCategoryCategoryName}`}>
+            Shop for {featuredCategoryCategoryName} <FaChevronRight size={15} />
           </a>
         </CategoryTitle>
-        <CategoryImageLink href={`/category/${categoryName}`}>
-          <img src={image} alt="" />
+        <CategoryImageLink href={`/category/${featuredCategoryCategoryName}`}>
+          <img src={featuredCategoryImage} alt="" />
         </CategoryImageLink>
       </CategoryImage>
       <CategoryItems>
-        {!product.loading &&
-          product.products
-            .slice(0, 6)
-            .map((item) => (
-              <Product key={item._id} showButtons={false} {...item} />
-            ))}
+        {!loading &&
+          featuredCategoryProducts &&
+          featuredCategoryProducts.map((item) => (
+            <Product key={item._id} showButtons={false} {...item} />
+          ))}
       </CategoryItems>
     </Wrapper>
   );
 }
+
+const mapStateToProps = (state) => ({
+  featuredCategoryProducts: state.featuredCategory.products,
+});
+
+const mapDispatchToProps = {
+  listFeaturedCategoryItems,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryDisplay);

@@ -19,10 +19,6 @@ export default function OverallRating({ product }) {
     const allRatings = product.reviews.reduce((ac, cv) => ac + +cv.rating, 0);
     setOverallRating(Number(allRatings) / Number(product.reviews.length));
   }, [product]);
-  console.log(
-    product.reviews.filter((r) => r.rating === '5').length /
-      product.reviews.length,
-  );
 
   const BarRatingRender = () =>
     [...Array(5)].map((_, index) => (

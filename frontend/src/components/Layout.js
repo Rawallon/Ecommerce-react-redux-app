@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
+  listFeaturedCategoriesItems,
   listCategoriesNames,
-  listFeaturedCategories,
 } from '../actions/shopActions';
 import { logout } from '../actions/userAction';
 import StoreHeader from '../stories/pages/Header/Header';
@@ -12,7 +12,7 @@ export const Layout = ({
   logout,
   categoriesNames,
   listCategoriesNames,
-  listFeaturedCategories,
+  listFeaturedCategoriesItems,
   itemsOnCart,
   featuredItemPerCategory,
   userInfo,
@@ -23,7 +23,7 @@ export const Layout = ({
   }, [listCategoriesNames]);
 
   const fetchFeaturedItems = (categoryName) => {
-    listFeaturedCategories(categoryName);
+    listFeaturedCategoriesItems(categoryName);
   };
   return (
     <>
@@ -43,14 +43,14 @@ export const Layout = ({
 
 const mapStateToProps = (state) => ({
   categoriesNames: state.categoriesNames,
-  featuredItemPerCategory: state.featuredCategory,
+  featuredItemPerCategory: state.featuredItemsPerCategory,
   userInfo: state.userLogin.userInfo,
   itemsOnCart: state.cart.cartItems,
 });
 
 const mapDispatchToProps = {
   listCategoriesNames,
-  listFeaturedCategories,
+  listFeaturedCategoriesItems,
   logout,
 };
 

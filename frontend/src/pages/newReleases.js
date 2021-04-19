@@ -1,20 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
-import Product from '../components/Product';
+import Product from '../stories/components/CategoryProduct/';
 import { listProducts, listTopProducts } from '../actions/productActions';
 import PageSelect from '../components/PageSelect';
 import Meta from '../components/Meta';
 import Prefetch from '../components/Prefetch';
-import Carousel from '../stories/components/itemCarousel';
 
-export function Home({
-  productList,
-  listProducts,
-  listTopProducts,
-  productTopRated,
-  match,
-}) {
+export function Home({ productList, listProducts, listTopProducts, match }) {
   const { error, loading, products } = productList;
   const pageNumber = match.params.pageNumber || 1;
 
@@ -30,7 +23,7 @@ export function Home({
       <Row>
         {products?.map((product) => (
           <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-            <Product product={product} />
+            <Product {...product} />
           </Col>
         ))}
       </Row>
@@ -45,7 +38,6 @@ export function Home({
 //
 const mapStateToProps = (state) => ({
   productList: state.productList,
-  productTopRated: state.productTopRated,
 });
 
 const mapDispatchToProps = {

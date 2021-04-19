@@ -1,22 +1,28 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { StyledButton } from '../../GlobalStyle.style';
 import { Banner, BannerContent } from './ItemBanner.styles';
 
-export default function itemBanner({
-  background = '#f6f9fc',
-  sub,
-  title,
-  image,
-  button = 'Shop Now',
-}) {
+export default function itemBanner({ loading, featuredMessage }) {
+  const {
+    messageTitle,
+    messageSubtitle,
+    messageColor,
+    messageLink,
+    messageButton,
+    messageImage,
+  } = featuredMessage;
+
   return (
-    <Banner background={background}>
+    <Banner background={'#' + messageColor}>
       <BannerContent>
-        <h4>{sub}</h4>
-        <h3>{title}</h3>
-        <StyledButton width="auto">{button}</StyledButton>
+        <h4>{messageSubtitle}</h4>
+        <h3>{messageTitle}</h3>
+        <Link to={messageLink}>
+          <StyledButton width="auto">{messageButton}</StyledButton>
+        </Link>
       </BannerContent>
-      <img src={image} alt="" />
+      <img src={messageImage} alt="" />
     </Banner>
   );
 }
