@@ -48,8 +48,10 @@ align-items:center;
   padding: 0 100px;
 
   img {
+    max-width: 461px;
     width: auto;
-    height: 80%;
+    max-height: 368px;
+    height: 100%;
     margin-left: 2rem;
   }
 `;
@@ -114,6 +116,7 @@ export const Counter = styled.div`
 `;
 
 export const CounterDot = styled.div`
+  cursor: pointer;
   width: 12px;
   height: 12px;
   border: 2px solid #fff;

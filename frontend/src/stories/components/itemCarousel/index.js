@@ -93,7 +93,10 @@ export default function Carousel({ productList, duration }) {
         onMouseLeave={() => setIsHover(false)}>
         <Counter>
           {Object.keys(products).map((s, i) => (
-            <CounterDot key={i} active={currentImage === i}>
+            <CounterDot
+              key={i}
+              active={currentImage === i}
+              onClick={() => setCurrentImage(i)}>
               {' '}
             </CounterDot>
           ))}

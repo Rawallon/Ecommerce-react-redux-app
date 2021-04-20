@@ -5,12 +5,13 @@ import { Container } from '../../../GlobalStyle.style';
 import PictureDisplay from '../PictureDisplay/';
 import ProductData from '../ProductData/';
 
-export default function index({ pDispData }) {
+export default function ProductDisplay({ images, product, addToCart }) {
+  console.log(product);
   return (
     <Container>
       <Wrapper>
-        <PictureDisplay {...pDispData} />
-        <ProductData showDesc={false} />
+        <PictureDisplay images={images} />
+        <ProductData showDesc={false} addToCart={addToCart} {...product} />
       </Wrapper>
     </Container>
   );

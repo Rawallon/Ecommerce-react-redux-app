@@ -96,7 +96,12 @@ export const CategoriesList = styled.div`
   span {
     margin-right: 0.5rem;
   }
-
+  p {
+    margin: 0;
+    padding: 0;
+    color: #222;
+    display: inline;
+  }
   a {
     text-decoration: none;
     color: #222;

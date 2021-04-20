@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FlexBetween,
   PriceTag,
@@ -13,39 +13,47 @@ import {
 } from './ProductData.style';
 import Rating from '../../../components/Rating/';
 import Quantity from '../Quantity/';
+import { Link } from 'react-router-dom';
 
-export default function ProductData({ pDispData, showDesc = true }) {
+export default function ProductData({
+  addToCart,
+  showDesc = true,
+  name,
+  price,
+  rating,
+  numReviews,
+  description,
+  countInStock,
+  category,
+  _id,
+}) {
+  const [qty, setQty] = useState(1);
+
   return (
     <Wrapper>
-      <ProductTitle>Product Title</ProductTitle>
+      <ProductTitle>{name}</ProductTitle>
       <FlexBetween>
-        <PriceTag>$30.00</PriceTag>
-        <Rating rating="3.5" count="10" />
+        <PriceTag>$ {price}</PriceTag>
+        <Rating rating={rating} count={numReviews} />
       </FlexBetween>
-      {showDesc && (
-        <ProductDesc>
-          Go sporty this summer with this vintage navy and white striped v-neck
-          t-shirt from the Nike. Perfect for pairing with denim and white kicks
-          for a stylish sporty vibe.
-        </ProductDesc>
-      )}
-      <FlexRow>
+      {showDesc && <ProductDesc>{description}</ProductDesc>}
+      {/* <FlexRow>
         Color:
         <ColorDiv active color="blue" />
         <ColorDiv color="red" />
-      </FlexRow>
+      </FlexRow> */}
       <FlexRow>
-        <Quantity numInStock="5" />
-        <CartButton>Add to Cart</CartButton>
+        <Quantity qty={qty} setQty={setQty} numInStock={countInStock} />
+        <CartButton onClick={() => addToCart(_id, qty)}>Add to Cart</CartButton>
       </FlexRow>
       <DataWrapper>
         <CategoriesList>
           <span>SKU:</span>
-          <a href="#">N/A</a>
+          <p>{_id}</p>
         </CategoriesList>
         <CategoriesList>
           <span>Categories:</span>
-          <a href="#">Women</a>
+          <Link to={'/category/' + category}>{category}</Link>
         </CategoriesList>
       </DataWrapper>
     </Wrapper>

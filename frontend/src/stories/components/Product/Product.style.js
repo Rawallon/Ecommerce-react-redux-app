@@ -21,9 +21,12 @@ export const Cardimg = styled.a`
   width: 100%;
 
   img {
-    max-width: 100%;
-    height: auto;
+    width: auto;
+    max-width: 215px;
+    height: 258px;
     vertical-align: middle;
+    object-fit: contain;
+    object-position: center;
   }
 `;
 

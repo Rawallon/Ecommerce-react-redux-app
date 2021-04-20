@@ -8,19 +8,18 @@ import {
 } from './quantity.style';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
-export default function Quantity({ numInStock }) {
-  const [state, setState] = useState(1);
+export default function Quantity({ qty, setQty, numInStock }) {
   const [warn, setWarn] = useState(false);
 
   const changeQty = (action) => {
     if (action === 'add') {
-      if (state + 1 <= numInStock) {
-        setState((prevVal) => prevVal + 1);
+      if (qty + 1 <= numInStock) {
+        setQty((prevVal) => prevVal + 1);
       } else {
         setWarn(true);
       }
     } else {
-      if (state - 1 > 0) setState((prevVal) => prevVal - 1);
+      if (qty - 1 > 0) setQty((prevVal) => prevVal - 1);
       else {
         setWarn(true);
       }
@@ -38,8 +37,8 @@ export default function Quantity({ numInStock }) {
       <QtyInput
         warn={warn}
         max={numInStock}
-        value={state}
-        onChange={(e) => setState(state)}></QtyInput>
+        value={qty}
+        onChange={(e) => setQty(qty)}></QtyInput>
       <BtnWrapper>
         <MinusButton warn={warn} onClick={() => changeQty('rem')}>
           <FaMinus />
