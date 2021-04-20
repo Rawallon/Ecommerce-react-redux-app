@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Card, Col, ListGroup, Row } from 'react-bootstrap';
 
-import Message from '../components/Message';
-import CartProduct from '../components/CartProduct';
-import CartSubtotal from '../components/CartSubtotal';
-import CheckoutSteps from '../components/CheckoutSteps';
 import Meta from '../components/Meta';
+import CheckoutSteps from '../stories/pages/CheckoutPage/CheckoutSteps/';
+import CartPage from '../stories/pages/CheckoutPage/CartPage';
 
 export function Cart({ history, cartItems = {} }) {
   const [cartItemsArray, setCartItemsArray] = useState([]);
@@ -25,28 +21,11 @@ export function Cart({ history, cartItems = {} }) {
     <>
       <Meta title="Cart" />
       <CheckoutSteps step1 />
-
       <h1>Cart Items</h1>
-      <Row>
-        <Col md={8}>
-          <Card className="w-100">
-            <ListGroup variant="flush">
-              {cartItemsArray.length === 0 ? (
-                <Message>
-                  Your cart is empty, <Link to="/">go back</Link>
-                </Message>
-              ) : (
-                cartItemsArray.map((item) => (
-                  <CartProduct key={item} pId={item} />
-                ))
-              )}
-            </ListGroup>
-          </Card>
-        </Col>
-        <Col md={4}>
-          <CartSubtotal checkoutHandler={checkoutHandler} />
-        </Col>
-      </Row>
+      <CartPage
+        cartItemsArray={cartItemsArray}
+        checkoutHandler={checkoutHandler}
+      />
     </>
   );
 }

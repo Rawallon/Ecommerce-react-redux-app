@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { listProductCart, remCart } from '../../../../actions/cartActions';
 import Prefetch from '../../../../components/Prefetch';
 import {
@@ -26,18 +27,21 @@ export const CartProduct = ({
   else
     return (
       <ItemDisplay>
-        {' '}
         <ItemImage>
-          <img src={product.image} alt="" />
+          <Link to={'/product/' + product._id}>
+            <img src={product.image} alt="" />
+          </Link>
         </ItemImage>
         <ItemDetails>
-          <ItemName>{product.name}</ItemName>
+          <Link to={'/product/' + product._id}>
+            <ItemName>{product.name}</ItemName>
+          </Link>
           <button onClick={() => remCart(pId)}>Remove</button>
         </ItemDetails>
         {/* <ItemAlign align="start">{product.qty}</ItemAlign> */}
         <ItemAlign>
-          ${String(product.price * qty).split('.')[0]}.
-          {String(product.price * qty).split('.')[1] || '00'}
+          ${(product.price * qty).toString().split('.')[0]}.
+          {(product.price * qty).toFixed(2).toString().split('.')[1] || '00'}
         </ItemAlign>
       </ItemDisplay>
     );

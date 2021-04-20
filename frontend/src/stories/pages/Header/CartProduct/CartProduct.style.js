@@ -21,6 +21,7 @@ export const ItemImage = styled.div`
   overflow: hidden;
   position: relative;
   margin-right: 2rem;
+  text-align: center;
 
   img {
     position: absolute;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Button, Col, ListGroup } from 'react-bootstrap';
+import { TextDiv, WrapperDiv, Button } from './CartSubtotal.style';
 
 export const CartSubtotal = ({ checkoutHandler, qty, products }) => {
   const [totalValue, setTotalValue] = useState(0);
@@ -29,22 +29,22 @@ export const CartSubtotal = ({ checkoutHandler, qty, products }) => {
 
   return (
     <>
-      <ListGroup.Item active>
-        <Col>
-          <h4>Resumo do pedido</h4>
-        </Col>
-        <Col className="d-flex align-items-center justify-content-between">
+      <WrapperDiv>
+        <div>
+          <h4>Order Summary</h4>
+        </div>
+        <TextDiv>
           <div>
             {itemQty} ite
-            {itemQty > 1 ? `ms` : `m`}
+            {itemQty > 1 ? `ms` : `n`}
           </div>
           <div>${totalValue.toFixed(2)}</div>
-        </Col>
-        <Col className="d-flex align-items-center justify-content-between my-2">
+        </TextDiv>
+        <TextDiv>
           <div>Shipping</div>
           <div>{shippingValue}</div>
-        </Col>
-        <Col className="mt-4">
+        </TextDiv>
+        <div>
           <Button
             variant="outline-success"
             disabled={itemQty === 0}
@@ -52,8 +52,8 @@ export const CartSubtotal = ({ checkoutHandler, qty, products }) => {
             block>
             Continue to checkout!
           </Button>
-        </Col>
-      </ListGroup.Item>
+        </div>
+      </WrapperDiv>
     </>
   );
 };
