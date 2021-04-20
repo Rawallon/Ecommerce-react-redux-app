@@ -3,8 +3,8 @@ import { StyledButton } from '../../../GlobalStyle.style';
 import GiveRating from '../GiveRating';
 import { FormFlex, InputField, TextareaField } from './ReviewForm.style';
 
-export default function ReviewForm({ setIsReviewing }) {
-  const [currentRating, setCurrentRating] = useState(0);
+export default function ReviewForm({ setIsReviewing, reviewCreate }) {
+  const [currentRating, setCurrentRating] = useState(1);
   const [title, setTitle] = useState('');
   const [comment, setComment] = useState('');
 
@@ -35,7 +35,11 @@ export default function ReviewForm({ setIsReviewing }) {
           fontColor="4b566b">
           Cancel
         </StyledButton>
-        <StyledButton width="auto">Save my review</StyledButton>
+        <StyledButton
+          width="auto"
+          onClick={() => reviewCreate(title, comment, currentRating)}>
+          Save my review
+        </StyledButton>
       </FormFlex>
     </>
   );

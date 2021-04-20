@@ -11,7 +11,7 @@ import Rating from '../../../components/Rating';
 import { StyledButton } from '../../../GlobalStyle.style';
 import ReviewForm from '../ReviewForm';
 
-export default function OverallRating({ isUserLogged, product }) {
+export default function OverallRating({ isUserLogged, product, reviewCreate }) {
   const [overallRating, setOverallRating] = useState(0);
   const [isReviewing, setIsReviewing] = useState(false);
 
@@ -61,7 +61,10 @@ export default function OverallRating({ isUserLogged, product }) {
         <BarWrapper>{BarRatingRender()}</BarWrapper>
       </RatingsWrapper>
       <FormWrapper display={isReviewing}>
-        <ReviewForm setIsReviewing={setIsReviewing} />
+        <ReviewForm
+          setIsReviewing={setIsReviewing}
+          reviewCreate={reviewCreate}
+        />
       </FormWrapper>
     </PageWrapper>
   );

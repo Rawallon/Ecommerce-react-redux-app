@@ -15,7 +15,11 @@ import {
 import { Container } from '../../../GlobalStyle.style';
 import Rating from '../../../components/Rating';
 import OverallRating from '../OverallRating';
-export default function ProductContent({ isUserLogged, product }) {
+export default function ProductContent({
+  isUserLogged,
+  product,
+  reviewCreate,
+}) {
   return (
     <Container>
       <Wrapper>
@@ -28,7 +32,11 @@ export default function ProductContent({ isUserLogged, product }) {
         <Title>
           <span>User reviews</span>
         </Title>
-        <OverallRating isUserLogged={isUserLogged} product={product} />
+        <OverallRating
+          reviewCreate={reviewCreate}
+          isUserLogged={isUserLogged}
+          product={product}
+        />
         <ReviewWrapper>
           {product.reviews.map((review) => {
             var d = new Date(review.createdAt);

@@ -47,11 +47,9 @@ export function Product({
   } = productReviewCreate;
   const { error, loading, product } = productDetails;
 
-  function reviewCreateHandler(e) {
-    e.preventDefault();
-    if (isUserLogged) {
-      createProductReview(match.params.id, { rating, comment });
-    }
+  function reviewCreateHandler(title, comment, rating) {
+    if (rating > 5 || rating <= 0 || !isUserLogged) return;
+    createProductReview(match.params.id, { title, rating, comment });
   }
 
   useEffect(() => {
@@ -107,7 +105,11 @@ export function Product({
             product={product}
             addToCart={addToCartHandler}
           />
-          <ProductContent isUserLogged={isUserLogged} product={product} />
+          <ProductContent
+            isUserLogged={isUserLogged}
+            product={product}
+            reviewCreate={reviewCreateHandler}
+          />
         </>
       )}
     </>
