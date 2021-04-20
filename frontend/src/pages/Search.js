@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Breadcrumb, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import Product from '../stories/components/CategoryProduct/';
 import { listProducts } from '../actions/productActions';
 import PageSelect from '../components/PageSelect';
 import Meta from '../components/Meta';
-import { LinkContainer } from 'react-router-bootstrap';
 import Prefetch from '../components/Prefetch';
+import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 
 export function Search({ productList, listProducts, match }) {
   const { error, loading, products } = productList;
@@ -20,12 +20,13 @@ export function Search({ productList, listProducts, match }) {
   return (
     <>
       <Meta title={`Searching: ${keyword}`} />
-      <Breadcrumb>
-        <LinkContainer to="/">
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-        </LinkContainer>
-        <Breadcrumb.Item active>{keyword}</Breadcrumb.Item>
-      </Breadcrumb>
+      <Breadcrumb
+        links={[
+          { name: 'Home', link: '/' },
+          { name: keyword, link: '/search/' + keyword, active: true },
+        ]}
+      />
+
       <Row>
         <Prefetch loading={loading} error={error} />
         {products &&

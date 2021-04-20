@@ -1,30 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { LinkContainer } from 'react-router-bootstrap';
-import {
-  Breadcrumb,
-  Button,
-  Card,
-  Col,
-  Form,
-  Image,
-  ListGroup,
-  Row,
-} from 'react-bootstrap';
-import Rating from '../components/Rating';
 import {
   clearProductDetails,
   clearProductReview,
   createProductReview,
   listProductDetails,
 } from '../actions/productActions';
-import Message from '../components/Message';
 import { addToCart } from '../actions/cartActions';
-import { Link } from 'react-router-dom';
 import Meta from '../components/Meta';
 import Prefetch from '../components/Prefetch';
 import ProductDisplay from '../stories/pages/ProductPage/ProductDisplay';
 import ProductContent from '../stories/pages/ProductPage/ProductContent';
+import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 
 export function Product({
   productDetails,
@@ -91,15 +78,14 @@ export function Product({
       {product && (
         <>
           <Meta title={product.name} />
-          <Breadcrumb>
-            <LinkContainer to="/">
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-            </LinkContainer>
-            <LinkContainer to={`/category/${product.category}`}>
-              <Breadcrumb.Item>{product.category}</Breadcrumb.Item>
-            </LinkContainer>
-            <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
-          </Breadcrumb>
+          <Breadcrumb
+            links={[
+              { name: 'Home', link: '/' },
+              { name: product.category, link: '/category/' + product.category },
+              { name: product.name, link: product.name, active: true },
+            ]}
+          />
+
           <ProductDisplay
             images={Array(3).fill(product.image)}
             product={product}

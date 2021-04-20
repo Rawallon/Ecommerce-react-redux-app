@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Button, Form, Col } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
 import { savePaymentMethod } from '../actions/cartActions';
-import CheckoutSteps from '../components/CheckoutSteps';
 import Meta from '../components/Meta';
+import CheckoutSteps from '../stories/pages/CheckoutPage/CheckoutSteps/';
 
 export const Payment = ({
   shippingAddress,

@@ -3,10 +3,10 @@ import { Col, ListGroup, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { clearCreateOrder, createOrder } from '../actions/orderAction';
 import CheckoutProduct from '../components/CheckoutProduct';
-import CheckoutSteps from '../components/CheckoutSteps';
 import CheckoutSubtotal from '../components/CheckoutSubtotal';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
+import CheckoutSteps from '../stories/pages/CheckoutPage/CheckoutSteps/';
 
 export const PlaceOrder = ({
   cart,

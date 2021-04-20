@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Breadcrumb, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import Product from '../stories/components/CategoryProduct/';
 import { listCategoryProducts } from '../actions/productActions';
 import { LinkContainer } from 'react-router-bootstrap';
 import Meta from '../components/Meta';
 import Prefetch from '../components/Prefetch';
+import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 
 export function Category({
   history,
@@ -23,12 +24,17 @@ export function Category({
   return (
     <>
       <Meta title={match.params.cat} />
-      <Breadcrumb>
-        <LinkContainer to="/">
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-        </LinkContainer>
-        <Breadcrumb.Item active>{match.params.cat}</Breadcrumb.Item>
-      </Breadcrumb>
+      <Breadcrumb
+        links={[
+          { name: 'Home', link: '/' },
+          {
+            name: match.params.cat,
+            link: '/category/' + match.params.cat,
+            active: true,
+          },
+        ]}
+      />
+
       <Row>
         <Prefetch loading={loading} />
         {products?.map((product) => (

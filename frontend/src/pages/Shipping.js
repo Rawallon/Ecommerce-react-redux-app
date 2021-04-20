@@ -4,8 +4,8 @@ import { Button, Form } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
 import FormGroup from '../components/FormGroup';
 import { saveShippingAddress } from '../actions/cartActions';
-import CheckoutSteps from '../components/CheckoutSteps';
 import Meta from '../components/Meta';
+import CheckoutSteps from '../stories/pages/CheckoutPage/CheckoutSteps/';
 
 export const Shipping = ({
   shippingAddress,

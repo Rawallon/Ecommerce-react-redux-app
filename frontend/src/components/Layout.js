@@ -7,6 +7,7 @@ import {
 import { logout } from '../actions/userAction';
 import StoreHeader from '../stories/pages/Header/Header';
 import Footer from './Footer';
+import { Container } from '../styles/main.styles';
 
 export const Layout = ({
   logout,
@@ -35,7 +36,7 @@ export const Layout = ({
         featuredItemPerCategory={featuredItemPerCategory}
         fetchFeaturedItems={fetchFeaturedItems}
       />
-      {children}
+      <Container>{children}</Container>
       <Footer />
     </>
   );
