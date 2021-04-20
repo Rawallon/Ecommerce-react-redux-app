@@ -158,6 +158,7 @@ export const addReview = asyncHandler(async (req, res) => {
     const objReview = {
       user: req.user._id,
       name: req.user.name,
+      title: req.body.title,
       rating: req.body.rating,
       comment: req.body.comment,
     };
