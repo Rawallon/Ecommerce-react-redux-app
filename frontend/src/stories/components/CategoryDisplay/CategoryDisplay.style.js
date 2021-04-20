@@ -13,7 +13,7 @@ export const CategoryImage = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: ${({ background }) => `${background}`};
+  background: ${({ background }) => `#${background}`};
   border-radius: 18px;
   img {
     max-height: 495px;

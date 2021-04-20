@@ -12,6 +12,7 @@ export const CardButtonsHidden = styled.div`
   opacity: 0;
   z-index: 2;
   padding: 1.25rem 1.25rem;
+  visibility: hidden;
 `;
 
 export const Card = styled.div`
@@ -24,6 +25,7 @@ export const Card = styled.div`
   border-radius: 18px 18px 0 0;
   z-index: 1;
   transition: box-shadow 0.2s ease;
+
   ${({ simple }) =>
     !simple &&
     css`
@@ -46,13 +48,16 @@ export const Cardimg = styled.a`
   display: block;
   overflow: hidden;
   border-radius: 18px 18px 0 0;
-
+  text-align: center;
   width: 100%;
 
   img {
-    max-width: 100%;
-    height: auto;
+    width: auto;
+    max-width: 215px;
+    height: 258px;
     vertical-align: middle;
+    object-fit: contain;
+    object-position: center;
   }
 `;
 
