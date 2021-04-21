@@ -7,6 +7,7 @@ import {
 } from '../../../../actions/cartActions';
 import { remCart } from '../../../../actions/cartActions';
 import Prefetch from '../../../../components/Prefetch';
+import { ButtonPrimary } from '../../../../styles/bootstrap.style';
 import {
   FlexGrow,
   ItemCenterText,
@@ -14,7 +15,6 @@ import {
   ItemImage,
   ListItem,
   SelectQty,
-  Button,
 } from './CartItem.styles';
 
 export const CartItem = ({
@@ -71,7 +71,9 @@ export const CartItem = ({
                 </SelectQty>
               </FlexGrow>
               <FlexGrow>
-                <Button onClick={() => remCart(product._id)}>Remove</Button>
+                <ButtonPrimary onClick={() => remCart(product._id)}>
+                  Remove
+                </ButtonPrimary>
               </FlexGrow>
             </ItemFlex>
           </ItemFlex>
