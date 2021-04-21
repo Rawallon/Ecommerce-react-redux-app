@@ -45,3 +45,15 @@ export const HeaderText = styled.h1`
   color: #1a1a1a;
   margin-top: 0;
 `;
+
+export const SubheaderText = styled.h2`
+  ${({ textAlign }) => (textAlign ? `text-align: ${textAlign};` : '')}
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #1a1a1a;
+  margin-top: 0;
+`;

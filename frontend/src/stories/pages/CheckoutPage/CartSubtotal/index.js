@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { TextDiv, WrapperDiv, Button } from './CartSubtotal.style';
 
-export const CartSubtotal = ({ checkoutHandler, qty, products }) => {
+export const CartSubtotal2 = ({ checkoutHandler, qty, products }) => {
   const [totalValue, setTotalValue] = useState(0);
   const [shippingValue, setShippingValue] = useState(0);
   const [itemQty, setItemQty] = useState(0);
@@ -63,4 +63,4 @@ const mapStateToProps = (state) => ({
   products: state.cartList.products,
 });
 
-export default connect(mapStateToProps, null)(CartSubtotal);
+export default connect(mapStateToProps, null)(CartSubtotal2);

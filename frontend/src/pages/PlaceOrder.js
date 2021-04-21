@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { Col, ListGroup, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
+
 import { clearCreateOrder, createOrder } from '../actions/orderAction';
-import CheckoutProduct from '../components/CheckoutProduct';
-import CheckoutSubtotal from '../components/CheckoutSubtotal';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
+import CheckoutProduct from '../stories/pages/CheckoutPage/CheckoutProduct';
 import CheckoutSteps from '../stories/pages/CheckoutPage/CheckoutSteps/';
+import PlaceOrderSubtotal from '../stories/pages/CheckoutPage/PlaceOrderSubtotal';
+import { Col, ListGroup, ListGroupItem, Row } from '../styles/bootstrap.style';
+import { SubheaderText } from '../styles/main.styles';
 
 export const PlaceOrder = ({
   cart,
@@ -39,24 +41,24 @@ export const PlaceOrder = ({
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         {error && <Message variant="danger">{error}</Message>}
-        <Col md={8}>
+        <Col md>
           <ListGroup>
-            <ListGroup.Item>
-              <h2>Shipping</h2>
+            <ListGroupItem>
+              <SubheaderText>Shipping</SubheaderText>
               <p>
                 <strong>Address:</strong>
                 {cart.shippingAddress.address},{cart.shippingAddress.city}{' '}
                 {cart.shippingAddress.postalCode} ,{' '}
                 {cart.shippingAddress.country}
               </p>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <h2>Payment Method</h2>
+            </ListGroupItem>
+            <ListGroupItem>
+              <SubheaderText>Payment Method</SubheaderText>
               <strong>Method:</strong>
               {cart.paymentMethod}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <h2>Order items</h2>
+            </ListGroupItem>
+            <ListGroupItem>
+              <SubheaderText>Order items</SubheaderText>
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty!</Message>
               ) : (
@@ -66,12 +68,10 @@ export const PlaceOrder = ({
                   ))}
                 </ListGroup>
               )}
-            </ListGroup.Item>
+            </ListGroupItem>
           </ListGroup>
         </Col>
-        <Col md={4}>
-          <CheckoutSubtotal placeOrderHandler={placeOrderHandler} />
-        </Col>
+        <PlaceOrderSubtotal placeOrderHandler={placeOrderHandler} />
       </Row>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Message from '../../../../components/Message';
-import CartSubtotal from '../../Header/CartSubtotal';
+import CartSubtotal from '../CartSubtotal';
 import CartItem from '../CartItem';
 import { WrapperCart } from './CartPage.style';
 export default function CartPage({ cartItemsArray, checkoutHandler }) {
