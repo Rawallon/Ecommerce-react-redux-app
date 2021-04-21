@@ -17,8 +17,12 @@ export const Col = styled.div`
   padding-right: 15px;
   padding-left: 15px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  ${({ justifyContent }) =>
+    justifyContent
+      ? `justify-content: ${justifyContent};`
+      : 'justify-content: center;'}
+  ${({ alignItems }) =>
+    alignItems ? `align-items: ${alignItems};` : 'align-items: center;'}
 
   ${({ sm }) =>
     sm
@@ -59,6 +63,9 @@ export const Col = styled.div`
           }
         `
       : ''}
+
+${({ flexDirection }) =>
+  flexDirection ? `flex-direction: ${flexDirection};` : ''}
 `;
 
 export const ButtonPrimary = styled.button`
