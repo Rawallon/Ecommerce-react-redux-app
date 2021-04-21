@@ -18,7 +18,6 @@ import EditUser from './pages/admin/EditUser';
 import EditProducts from './pages/admin/EditProducts';
 import MissingPage from './pages/MissingPage';
 import Search from './pages/Search';
-import newReleases from './pages/newReleases';
 import Layout from './components/Layout';
 
 function App() {
@@ -52,12 +51,6 @@ function App() {
               component={Search}
             />
             <Route path="/search/:keyword" exact component={Search} />
-            <Route
-              path="/new-releases/:pageNumber"
-              exact
-              component={newReleases}
-            />
-            <Route path="/new-releases/" component={newReleases} />
             <Route path="/" exact component={Home} />
             <Route path="/404" exact component={MissingPage} />
             <Route path="*" component={MissingPage} />
