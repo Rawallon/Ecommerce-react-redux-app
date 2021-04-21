@@ -37,7 +37,10 @@ export default function ReviewForm({ setIsReviewing, reviewCreate }) {
         </StyledButton>
         <StyledButton
           width="auto"
-          onClick={() => reviewCreate(title, comment, currentRating)}>
+          onClick={() => {
+            reviewCreate(title, comment, currentRating);
+            setIsReviewing(false);
+          }}>
           Save my review
         </StyledButton>
       </FormFlex>

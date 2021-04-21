@@ -211,9 +211,14 @@ export const createProductReview = (objectId, formData) => async (
         Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
       },
     };
-    await axios.post(`/api/products/${objectId}/reviews`, formData, config);
+    const { data } = await axios.post(
+      `/api/products/${objectId}/reviews`,
+      formData,
+      config,
+    );
     dispatch({
       type: PRODUCT_CREATE_REVIEW_SUCCESS,
+      payload: data,
     });
   } catch (error) {
     dispatch({

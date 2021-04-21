@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   clearProductDetails,
-  clearProductReview,
   createProductReview,
   listProductDetails,
 } from '../actions/productActions';
@@ -21,8 +20,6 @@ export function Product({
   addToCart,
   history,
   createProductReview,
-  clearProductReview,
-  productReviewCreate,
   isUserLogged,
 }) {
   const { error, loading, product } = productDetails;
@@ -85,7 +82,6 @@ export function Product({
 
 const mapStateToProps = (state) => ({
   productDetails: state.productDetails,
-  productReviewCreate: state.productReviewCreate,
   isUserLogged: state.userLogin.userInfo,
 });
 
@@ -94,7 +90,6 @@ const mapDispatchToProps = {
   clearProductDetails,
   addToCart,
   createProductReview,
-  clearProductReview,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);

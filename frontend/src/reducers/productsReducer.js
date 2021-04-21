@@ -73,6 +73,7 @@ export const productDetailsReducer = (
       return { loading: true };
     case PRODUCT_CREATE_ADMIN_SUCCESS:
     case PRODUCT_UPDATE_ADMIN_SUCCESS:
+    case PRODUCT_CREATE_REVIEW_SUCCESS:
     case PRODUCT_DETAILS_SUCCESS:
       return { loading: false, product: payload };
     case PRODUCT_CREATE_ADMIN_FAILED:
