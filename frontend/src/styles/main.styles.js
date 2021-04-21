@@ -32,3 +32,16 @@ export const Container = styled.div`
     margin-bottom: 1.5rem;
   }
 `;
+
+export const HeaderText = styled.h1`
+  ${({ textAlign }) => (textAlign ? `text-align: ${textAlign};` : '')}
+
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #1a1a1a;
+  margin-top: 0;
+`;

@@ -59,28 +59,3 @@ export const SelectQty = styled.select`
     box-shadow: 0 0 0 0.2rem rgba(26, 26, 26, 0.25);
   }
 `;
-
-export const Button = styled.button`
-  width: 100%;
-  font-weight: 600;
-  text-align: center;
-  vertical-align: middle;
-  user-select: none;
-  border: 0 solid transparent;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  border-radius: 0;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-
-  color: #fff;
-  background-color: #1a1a1a;
-  border-color: #1a1a1a;
-
-  :hover {
-    color: #fff;
-    background-color: #070707;
-    border-color: #010101;
-  }
-`;

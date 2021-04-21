@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 
 import Product from '../stories/components/CategoryProduct/';
 import {
@@ -16,36 +15,8 @@ import {
   listFeaturedMessage,
   listFeaturedCategory,
 } from '../actions/shopActions';
-
-const Row = styled.div`
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-`;
-const Col = styled.div`
-  position: relative;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-
-  @media (min-width: 576px) {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-
-  @media (min-width: 768px) {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-
-  @media (min-width: 992px) {
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
-  }
-`;
+import { Col, Row } from '../styles/bootstrap.style';
+import { HeaderText } from '../styles/main.styles';
 
 export function Home({
   listProducts,
@@ -75,11 +46,11 @@ export function Home({
     <>
       <Meta title="Home" />
       <Carousel productList={productFeatured} duration={20000} />
-      <h1>Our top rated products</h1>
+      <HeaderText textAlign={'center'}>Our top rated products</HeaderText>
       <Row>
         {!productTopRated.loading &&
           productTopRated.products?.slice(0, 3).map((product) => (
-            <Col key={product._id} sm={12} md={6} lg={4} xl={4}>
+            <Col key={product._id} sm md lg>
               <Product {...product} />
             </Col>
           ))}

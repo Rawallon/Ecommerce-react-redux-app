@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Meta from '../components/Meta';
 import CheckoutSteps from '../stories/pages/CheckoutPage/CheckoutSteps/';
 import CartPage from '../stories/pages/CheckoutPage/CartPage';
+import { HeaderText } from '../styles/main.styles';
 
 export function Cart({ history, cartItems = {} }) {
   const [cartItemsArray, setCartItemsArray] = useState([]);
@@ -21,7 +22,7 @@ export function Cart({ history, cartItems = {} }) {
     <>
       <Meta title="Cart" />
       <CheckoutSteps step1 />
-      <h1>Cart Items</h1>
+      <HeaderText>Cart Items</HeaderText>
       <CartPage
         cartItemsArray={cartItemsArray}
         checkoutHandler={checkoutHandler}
