@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Button, Form, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import FormContainer from '../components/FormContainer';
+
 import { login } from '../actions/userAction';
-import FormGroup from '../components/FormGroup';
 import Prefetch from '../components/Prefetch';
+import FormInput from '../stories/components/FormInput';
+import { ButtonPrimary, Col, Row } from '../styles/bootstrap.style';
 
 export function Login({ location, login, history, userLogin }) {
   const [email, setEmail] = useState('');
@@ -22,39 +22,42 @@ export function Login({ location, login, history, userLogin }) {
     login(email, password);
   }
   return (
-    <FormContainer>
-      <h1>Sign in</h1>
-      <Prefetch error={error} loading={loading} />
-      <Form onSubmit={submitHandler}>
-        <FormGroup
-          name="email"
-          type="email"
-          value={email}
-          onChange={setEmail}
-          required
-        />
-        <FormGroup
-          name="password"
-          type="password"
-          value={password}
-          onChange={setPassword}
-          required
-        />
+    <Row justifyCenter>
+      <Col md flexDirection="column">
+        <h1>Sign in</h1>
+        <Prefetch error={error} loading={loading} />
+        <form onSubmit={submitHandler} style={{ width: '100%' }}>
+          <FormInput
+            name="email"
+            type="email"
+            value={email}
+            onChange={setEmail}
+            required
+          />
+          <FormInput
+            name="password"
+            type="password"
+            value={password}
+            onChange={setPassword}
+            required
+          />
 
-        <Button type="submit" variant="primary">
-          Sign in
-        </Button>
-      </Form>
+          <ButtonPrimary type="submit" variant="primary">
+            Sign in
+          </ButtonPrimary>
+        </form>
 
-      <Row className="py-3">
-        <Col>
-          New customer?{' '}
-          <Link to={redirect ? `/register?redirect=${redirect}` : `/register`}>
-            Register
-          </Link>
-        </Col>
-      </Row>
-    </FormContainer>
+        <Row className="py-3">
+          <Col>
+            New customer?{' '}
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : `/register`}>
+              Register
+            </Link>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
   );
 }
 

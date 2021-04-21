@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Button, Form, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import FormContainer from '../components/FormContainer';
+
 import { register } from '../actions/userAction';
-import FormGroup from '../components/FormGroup';
 import Meta from '../components/Meta';
 import Prefetch from '../components/Prefetch';
+import FormInput from '../stories/components/FormInput';
+import { ButtonPrimary, Col, Row } from '../styles/bootstrap.style';
 
 export function Register({
   location,
@@ -55,63 +55,62 @@ export function Register({
     register(name, email, password);
   }
   return (
-    <FormContainer>
-      <Meta title="Sign up" />
+    <Row justifyCenter>
+      <Col md flexDirection="column">
+        <Meta title="Sign up" />
+        <h1>Sign up</h1>
+        <Prefetch error={error} loading={loading} />
+        <form onSubmit={submitHandler} style={{ width: '100%' }}>
+          <FormInput
+            name="name"
+            type="text"
+            value={name}
+            isInvalid={!!message['name']}
+            placeholder="Complete name"
+            onChange={setName}
+          />
+          <FormInput
+            name="email"
+            type="email"
+            value={email}
+            isInvalid={!!message['email']}
+            onChange={setEmail}
+          />
+          <FormInput
+            name="password"
+            disabled={loading}
+            isInvalid={!!message['password']}
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={setPassword}
+          />
+          <FormInput
+            name="confirmPassword"
+            disabled={loading}
+            isInvalid={!!message['confirmPassword']}
+            type="password"
+            label="Confirm Password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+          />
 
-      <h1>Sign up</h1>
+          <ButtonPrimary type="submit" variant="primary" block>
+            Register
+          </ButtonPrimary>
+        </form>
 
-      <Prefetch error={error} loading={loading} />
-
-      <Form onSubmit={submitHandler}>
-        <FormGroup
-          name="name"
-          type="text"
-          value={name}
-          isInvalid={!!message['name']}
-          placeholder="Complete name"
-          onChange={setName}
-        />
-        <FormGroup
-          name="email"
-          type="email"
-          value={email}
-          isInvalid={!!message['email']}
-          onChange={setEmail}
-        />
-        <FormGroup
-          name="password"
-          disabled={loading}
-          isInvalid={!!message['password']}
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={setPassword}
-        />
-        <FormGroup
-          name="confirmPassword"
-          disabled={loading}
-          isInvalid={!!message['confirmPassword']}
-          type="password"
-          label="Confirm Password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={setConfirmPassword}
-        />
-
-        <Button type="submit" variant="primary" block>
-          Register
-        </Button>
-      </Form>
-
-      <Row className="py-3 w-100">
-        <Col>
-          Already registered?{' '}
-          <Link to={redirect ? `/login?redirect=${redirect}` : `/register`}>
-            Login
-          </Link>
-        </Col>
-      </Row>
-    </FormContainer>
+        <Row className="py-3 w-100">
+          <Col>
+            Already registered?{' '}
+            <Link to={redirect ? `/login?redirect=${redirect}` : `/register`}>
+              Login
+            </Link>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
   );
 }
 

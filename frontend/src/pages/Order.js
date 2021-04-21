@@ -10,11 +10,11 @@ import {
   setOrderPayment,
   setAsDeliveredAdmin,
 } from '../actions/orderAction';
-import CheckoutProduct from '../components/CheckoutProduct';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
 import PageLoader from '../components/PageLoader';
+import { CheckoutProduct } from '../stories/pages/CheckoutPage/CheckoutProduct';
 
 export const Order = ({
   match,

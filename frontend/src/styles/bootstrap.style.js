@@ -23,6 +23,8 @@ export const Col = styled.div`
       : 'justify-content: center;'}
   ${({ alignItems }) =>
     alignItems ? `align-items: ${alignItems};` : 'align-items: center;'}
+${({ flexDirection }) =>
+  flexDirection ? `flex-direction: ${flexDirection};` : ''}
 
   ${({ sm }) =>
     sm
@@ -63,9 +65,6 @@ export const Col = styled.div`
           }
         `
       : ''}
-
-${({ flexDirection }) =>
-  flexDirection ? `flex-direction: ${flexDirection};` : ''}
 `;
 export const ButtonPrimary = styled.button`
   width: 100%;

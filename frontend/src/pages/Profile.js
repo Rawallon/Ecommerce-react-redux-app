@@ -4,10 +4,10 @@ import { Button, Form, Col, Row, Table } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { updateUserProfile } from '../actions/userAction';
 import { clearOrderList, getOrderList } from '../actions/orderAction';
-import FormGroup from '../components/FormGroup';
 import Meta from '../components/Meta';
 import Prefetch from '../components/Prefetch';
 import Message from '../components/Message';
+import FormInput from '../stories/components/FormInput';
 
 export function Profile({
   history,
@@ -121,15 +121,15 @@ export function Profile({
         <Prefetch error={error} loading={loading} />
 
         <Form onSubmit={submitHandler}>
-          <FormGroup name="name" type="text" value={name} onChange={setName} />
-          <FormGroup
+          <FormInput name="name" type="text" value={name} onChange={setName} />
+          <FormInput
             name="email"
             type="email"
             value={email}
             isInvalid={!!message['email']}
             onChange={setEmail}
           />
-          <FormGroup
+          <FormInput
             name="password"
             disabled={loading}
             isInvalid={!!message['password']}
@@ -138,7 +138,7 @@ export function Profile({
             value={password}
             onChange={setPassword}
           />
-          <FormGroup
+          <FormInput
             name="confirmPassword"
             disabled={loading}
             isInvalid={!!message['confirmPassword']}

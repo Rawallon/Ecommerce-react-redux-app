@@ -1,12 +1,13 @@
 import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Row } from '../styles/bootstrap.style';
+import { Container } from '../styles/main.styles';
 
 export default function Footer() {
   return (
     <div>
       <Container>
         <Row>
-          <Col className="text-center py-3">Copyright &copy; Shopay</Col>
+          <Col alignItems="center">Copyright &copy; Shopay</Col>
         </Row>
       </Container>
     </div>

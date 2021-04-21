@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Button, Form, Col, Row } from 'react-bootstrap';
 import Message from '../../components/Message';
 import Loader from '../../components/FormLoader';
-import FormGroup from '../../components/FormGroup';
 import {
   listUserByIdAdmin,
   updateUserProfileAdmin,
 } from '../../actions/userAction';
 import { LinkContainer } from 'react-router-bootstrap';
+import FormInput from '../../stories/components/FormInput';
 
 export function EditUser({
   match,
@@ -65,8 +65,8 @@ export function EditUser({
         {error && <Message variant="danger">{error}</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
-          <FormGroup name="name" type="text" value={name} onChange={setName} />
-          <FormGroup
+          <FormInput name="name" type="text" value={name} onChange={setName} />
+          <FormInput
             name="email"
             type="email"
             value={email}

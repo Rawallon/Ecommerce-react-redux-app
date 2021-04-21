@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Button, Form, Col, Row } from 'react-bootstrap';
 import Message from '../../components/Message';
 import Loader from '../../components/FormLoader';
-import FormGroup from '../../components/FormGroup';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
   createProductAdmin,
@@ -12,6 +11,7 @@ import {
   updateProductAdmin,
 } from '../../actions/productActions';
 import FormLoader from '../../components/FormLoader';
+import FormInput from '../../stories/components/FormInput';
 
 export function EditProducts({
   match,
@@ -133,21 +133,21 @@ export function EditProducts({
         {error && <Message variant="danger">{error}</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
-          <FormGroup
+          <FormInput
             name="name"
             type="text"
             value={name}
             onChange={setName}
             isInvalid={!!message['name']}
           />
-          <FormGroup
+          <FormInput
             name="price"
             type="number"
             value={price}
             onChange={setPrice}
             isInvalid={!!message['price']}
           />
-          <FormGroup
+          <FormInput
             name="image"
             type="text"
             value={image}
@@ -163,21 +163,21 @@ export function EditProducts({
             />
             {uploading && <FormLoader />}
           </Form.Group>
-          <FormGroup
+          <FormInput
             name="category"
             type="text"
             value={category}
             onChange={setCategory}
             isInvalid={!!message['category']}
           />
-          <FormGroup
+          <FormInput
             name="brand"
             type="text"
             value={brand}
             onChange={setBrand}
             isInvalid={!!message['brand']}
           />
-          <FormGroup
+          <FormInput
             name="countStock"
             type="number"
             label="Count in stock"
@@ -185,7 +185,7 @@ export function EditProducts({
             onChange={setCountStock}
             isInvalid={!!message['countStock']}
           />
-          <FormGroup
+          <FormInput
             name="description"
             type="textarea"
             value={description}
