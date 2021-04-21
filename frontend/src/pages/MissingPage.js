@@ -1,7 +1,20 @@
 import React from 'react';
-import { Jumbotron } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import Meta from '../components/Meta';
+
+const Jumbotron = styled.div`
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  padding: 4rem 2rem;
+  background-color: #f7f7f9;
+`;
+
 export default function MissingPage() {
   return (
     <>
