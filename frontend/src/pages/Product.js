@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   clearProductDetails,
@@ -25,13 +25,6 @@ export function Product({
   productReviewCreate,
   isUserLogged,
 }) {
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
-  const {
-    loading: revLoad,
-    error: revError,
-    success: revSucc,
-  } = productReviewCreate;
   const { error, loading, product } = productDetails;
 
   function reviewCreateHandler(title, comment, rating) {
@@ -45,23 +38,11 @@ export function Product({
   }, [error, history]);
 
   useEffect(() => {
-    if (revSucc) {
-      alert('Review posted successfully');
-      setRating(0);
-      setComment('');
-      clearProductReview();
-    }
     listProductDetails(match.params.id);
     return () => {
       clearProductDetails();
     };
-  }, [
-    listProductDetails,
-    clearProductDetails,
-    match,
-    revSucc,
-    clearProductReview,
-  ]);
+  }, [listProductDetails, clearProductDetails, match]);
 
   function addToCartHandler(pId, qty = 1) {
     if (product && qty <= product.countInStock) {
