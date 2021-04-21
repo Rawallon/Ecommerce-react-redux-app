@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Col, Row } from 'react-bootstrap';
+import styled from 'styled-components';
+
 import Product from '../stories/components/CategoryProduct/';
 import {
   listFeaturedProducts,
@@ -8,7 +9,6 @@ import {
   listTopProducts,
 } from '../actions/productActions';
 import Meta from '../components/Meta';
-import Prefetch from '../components/Prefetch';
 import Carousel from '../stories/components/itemCarousel';
 import ItemBanner from '../stories/components/ItemBanner';
 import CategoryDisplay from '../stories/components/CategoryDisplay';
@@ -16,6 +16,36 @@ import {
   listFeaturedMessage,
   listFeaturedCategory,
 } from '../actions/shopActions';
+
+const Row = styled.div`
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+`;
+const Col = styled.div`
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+
+  @media (min-width: 576px) {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  @media (min-width: 992px) {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+`;
 
 export function Home({
   listProducts,
