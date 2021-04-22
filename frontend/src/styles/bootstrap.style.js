@@ -122,12 +122,27 @@ export const ListGroup = styled.div`
   margin-bottom: 0;
 `;
 
+export const ListGroupItemHeader = styled.div`
+  margin: -0.75rem -1.25rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  & > * {
+    margin: 0;
+  }
+`;
 export const ListGroupItem = styled.div`
   position: relative;
   display: block;
   padding: 0.75rem 1.25rem;
   background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  ${({ noBorder }) =>
+    noBorder ? '' : 'border: 1px solid rgba(0, 0, 0, 0.125)'};
+
+  & + & {
+    border-top: 0;
+  }
 `;
 
 export const Card = styled.div`
@@ -139,6 +154,7 @@ export const Card = styled.div`
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
+  width: 100%;
 `;
 
 export const CardHeader = styled.div`

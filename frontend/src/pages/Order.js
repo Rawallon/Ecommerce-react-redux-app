@@ -1,8 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
-import { PayPalButton } from 'react-paypal-button-v2';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import { PayPalButton } from 'react-paypal-button-v2';
+import styled from 'styled-components';
+
 import {
   clearOrderDetails,
   clearPaymentDetails,
@@ -10,12 +11,32 @@ import {
   setOrderPayment,
   setAsDeliveredAdmin,
 } from '../actions/orderAction';
+
+import {
+  ButtonPrimary,
+  Card,
+  CardBody,
+  CardHeader,
+  ListGroup,
+  ListGroupItem,
+  ListGroupItemHeader,
+  Row,
+  Col,
+} from '../styles/bootstrap.style';
+
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
 import PageLoader from '../components/PageLoader';
-import { CheckoutProduct } from '../stories/pages/CheckoutPage/CheckoutProduct';
+import CheckoutProduct from '../stories/pages/CheckoutPage/CheckoutProduct';
 
+const CardRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  div:first-child {
+    flex-grow: 1;
+  }
+`;
 export const Order = ({
   match,
   getOrderDetails,
@@ -152,10 +173,19 @@ export const Order = ({
       <div>
         <Meta title="Order details" />
         <Row>
-          <Col md={8}>
+          <Col
+            justifyContent={'flex-start'}
+            alignItems={'flex-start'}
+            flexDirection={'column'}
+            style={{
+              flex: '0 0 66.666667%',
+              maxWidth: '66.666667%',
+            }}>
             <ListGroup>
-              <ListGroup.Item>
-                <h2>Shipping</h2>
+              <ListGroupItem>
+                <ListGroupItemHeader>
+                  <h2>Shipping</h2>
+                </ListGroupItemHeader>
                 <p>
                   <strong>Name</strong>: {order.user.name}
                 </p>
@@ -176,9 +206,11 @@ export const Order = ({
                 ) : (
                   <Message variant="danger">Not Delivered</Message>
                 )}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <h2>Payment Method</h2>
+              </ListGroupItem>
+              <ListGroupItem>
+                <ListGroupItemHeader>
+                  <h2>Payment Method</h2>
+                </ListGroupItemHeader>
                 <p>
                   <strong>Method:</strong>
                   {order.paymentMethod}
@@ -188,9 +220,11 @@ export const Order = ({
                 ) : (
                   <Message variant="danger">Not Paid</Message>
                 )}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <h2>Order items</h2>
+              </ListGroupItem>
+              <ListGroupItem>
+                <ListGroupItemHeader>
+                  <h2>Order items</h2>
+                </ListGroupItemHeader>
                 <ListGroup variant="flush">
                   {Object.values(order.orderItems).map((item) => (
                     <CheckoutProduct
@@ -201,48 +235,55 @@ export const Order = ({
                     />
                   ))}
                 </ListGroup>
-              </ListGroup.Item>
+              </ListGroupItem>
             </ListGroup>
           </Col>
-          <Col md={4}>
+          <Col
+            justifyContent={'flex-start'}
+            alignItems={'flex-start'}
+            flexDirection={'column'}
+            style={{
+              flex: '0 0 33.3333%',
+              maxWidth: '33.3333%',
+            }}>
             <>
               <Card>
-                <Card.Header>Order Summary</Card.Header>
-                <Card.Body>
+                <CardHeader>Order Summary</CardHeader>
+                <CardBody>
                   <ListGroup variant="flush">
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>Item</Col>
-                        <Col className="text-right">
+                    <ListGroupItem>
+                      <CardRow style={{ margin: 0 }}>
+                        <div>Item</div>
+                        <div style={{ textAlign: 'right' }}>
                           ${Number(order.totalPrice).toFixed(2)}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>Shipping</Col>
-                        <Col className="text-right">${order.shippingPrice}</Col>
-                      </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>Tax</Col>
-                        <Col className="text-right">${order.taxPrice}</Col>
-                      </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item variant="dark">
-                      <Row>
-                        <Col className="font-weight-bold">Total</Col>
-                        <Col className="text-right font-weight-bold">
+                        </div>
+                      </CardRow>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <CardRow>
+                        <div>Shipping</div>
+                        <div className="text-right">${order.shippingPrice}</div>
+                      </CardRow>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <CardRow>
+                        <div>Tax</div>
+                        <div className="text-right">${order.taxPrice}</div>
+                      </CardRow>
+                    </ListGroupItem>
+                    <ListGroupItem noBorder>
+                      <CardRow>
+                        <div>Total</div>
+                        <div>
                           $
                           {(
                             order.totalPrice +
                             order.shippingPrice +
                             order.taxPrice
                           ).toFixed(2)}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
+                        </div>
+                      </CardRow>
+                    </ListGroupItem>
                   </ListGroup>
                   <Col className="mt-4">
                     {order.paymentMethod === 'Paypal' ? (
@@ -253,14 +294,14 @@ export const Order = ({
                   </Col>
                   {isAdmin && (
                     <Col className="mt-3">
-                      <Button
+                      <ButtonPrimary
                         block
                         onClick={() => setAsDeliveredAdmin(orderId)}>
                         Set as delivered
-                      </Button>
+                      </ButtonPrimary>
                     </Col>
                   )}
-                </Card.Body>
+                </CardBody>
               </Card>
             </>
           </Col>

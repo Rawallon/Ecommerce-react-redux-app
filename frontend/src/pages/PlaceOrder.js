@@ -7,7 +7,13 @@ import Meta from '../components/Meta';
 import CheckoutProduct from '../stories/pages/CheckoutPage/CheckoutProduct';
 import CheckoutSteps from '../stories/pages/CheckoutPage/CheckoutSteps/';
 import PlaceOrderSubtotal from '../stories/pages/CheckoutPage/PlaceOrderSubtotal';
-import { Col, ListGroup, ListGroupItem, Row } from '../styles/bootstrap.style';
+import {
+  Col,
+  ListGroup,
+  ListGroupItem,
+  ListGroupItemHeader,
+  Row,
+} from '../styles/bootstrap.style';
 import { SubheaderText } from '../styles/main.styles';
 
 export const PlaceOrder = ({
@@ -41,10 +47,19 @@ export const PlaceOrder = ({
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         {error && <Message variant="danger">{error}</Message>}
-        <Col md>
+        <Col
+          justifyContent={'flex-start'}
+          alignItems={'flex-start'}
+          flexDirection={'column'}
+          style={{
+            flex: '0 0 66.666667%',
+            maxWidth: '66.666667%',
+          }}>
           <ListGroup>
             <ListGroupItem>
-              <SubheaderText>Shipping</SubheaderText>
+              <ListGroupItemHeader>
+                <SubheaderText>Shipping</SubheaderText>
+              </ListGroupItemHeader>
               <p>
                 <strong>Address:</strong>
                 {cart.shippingAddress.address},{cart.shippingAddress.city}{' '}
@@ -53,12 +68,16 @@ export const PlaceOrder = ({
               </p>
             </ListGroupItem>
             <ListGroupItem>
-              <SubheaderText>Payment Method</SubheaderText>
+              <ListGroupItemHeader>
+                <SubheaderText>Payment Method</SubheaderText>
+              </ListGroupItemHeader>
               <strong>Method:</strong>
               {cart.paymentMethod}
             </ListGroupItem>
             <ListGroupItem>
-              <SubheaderText>Order items</SubheaderText>
+              <ListGroupItemHeader>
+                <SubheaderText>Order items</SubheaderText>
+              </ListGroupItemHeader>
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty!</Message>
               ) : (
@@ -71,7 +90,16 @@ export const PlaceOrder = ({
             </ListGroupItem>
           </ListGroup>
         </Col>
-        <PlaceOrderSubtotal placeOrderHandler={placeOrderHandler} />
+        <Col
+          justifyContent={'flex-start'}
+          alignItems={'flex-start'}
+          flexDirection={'column'}
+          style={{
+            flex: '0 0 33.3333%',
+            maxWidth: '33.3333%',
+          }}>
+          <PlaceOrderSubtotal placeOrderHandler={placeOrderHandler} />
+        </Col>
       </Row>
     </div>
   );
