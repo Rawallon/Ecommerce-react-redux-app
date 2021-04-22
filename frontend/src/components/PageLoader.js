@@ -1,17 +1,11 @@
 import React from 'react';
-import { Row, Col, Spinner } from 'react-bootstrap';
+import { Col, Row, Spinner } from '../styles/bootstrap.style';
 
 export default function PageLoader() {
   return (
     <Row>
-      <Col className="d-flex justify-content-center">
-        <Spinner
-          animation="border"
-          role="status"
-          style={{
-            width: '100px',
-            height: '100px',
-          }}>
+      <Col>
+        <Spinner role="status">
           <span className="sr-only">Loading!</span>
         </Spinner>
       </Col>

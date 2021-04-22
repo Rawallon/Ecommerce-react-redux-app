@@ -1,16 +1,19 @@
 import React from 'react';
-import { Alert } from 'react-bootstrap';
+import { Alert } from '../styles/bootstrap.style';
 
 export default function Message({ variant = 'info', children }) {
-  return (
-    <Alert
-      variant={variant}
-      style={{
-        margin: 'auto',
-        display: 'block',
-        width: '100%',
-      }}>
-      {children}
-    </Alert>
-  );
+  function chosenColor(variant) {
+    switch (variant) {
+      default:
+      case 'info':
+        return ['#10516c', '#d2ebf5'];
+      case 'danger':
+        return ['#712b29', '#f7dddc'];
+      case 'success':
+        return ['#27633c', '#dbf2e3'];
+      case 'warning':
+        return ['#7d5a29', '#fcefdc'];
+    }
+  }
+  return <Alert variant={chosenColor(variant)}>{children}</Alert>;
 }

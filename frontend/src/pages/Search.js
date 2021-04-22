@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { listProducts } from '../actions/productActions';
+
 import Product from '../stories/components/CategoryProduct/';
-import PageSelect from '../components/PageSelect';
+import Pagination from '../components/Pagination';
 import Meta from '../components/Meta';
 import Prefetch from '../components/Prefetch';
 import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
@@ -72,7 +73,7 @@ export function Search({ productList, listProducts, match }) {
             </Col>
           ))}
       </Row>
-      <PageSelect
+      <Pagination
         pages={productList.pages}
         page={productList.page}
         keyword={keyword}
