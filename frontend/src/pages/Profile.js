@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Button, Form, Col, Row, Table } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+
 import { updateUserProfile } from '../actions/userAction';
 import { clearOrderList, getOrderList } from '../actions/orderAction';
+
 import Meta from '../components/Meta';
 import Prefetch from '../components/Prefetch';
 import Message from '../components/Message';
 import FormInput from '../stories/components/FormInput';
+
+import {
+  ButtonPrimary,
+  ButtonOutlineSecondary,
+  TableSMStripedBordered,
+  Row,
+  Col,
+} from '../styles/bootstrap.style';
+import { Link } from 'react-router-dom';
 
 export function Profile({
   history,
@@ -45,6 +54,7 @@ export function Profile({
   }, [history, userInfo, loggedId, getOrderList, orderList]);
 
   function submitHandler(e) {
+    console.log('asd');
     e.preventDefault();
     if (
       name.length === 0 ||
@@ -99,11 +109,9 @@ export function Profile({
           )}
         </td>
         <td>
-          <LinkContainer to={`/order/${order._id}`}>
-            <Button variant="outline-secondary" size="sm" block>
-              Details
-            </Button>
-          </LinkContainer>
+          <Link to={`/order/${order._id}`}>
+            <ButtonOutlineSecondary>Details</ButtonOutlineSecondary>
+          </Link>
         </td>
       </tr>
     );
@@ -112,7 +120,14 @@ export function Profile({
   return (
     <Row>
       <Meta title="Profile" />
-      <Col md={3}>
+      <Col
+        justifyContent={'flex-start'}
+        alignItems={'flex-start'}
+        flexDirection={'column'}
+        style={{
+          flex: '0 0 25%',
+          maxWidth: '25%',
+        }}>
         <h2>Profile</h2>
         {userUpdateProfile.success && (
           <Message variant="success">Profile updated</Message>
@@ -120,7 +135,7 @@ export function Profile({
 
         <Prefetch error={error} loading={loading} />
 
-        <Form onSubmit={submitHandler}>
+        <form onSubmit={submitHandler} style={{ width: '100%' }}>
           <FormInput name="name" type="text" value={name} onChange={setName} />
           <FormInput
             name="email"
@@ -148,15 +163,22 @@ export function Profile({
             onChange={setConfirmPassword}
           />
 
-          <Button type="submit" variant="primary" block>
+          <ButtonPrimary type="submit" variant="primary" block>
             Update
-          </Button>
-        </Form>
+          </ButtonPrimary>
+        </form>
       </Col>
-      <Col md={9}>
+      <Col
+        justifyContent={'flex-start'}
+        alignItems={'flex-start'}
+        flexDirection={'column'}
+        style={{
+          flex: '0 0 75%',
+          maxWidth: '75%',
+        }}>
         <h2>My orders</h2>
         <Col>
-          <Table striped bordered hover responsive size="sm">
+          <TableSMStripedBordered>
             <thead>
               <tr>
                 <th>ID</th>
@@ -185,7 +207,7 @@ export function Profile({
                 !orderList.loading &&
                 orderList.orders?.map((order) => renderRowOrder(order))}
             </tbody>
-          </Table>
+          </TableSMStripedBordered>
         </Col>
       </Col>
     </Row>

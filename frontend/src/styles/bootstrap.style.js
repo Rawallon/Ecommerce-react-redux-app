@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 export const Row = styled.div`
   margin-top: 1.5rem;
@@ -98,6 +98,23 @@ export const ButtonPrimary = styled.button`
     box-shadow: 0 0 0 0.2rem rgb(60 60 60 / 50%);
   }
 `;
+export const ButtonOutlineSecondary = styled(ButtonPrimary)`
+  letter-spacing: 1px;
+  border-width: 2px;
+  text-transform: uppercase;
+  background-color: transparent;
+  border-color: #919aa1;
+  color: #919aa1;
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+  font-size: 10px;
+
+  :hover {
+    background-color: #ced4da;
+    border-color: #ced4da;
+    color: #fff;
+  }
+`;
 export const ListGroup = styled.div`
   display: flex;
   flex-direction: column;
@@ -135,4 +152,81 @@ export const CardBody = styled.div`
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
+`;
+
+const spinnerBorder = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Spinner = styled.div`
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  min-width: 100px;
+  margin: 2rem 0;
+
+  ::before {
+    content: '';
+    animation: 0.75s linear infinite ${spinnerBorder};
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border: 0.2rem solid currentColor;
+    border-left-color: transparent;
+    border-radius: 50%;
+  }
+`;
+
+export const Alert = styled.div`
+  display: block;
+  width: 100%;
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin: auto;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  transition: opacity 0.15s linear;
+
+  color: ${({ variant }) => variant[0]};
+  background-color: ${({ variant }) => variant[1]};
+  border-color: ${({ variant }) => variant[1]};
+`;
+
+export const TableSMStripedBordered = styled.table`
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #55595c;
+  border: 0;
+
+  tbody {
+    tr:nth-of-type(odd) {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    tr:hover {
+      color: #55595c;
+      background-color: rgba(0, 0, 0, 0.075);
+    }
+    td {
+      padding: 0.75rem;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  th {
+    border-bottom-width: 2px;
+    vertical-align: bottom;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+    padding: 0.75rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
 `;
