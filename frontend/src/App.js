@@ -11,11 +11,6 @@ import Shipping from './pages/Shipping';
 import Payment from './pages/Payment';
 import PlaceOrder from './pages/PlaceOrder';
 import Order from './pages/Order';
-import ListUsers from './pages/admin/ListUsers';
-import ListProducts from './pages/admin/ListProducts';
-import ListOrders from './pages/admin/ListOrders';
-import EditUser from './pages/admin/EditUser';
-import EditProducts from './pages/admin/EditProducts';
 import MissingPage from './pages/MissingPage';
 import Search from './pages/Search';
 import Layout from './components/Layout';
@@ -26,15 +21,6 @@ function App() {
       <div>
         <Layout>
           <Switch>
-            <Route path="/admin/orders" component={ListOrders} />
-            <Route path="/admin/products/create" component={EditProducts} />
-            <Route path="/admin/products/edit/:id" component={EditProducts} />
-            <Route
-              path="/admin/products/:pageNumber?"
-              component={ListProducts}
-            />
-            <Route path="/admin/users/edit/:id?" component={EditUser} />
-            <Route path="/admin/users/:pageNumber?" component={ListUsers} />
             <Route path="/order/:id/:pay?" component={Order} />
             <Route path="/placeorder" component={PlaceOrder} />
             <Route path="/payment" component={Payment} />

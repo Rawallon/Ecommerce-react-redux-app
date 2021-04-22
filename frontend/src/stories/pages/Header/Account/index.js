@@ -26,7 +26,8 @@ export default function index({ auth, logout }) {
         </LoginForm>
       </Wrapper>
     );
-  else
+  else {
+    if (!auth.name) return null; //While loads after user logs in
     return (
       <Wrapper>
         <Header>
@@ -42,14 +43,8 @@ export default function index({ auth, logout }) {
           </Link>
           {auth.isAdmin && (
             <>
-              <Link to="/admin/users">
-                <MenuItem>Users</MenuItem>
-              </Link>
-              <Link to="/admin/products">
-                <MenuItem>Products</MenuItem>
-              </Link>
-              <Link to="/admin/orders">
-                <MenuItem>Orders</MenuItem>
+              <Link to="#">
+                <MenuItem>You're admin!</MenuItem>
               </Link>
             </>
           )}
@@ -58,4 +53,5 @@ export default function index({ auth, logout }) {
         </MenuWrapper>
       </Wrapper>
     );
+  }
 }
