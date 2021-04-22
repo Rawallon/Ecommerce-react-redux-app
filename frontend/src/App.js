@@ -43,7 +43,7 @@ function App() {
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <Route path="/cart" component={Cart} />
-            <Route path="/category/:cat" component={Category} />
+            <Route path="/category/:cat/:pageNumber?" component={Category} />
             <Route path="/product/:id" component={Product} />
             <Route
               path="/search/:keyword/page/:pageNumber"
