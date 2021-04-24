@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import ReviewForm from '../ReviewForm';
+import Rating from '../../../components/Rating';
+import { StyledButton } from '../../../GlobalStyle.style';
 import {
   Bar,
   BarWrapper,
@@ -7,9 +10,6 @@ import {
   PageWrapper,
   FormWrapper,
 } from './OverallRating.style';
-import Rating from '../../../components/Rating';
-import { StyledButton } from '../../../GlobalStyle.style';
-import ReviewForm from '../ReviewForm';
 
 export default function OverallRating({ isUserLogged, product, reviewCreate }) {
   const [overallRating, setOverallRating] = useState(0);
@@ -21,21 +21,28 @@ export default function OverallRating({ isUserLogged, product, reviewCreate }) {
   }, [product]);
 
   const BarRatingRender = () =>
-    [...Array(5)].map((_, index) => (
-      <div>
-        <span>{index + 1}</span>
-        <Bar
-          delay={index}
-          width={
-            (product.reviews.filter(
-              (r) => Number(r.rating) === Number(index + 1),
-            ).length /
-              product.reviews.length) *
-            100
-          }
-        />
-      </div>
-    ));
+    // Creating an empty array so i don't have to manually type it.
+    // Note: could be used later to expand the rating amount
+    Array(5)
+      .fill()
+      .map((_, index) => (
+        <div key={index}>
+          <span>{index + 1}</span>
+          <Bar
+            delay={index}
+            // To calculate width/percentage:
+            // Loops through all the ratings and then filters the ones with the index
+            // then it divides by the total amount of reviews or returns 0, since it returns NaN otherwise
+            width={
+              (product.reviews.filter(
+                (r) => Number(r.rating) === Number(index + 1),
+              ).length /
+                product.reviews.length) *
+                100 || 0
+            }
+          />
+        </div>
+      ));
   return (
     <PageWrapper>
       <RatingsWrapper>
@@ -60,12 +67,16 @@ export default function OverallRating({ isUserLogged, product, reviewCreate }) {
         </RatingFlex>
         <BarWrapper>{BarRatingRender()}</BarWrapper>
       </RatingsWrapper>
-      <FormWrapper display={isReviewing}>
-        <ReviewForm
-          setIsReviewing={setIsReviewing}
-          reviewCreate={reviewCreate}
-        />
-      </FormWrapper>
+      {isReviewing && (
+        <>
+          <FormWrapper>
+            <ReviewForm
+              setIsReviewing={setIsReviewing}
+              reviewCreate={reviewCreate}
+            />
+          </FormWrapper>
+        </>
+      )}
     </PageWrapper>
   );
 }

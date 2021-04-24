@@ -22,7 +22,7 @@ export function Category({
   useEffect(() => {
     if (error) history.push('/404');
     listCategoryProducts(match.params.cat, pageNumber);
-  }, [history, listCategoryProducts, match, error]);
+  }, [history, listCategoryProducts, match, error, pageNumber]);
 
   return (
     <>

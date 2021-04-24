@@ -27,10 +27,8 @@ export default function PageSelect({
           {
             // This has a weird semantic, but it fills an array with *pages* element
             [...Array(pages).keys()].map((n) => (
-              <PaginateNumber active={n + 1 === page}>
-                <Link key={n + 1} to={linkTo(n)}>
-                  {n + 1}
-                </Link>
+              <PaginateNumber key={n + 1} active={n + 1 === page}>
+                <Link to={linkTo(n)}>{n + 1}</Link>
               </PaginateNumber>
             ))
           }

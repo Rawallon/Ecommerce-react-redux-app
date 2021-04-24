@@ -7,7 +7,6 @@ import {
   FlexRow,
   ProductDesc,
   CartButton,
-  ColorDiv,
   CategoriesList,
   DataWrapper,
 } from './ProductData.style';

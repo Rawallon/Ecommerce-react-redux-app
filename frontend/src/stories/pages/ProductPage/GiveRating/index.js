@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Wrapper } from './Rating.style';
 import { BsStar, BsStarFill } from 'react-icons/bs';
 

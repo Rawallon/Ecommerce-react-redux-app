@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import { ButtonPrimary, Col, Row } from '../../../../styles/bootstrap.style';
 import { HeaderText } from '../../../../styles/main.styles';
 import FormRadio from '../../../components/FormRadio';
-import {
-  FormCheck,
-  FormLabel,
-  FormInput,
-  FormInputLabel,
-} from './PaymentForm.style';
+import { FormLabel } from './PaymentForm.style';
 
 export default function PaymentForm({ submitHandler }) {
   const [paymentMethod, setPaymentMethod] = useState('PayPal');

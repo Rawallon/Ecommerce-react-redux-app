@@ -23,9 +23,9 @@ export default function ReviewForm({ setIsReviewing, reviewCreate }) {
       </FormFlex>
       <TextareaField
         onChange={(e) => setComment(e.target.value)}
-        placeholder="Review text...">
-        {comment}
-      </TextareaField>
+        placeholder="Review text..."
+        value={comment}
+      />
       <FormFlex justify="flex-end" style={{ marginTop: '1rem' }}>
         <StyledButton
           onClick={() => setIsReviewing(false)}

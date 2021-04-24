@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -68,19 +68,6 @@ export const CartButton = styled.button`
     width: auto;
     min-width: 160px;
     max-width: 100%;
-  }
-`;
-
-export const ColorDiv = styled.div`
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 2px #fff;
-  background: ${({ color }) => color && `${color}`};
-  border: 2px solid ${({ active }) => (active ? '#fe696a;' : '#ccc;')};
-  width: 2rem;
-  height: 2rem;
-  transition: all 0.2s;
-  :hover {
-    border-color: black;
   }
 `;
 

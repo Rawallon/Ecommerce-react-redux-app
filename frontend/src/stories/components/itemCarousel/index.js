@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import {
@@ -18,42 +18,49 @@ export default function Carousel({ productList, duration }) {
   const { loading, products } = productList;
   const [currentImage, setCurrentImage] = useState(0);
   const [isHover, setIsHover] = useState(false);
-  const [intName, setIntName] = useState(null);
   const [mouseX, setMouseX] = useState(null);
+  const [clearTO, setClearTO] = useState(false);
 
-  const changeImage = (param) => {
-    if (param === 'prev') {
-      if (currentImage - 1 >= 0) {
-        setCurrentImage(currentImage - 1);
+  const changeImage = useCallback(
+    (param) => {
+      if (loading) return;
+      if (param === 'prev') {
+        if (currentImage - 1 >= 0) {
+          setCurrentImage((prevVal) => setCurrentImage(prevVal - 1));
+        } else {
+          setCurrentImage(Object.keys(productList.products).length - 1);
+        }
       } else {
-        setCurrentImage(Object.keys(products).length - 1);
+        if (currentImage + 1 < Object.keys(productList.products).length) {
+          setCurrentImage((prevVal) => setCurrentImage(prevVal + 1));
+        } else {
+          setCurrentImage(0);
+        }
       }
-    } else {
-      if (currentImage + 1 < Object.keys(products).length) {
-        setCurrentImage(currentImage + 1);
-      } else {
-        setCurrentImage(0);
-      }
-    }
-  };
+    },
+    [currentImage, loading, productList],
+  );
 
-  const clearInt = () => {
-    if (intName) {
-      clearInterval(intName);
-    }
-    let newIntName = setTimeout(() => {
-      changeImage('next');
-    }, duration);
-    setIntName(newIntName);
-    return;
-  };
+  function handleUserChange(dir) {
+    changeImage(dir);
+    setClearTO(true);
+  }
 
   useEffect(() => {
-    if (currentImage) clearInt();
+    let timer1 = setTimeout(() => {
+      changeImage('next');
+    }, duration);
+    if (clearTO) {
+      clearTimeout(timer1);
+      timer1 = setTimeout(() => {
+        changeImage('next');
+      }, duration);
+      setClearTO(!clearTO);
+    }
     return () => {
-      clearInt();
+      clearTimeout(timer1);
     };
-  }, [currentImage]);
+  }, [changeImage, clearTO, currentImage, duration]);
 
   const renderImages = () => {
     return Object.values(products).map((item, index) => (
@@ -80,9 +87,9 @@ export default function Carousel({ productList, duration }) {
   const mouseDown = (e) => {
     if (mouseX && e.clientX !== mouseX) {
       if (e.clientX > mouseX) {
-        changeImage('prev');
+        handleUserChange('prev');
       } else {
-        changeImage('next');
+        handleUserChange('next');
       }
     }
   };
@@ -101,13 +108,13 @@ export default function Carousel({ productList, duration }) {
             />
           ))}
         </Counter>
-        <Button show={isHover} onClick={() => changeImage('prev')} isLeft>
+        <Button show={isHover} onClick={() => handleUserChange('prev')} isLeft>
           <div>
             <FaChevronLeft />
           </div>
         </Button>
         <Slides currentSlide={currentImage}>{renderImages()}</Slides>
-        <Button show={isHover} onClick={() => changeImage('next')}>
+        <Button show={isHover} onClick={() => handleUserChange('next')}>
           <div>
             <FaChevronRight />
           </div>

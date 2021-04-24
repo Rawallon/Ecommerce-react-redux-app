@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   margin: auto;
@@ -12,14 +12,7 @@ export const Wrapper = styled.div`
   background: #000;
   user-select: none;
 `;
-const showButton = keyframes`
-from{
-  transform: scale(.7);
-}
-to{
-  transform: scale(1);
-}
-`;
+
 export const Button = styled.div`
   cursor: pointer;
   position: absolute;

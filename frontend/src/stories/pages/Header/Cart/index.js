@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import CartProduct from '../CartProduct';
 import { Hr } from '../../../GlobalStyle.style';
@@ -14,8 +13,6 @@ import {
 } from './Cart.style';
 
 export default function Cart({ items }) {
-  const [totalValue, setTotalValue] = useState(0);
-
   if (items.length === 0)
     return (
       <CartWrapper>

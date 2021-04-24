@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   listFeaturedCategoriesItems,
@@ -23,9 +23,12 @@ export const Layout = ({
     listCategoriesNames();
   }, [listCategoriesNames]);
 
-  const fetchFeaturedItems = (categoryName) => {
-    listFeaturedCategoriesItems(categoryName);
-  };
+  const fetchFeaturedItems = useCallback(
+    (categoryName) => {
+      listFeaturedCategoriesItems(categoryName);
+    },
+    [listFeaturedCategoriesItems],
+  );
   return (
     <>
       <StoreHeader

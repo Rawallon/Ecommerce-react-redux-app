@@ -44,7 +44,7 @@ export default function PictureDisplay({ images, slider = false }) {
       {!slider && (
         <ThumbWrapper>
           {images.map((img, index) => (
-            <ImgThumb onMouseEnter={() => setState(index)}>
+            <ImgThumb key={index} onMouseEnter={() => setState(index)}>
               <img src={img} alt="" draggable="false" />
             </ImgThumb>
           ))}
@@ -57,7 +57,9 @@ export default function PictureDisplay({ images, slider = false }) {
           <>
             <Counter>
               {images.map((s, i) => (
-                <CounterDot active={state === i}> </CounterDot>
+                <CounterDot key={i} active={state === i}>
+                  {' '}
+                </CounterDot>
               ))}
             </Counter>
             <Button show={true} onClick={() => changeImage('prev')} isLeft>

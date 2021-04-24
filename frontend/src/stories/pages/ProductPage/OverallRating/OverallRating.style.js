@@ -92,7 +92,6 @@ export const Bar = styled.div`
 `;
 
 export const FormWrapper = styled.div`
-  display: ${({ display }) => (display ? 'block;' : 'none;')};
   margin: 2rem 0;
   border: 1px solid hsla(0, 0%, 58%, 0.55);
   border-radius: 2px;

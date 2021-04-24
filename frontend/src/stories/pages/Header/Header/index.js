@@ -39,21 +39,10 @@ export default function StoreHeader({
   const [hoverCategories, setHoverCategories] = useState(false);
 
   const [hoveredCat, setHoveredCat] = useState('');
+
   useEffect(() => {
     fetchFeaturedItems(hoveredCat);
-  }, [hoveredCat]);
-
-  const toggleMenu = (mName) => {
-    if (mName === 'User') {
-      if (hoverShopping) setHoverShopping(false);
-      setHoverUser(!hoverUser);
-      return;
-    }
-    if (mName === 'Cart') {
-      if (hoverUser) setHoverUser(false);
-      setHoverShopping(!hoverShopping);
-    }
-  };
+  }, [fetchFeaturedItems, hoveredCat]);
 
   let history = useHistory();
   function handleSearch() {
@@ -86,29 +75,26 @@ export default function StoreHeader({
               </SearchButton>
             </NavCol>
             <NavCol align="flex-end">
-              <Link to="/cart">
-                <NavMouseOver
-                  id="cart"
-                  onMouseEnter={() => setHoverShopping(true)}
-                  onMouseLeave={() => setHoverShopping(false)}
-                  onClick={() => toggleMenu('Cart')}>
-                  <FaShoppingCart size="32" />
-                  <NavDropDown cart active={hoverShopping}>
-                    <Cart items={itemsOnCart} />
-                  </NavDropDown>
-                </NavMouseOver>
-              </Link>
-              <Link to={userInfo ? '/profile' : '/login'}>
-                <NavMouseOver
-                  id="user"
-                  onMouseEnter={() => setHoverUser(true)}
-                  onMouseLeave={() => setHoverUser(false)}>
-                  <FaUser size="32" />
-                  <NavDropDown active={hoverUser}>
-                    <Account auth={userInfo} logout={logout} />
-                  </NavDropDown>
-                </NavMouseOver>
-              </Link>
+              <NavMouseOver
+                id="cart"
+                onMouseEnter={() => setHoverShopping(true)}
+                onMouseLeave={() => setHoverShopping(false)}
+                onClick={() => history.push('/cart')}>
+                <FaShoppingCart size="32" />
+                <NavDropDown cart active={hoverShopping}>
+                  <Cart items={itemsOnCart} />
+                </NavDropDown>
+              </NavMouseOver>
+              <NavMouseOver
+                id="user"
+                onMouseEnter={() => setHoverUser(true)}
+                onMouseLeave={() => setHoverUser(false)}
+                onClick={() => history.push('/profile')}>
+                <FaUser size="32" />
+                <NavDropDown active={hoverUser}>
+                  <Account auth={userInfo} logout={logout} />
+                </NavDropDown>
+              </NavMouseOver>
             </NavCol>
           </NavHeader>
         </Container>

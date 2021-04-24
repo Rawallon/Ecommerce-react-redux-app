@@ -20,16 +20,16 @@ export default function CategoryDetails({ hoveredCat, featuredItems }) {
       return Array(3)
         .fill()
         .map((_, index) => (
-          <Row>
-            <Column key={index}>
+          <Row key={index}>
+            <Column>
               <Loader />
             </Column>
           </Row>
         ));
 
     return featuredProducts.map((p) => (
-      <Row>
-        <Column key={p.name}>
+      <Row key={p.name}>
+        <Column>
           <Product {...p} showButtons={false} />
         </Column>
       </Row>

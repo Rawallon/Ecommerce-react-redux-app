@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { PayPalButton } from 'react-paypal-button-v2';
@@ -66,7 +66,13 @@ export const Order = ({
     return query;
   }
 
-  // Using it to call when the component unmounts
+  const succesPaymentHandler = useCallback(
+    (payRes) => {
+      setOrderPayment(orderId, payRes);
+    },
+    [orderId, setOrderPayment],
+  );
+
   useEffect(() => {
     return () => {
       clearOrderDetails();
@@ -159,10 +165,6 @@ export const Order = ({
         );
       }
     }
-  }
-
-  function succesPaymentHandler(payRes) {
-    setOrderPayment(orderId, payRes);
   }
 
   if (!error && !loading && !order) return <Loader />;

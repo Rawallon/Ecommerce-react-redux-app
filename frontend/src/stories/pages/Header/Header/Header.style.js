@@ -57,6 +57,7 @@ export const NavCol = styled.div`
       : null};
 `;
 export const NavMouseOver = styled.div`
+  cursor: pointer;
   color: black;
   padding: 0 1rem;
   z-index: 1;

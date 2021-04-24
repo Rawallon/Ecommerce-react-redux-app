@@ -7,7 +7,7 @@ export default function Breadcrumb({ links, center = false }) {
     <Nav center={center} aria-label="breadcrumb">
       <Ol>
         {links.map((link, i) => (
-          <Li active={link.active}>
+          <Li key={i} active={link.active}>
             {!link.active ? (
               <Link to={link.link}>{link.name}</Link>
             ) : (
