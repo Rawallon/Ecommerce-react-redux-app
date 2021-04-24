@@ -25,6 +25,9 @@ import {
   PRODUCT_FEATURED_REQUEST,
   PRODUCT_FEATURED_SUCCESS,
   PRODUCT_FEATURED_FAILED,
+  PRODUCT_MODAL_SUCCESS,
+  PRODUCT_MODAL_REQUEST,
+  PRODUCT_MODAL_FAIL,
 } from '../types';
 
 export const productListReducer = (
@@ -62,7 +65,7 @@ export const productListReducer = (
 };
 
 export const productDetailsReducer = (
-  state = { product: { reviews: [] } },
+  state = { product: { reviews: [] }, isModalOn: false },
   action,
 ) => {
   const { type, payload } = action;
@@ -71,17 +74,23 @@ export const productDetailsReducer = (
     case PRODUCT_UPDATE_ADMIN_REQUEST:
     case PRODUCT_DETAILS_REQUEST:
       return { loading: true };
+    case PRODUCT_MODAL_REQUEST:
+      return { loading: true, isModalOn: false };
     case PRODUCT_CREATE_ADMIN_SUCCESS:
     case PRODUCT_UPDATE_ADMIN_SUCCESS:
     case PRODUCT_CREATE_REVIEW_SUCCESS:
     case PRODUCT_DETAILS_SUCCESS:
-      return { loading: false, product: payload };
+      return { loading: false, product: payload, isModalOn: false };
+    case PRODUCT_MODAL_SUCCESS:
+      return { loading: false, product: payload, isModalOn: true };
     case PRODUCT_CREATE_ADMIN_FAILED:
     case PRODUCT_UPDATE_ADMIN_FAILED:
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: payload };
+    case PRODUCT_MODAL_FAIL:
+      return { loading: false, error: payload, isModalOn: true };
     case PRODUCT_DETAILS_CLEAR:
-      return { loading: false, product: { reviews: [] } };
+      return { loading: false, product: { reviews: [] }, isModalOn: false };
 
     default:
       return state;

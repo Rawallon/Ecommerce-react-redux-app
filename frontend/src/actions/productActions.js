@@ -26,6 +26,9 @@ import {
   PRODUCT_FEATURED_REQUEST,
   PRODUCT_FEATURED_SUCCESS,
   PRODUCT_FEATURED_FAILED,
+  PRODUCT_MODAL_REQUEST,
+  PRODUCT_MODAL_SUCCESS,
+  PRODUCT_MODAL_FAIL,
 } from '../types';
 
 export const listProducts = (keyword = '', pageNumber = '') => async (
@@ -67,6 +70,28 @@ export const listProductDetails = (pId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listProductModalDetails = (pId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: PRODUCT_MODAL_REQUEST,
+    });
+
+    const { data } = await axios.get('/api/products/' + pId);
+    dispatch({
+      type: PRODUCT_MODAL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_MODAL_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

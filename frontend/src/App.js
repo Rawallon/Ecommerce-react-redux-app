@@ -14,12 +14,14 @@ import Order from './pages/Order';
 import MissingPage from './pages/MissingPage';
 import Search from './pages/Search';
 import Layout from './components/Layout';
+import Modal from './stories/pages/ProductPage/Modal';
 
 function App() {
   return (
     <BrowserRouter>
       <div>
         <Layout>
+          <Modal />
           <Switch>
             <Route path="/order/:id/:pay?" component={Order} />
             <Route path="/placeorder" component={PlaceOrder} />

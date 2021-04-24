@@ -16,6 +16,7 @@ export const Ol = styled.ol`
 export const Li = styled.li`
   user-select: none;
   letter-spacing: 2px;
+  color: ${({ active }) => (active ? '#919aa1;' : '#1a1a1a;')};
 
   & + & {
     padding-left: 0.5rem;

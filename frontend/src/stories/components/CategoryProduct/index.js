@@ -1,5 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { connect } from 'react-redux';
+
+import { listProductModalDetails } from '../../../actions/productActions';
+import { addToCart } from '../../../actions/cartActions';
 
 import {
   Card,
@@ -16,11 +20,10 @@ import {
   OnSaleBage,
 } from './CategoryProduct.style';
 import Rating from '../Rating/';
-import { addToCart } from '../../../actions/cartActions';
-import { useHistory } from 'react-router';
 
 export const CategoryProduct = ({
   addToCart,
+  listProductModalDetails,
   loading,
   _id,
   category,
@@ -41,7 +44,9 @@ export const CategoryProduct = ({
   }
   const renderButtons = () => {
     const viewBtn = (
-      <CardSecondaryButton inStock={countInStock > 0}>
+      <CardSecondaryButton
+        inStock={countInStock > 0}
+        onClick={() => listProductModalDetails(_id)}>
         Quick View
       </CardSecondaryButton>
     );
@@ -116,6 +121,7 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
   addToCart,
+  listProductModalDetails,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryProduct);

@@ -32,7 +32,7 @@ export const Card = styled.div`
       &:hover {
         border-color: #fff;
         box-shadow: 0 0.3rem 1.525rem -0.375rem rgba(0, 0, 0, 0.1);
-        z-index: 10;
+        z-index: 2;
       }
 
       &:hover ${CardButtonsHidden} {

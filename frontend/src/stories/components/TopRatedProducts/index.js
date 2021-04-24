@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Col, Row } from '../../../styles/bootstrap.style';
 import { HeaderText } from '../../../styles/main.styles';
-import { CategoryProduct } from '../CategoryProduct';
+import CategoryProduct from '../CategoryProduct';
 import { TopRated } from './TopRatedProducts.style';
 
 export default function TopRatedProducts({ productTopRated }) {
