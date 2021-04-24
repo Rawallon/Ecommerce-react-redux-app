@@ -33,7 +33,6 @@ export const Card = styled.div`
         border-color: #fff;
         box-shadow: 0 0.3rem 1.525rem -0.375rem rgba(0, 0, 0, 0.1);
         z-index: 10;
-        border-radius: 0;
       }
 
       &:hover ${CardButtonsHidden} {
@@ -51,9 +50,12 @@ export const Cardimg = styled.a`
   text-align: center;
   width: 100%;
 
+  padding: 1rem 2rem;
+
   img {
-    width: auto;
-    max-width: 215px;
+    width: 100%;
+    /* width: auto; */
+    /* max-width: 215px; */
     height: 258px;
     vertical-align: middle;
     object-fit: contain;

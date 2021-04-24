@@ -28,8 +28,8 @@ export const Container = styled.div`
     margin-top: 2rem !important;
   }
   & > div {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
   }
 `;
 

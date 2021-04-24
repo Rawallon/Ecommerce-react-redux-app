@@ -15,25 +15,41 @@ const Jumbotron = styled.div`
   background-color: #f7f7f9;
 `;
 
+const MutedText = styled.p`
+  color: #919aa1 !important;
+  margin-top: 1.5rem !important;
+  font-size: 2rem;
+
+  a {
+    color: black;
+  }
+`;
+
+const Oops = styled.h1`
+  font-size: 6rem;
+  background: rgb(26, 26, 26);
+  color: rgb(255, 255, 255);
+  padding: 1rem !important;
+  border-radius: 0.25rem !important;
+  margin: 0.67em 0;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+`;
 export default function MissingPage() {
   return (
     <>
       <Meta title="Wrong place" />
-      <Jumbotron
-        className="d-flex flex-column align-items-center justify-content-center mt-4"
-        style={{ borderRadius: '16px' }}>
-        <h1
-          className="missing p-3 rounded"
-          style={{ fontSize: '6rem', background: '#1a1a1a', color: '#fff' }}>
+      <Jumbotron>
+        <Oops>
           <span>O</span>
           <span>O</span>
           <span>P</span>
           <span>S</span>
           <span>!</span>
-        </h1>
-        <p className="text-muted mt-4" style={{ fontSize: '2rem' }}>
+        </Oops>
+        <MutedText>
           You're in the wrong place, <Link to="/">go back</Link>
-        </p>{' '}
+        </MutedText>
       </Jumbotron>
     </>
   );

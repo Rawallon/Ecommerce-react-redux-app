@@ -25,7 +25,7 @@ export const CategoryImage = styled.div`
 export const CategoryTitle = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1.875rem;
+  padding: 2rem;
   h3 {
     margin-bottom: 0.25rem;
     font-size: 1.75rem;

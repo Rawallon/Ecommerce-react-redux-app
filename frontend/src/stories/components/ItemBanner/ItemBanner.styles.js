@@ -22,7 +22,7 @@ export const Banner = styled.div`
 export const BannerContent = styled.div`
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  margin-left: 1rem;
+  margin-left: 2rem;
   margin-top: 0;
   margin-bottom: 0;
   h4 {

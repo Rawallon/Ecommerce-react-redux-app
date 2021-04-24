@@ -47,7 +47,7 @@ export function Login({ location, login, history, userLogin }) {
           </ButtonPrimary>
         </form>
 
-        <Row className="py-3">
+        <Row>
           <Col>
             New customer?{' '}
             <Link

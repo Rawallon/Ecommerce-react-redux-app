@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 export const Wrapper = styled.div`
   margin: auto;
@@ -12,7 +12,14 @@ export const Wrapper = styled.div`
   background: #000;
   user-select: none;
 `;
-
+const showButton = keyframes`
+from{
+  transform: scale(.7);
+}
+to{
+  transform: scale(1);
+}
+`;
 export const Button = styled.div`
   cursor: pointer;
   position: absolute;
@@ -22,7 +29,8 @@ export const Button = styled.div`
   z-index: 2;
 
   div {
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, transform 0.3s;
+    transform: scale(${({ show }) => (show ? '1' : '0.7')});
     opacity: ${({ show }) => (show ? '1' : '0')};
     display: flex;
     align-items: center;
@@ -52,7 +60,7 @@ align-items:center;
     width: auto;
     max-height: 368px;
     height: 100%;
-    margin-left: 2rem;
+    margin: 0 auto;
   }
 `;
 export const SlideItemText = styled.div`

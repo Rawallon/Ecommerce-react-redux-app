@@ -15,6 +15,8 @@ export const Ol = styled.ol`
 
 export const Li = styled.li`
   user-select: none;
+  letter-spacing: 2px;
+
   & + & {
     padding-left: 0.5rem;
   }

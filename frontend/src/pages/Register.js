@@ -101,7 +101,7 @@ export function Register({
           </ButtonPrimary>
         </form>
 
-        <Row className="py-3 w-100">
+        <Row>
           <Col>
             Already registered?{' '}
             <Link to={redirect ? `/login?redirect=${redirect}` : `/register`}>

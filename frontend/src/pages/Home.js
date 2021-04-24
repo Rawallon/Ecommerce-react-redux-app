@@ -54,10 +54,9 @@ export function Home({
               <Product {...product} />
             </Col>
           ))}
-
-        <ItemBanner {...featuredMessage} />
-        <CategoryDisplay {...featuredCategory} />
       </Row>
+      <ItemBanner {...featuredMessage} />
+      <CategoryDisplay {...featuredCategory} />
     </>
   );
 }

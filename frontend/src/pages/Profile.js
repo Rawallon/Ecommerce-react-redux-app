@@ -17,6 +17,7 @@ import {
   Col,
 } from '../styles/bootstrap.style';
 import { Link } from 'react-router-dom';
+import { FaTimes } from 'react-icons/fa';
 
 export function Profile({
   history,
@@ -98,14 +99,14 @@ export function Profile({
           {order.isPaid ? (
             order.paidAt.substring(0, 10)
           ) : (
-            <i className="fas fa-times fa-2x" style={{ color: 'red' }}></i>
+            <FaTimes size={32} color="red" />
           )}
         </td>
         <td>
           {order.isDelivered ? (
             order.deliveredAt.substring(0, 10)
           ) : (
-            <i className="fas fa-times fa-2x" style={{ color: 'red' }}></i>
+            <FaTimes size={32} color="red" />
           )}
         </td>
         <td>

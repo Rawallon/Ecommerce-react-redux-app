@@ -1,3 +1,10 @@
+/*!
+ * Bootstrap v4.6.0 (https://getbootstrap.com/)
+ * Copyright 2011-2021 The Bootstrap Authors
+ * Copyright 2011-2021 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
+
 import styled, { css, keyframes } from 'styled-components';
 
 export const Row = styled.div`
@@ -67,6 +74,7 @@ ${({ flexDirection }) =>
       : ''}
 `;
 export const ButtonPrimary = styled.button`
+  cursor: pointer;
   width: 100%;
   font-weight: 600;
   text-align: center;

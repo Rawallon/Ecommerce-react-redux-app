@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import {
   Button,
@@ -62,15 +63,15 @@ export default function Carousel({ productList, duration }) {
         active={currentImage === index}
         color={item.bgColor}
         key={item._id}>
-        <SlideItemText>
-          <SlideItemTitle color={item.nameColor}>{item.name}</SlideItemTitle>
-          <SlideItemSubtitle color={item.nameColor}>
-            For only $ {item.price}
-          </SlideItemSubtitle>
-          <Link to={`/product/${item._id}`}>
+        <Link to={`/product/${item._id}`}>
+          <SlideItemText>
+            <SlideItemTitle color={item.nameColor}>{item.name}</SlideItemTitle>
+            <SlideItemSubtitle color={item.nameColor}>
+              For only $ {item.price}
+            </SlideItemSubtitle>
             <SlideItemButton>Shop now!</SlideItemButton>
-          </Link>
-        </SlideItemText>
+          </SlideItemText>
+        </Link>
         <img src={item.image} alt="" draggable="false" />
       </SlideItem>
     ));
@@ -96,20 +97,19 @@ export default function Carousel({ productList, duration }) {
             <CounterDot
               key={i}
               active={currentImage === i}
-              onClick={() => setCurrentImage(i)}>
-              {' '}
-            </CounterDot>
+              onClick={() => setCurrentImage(i)}
+            />
           ))}
         </Counter>
         <Button show={isHover} onClick={() => changeImage('prev')} isLeft>
           <div>
-            <i className="fas fa-chevron-left"></i>
+            <FaChevronLeft />
           </div>
         </Button>
         <Slides currentSlide={currentImage}>{renderImages()}</Slides>
         <Button show={isHover} onClick={() => changeImage('next')}>
           <div>
-            <i className="fas fa-chevron-right"></i>
+            <FaChevronRight />
           </div>
         </Button>
       </Wrapper>

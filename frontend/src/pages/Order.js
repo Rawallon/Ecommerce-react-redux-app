@@ -262,13 +262,13 @@ export const Order = ({
                     <ListGroupItem>
                       <CardRow>
                         <div>Shipping</div>
-                        <div className="text-right">${order.shippingPrice}</div>
+                        <div>${order.shippingPrice}</div>
                       </CardRow>
                     </ListGroupItem>
                     <ListGroupItem>
                       <CardRow>
                         <div>Tax</div>
-                        <div className="text-right">${order.taxPrice}</div>
+                        <div>${order.taxPrice}</div>
                       </CardRow>
                     </ListGroupItem>
                     <ListGroupItem noBorder>
@@ -285,7 +285,7 @@ export const Order = ({
                       </CardRow>
                     </ListGroupItem>
                   </ListGroup>
-                  <Col className="mt-4">
+                  <Col>
                     {order.paymentMethod === 'Paypal' ? (
                       renderPaypalBtn()
                     ) : (
@@ -293,7 +293,7 @@ export const Order = ({
                     )}
                   </Col>
                   {isAdmin && (
-                    <Col className="mt-3">
+                    <Col>
                       <ButtonPrimary
                         block
                         onClick={() => setAsDeliveredAdmin(orderId)}>

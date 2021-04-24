@@ -185,7 +185,7 @@ export const CatLink = styled.a`
   text-decoration: none;
 
   & + & {
-    margin-right: 0.5rem;
+    margin-left: 0.5rem;
   }
 
   ::before {
