@@ -55,7 +55,6 @@ export function Profile({
   }, [history, userInfo, loggedId, getOrderList, orderList]);
 
   function submitHandler(e) {
-    console.log('asd');
     e.preventDefault();
     if (
       name.length === 0 ||

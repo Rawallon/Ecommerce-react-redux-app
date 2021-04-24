@@ -22,6 +22,7 @@ export function Product({
   createProductReview,
   isUserLogged,
 }) {
+  console.log(productDetails._id);
   const { error, loading, product } = productDetails;
 
   function reviewCreateHandler(title, comment, rating) {

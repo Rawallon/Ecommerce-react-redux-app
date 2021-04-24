@@ -73,7 +73,6 @@ export const listFeaturedCategoryItems = (selectedCategory) => async (
     const { data } = await axios.get(
       `/api/products/featured/${selectedCategory}?pageSize=6`,
     );
-    console.log(data);
     dispatch({
       type: SHOP_FEATURED_CATEGORY_PRODUCTS_SUCCESS,
       payload: data,

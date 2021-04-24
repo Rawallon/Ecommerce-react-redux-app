@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import Product from '../stories/components/CategoryProduct/';
 import {
   listFeaturedProducts,
   listProducts,
@@ -15,8 +14,7 @@ import {
   listFeaturedMessage,
   listFeaturedCategory,
 } from '../actions/shopActions';
-import { Col, Row } from '../styles/bootstrap.style';
-import { HeaderText } from '../styles/main.styles';
+import TopRatedProducts from '../stories/components/TopRatedProducts';
 
 export function Home({
   listProducts,
@@ -45,16 +43,8 @@ export function Home({
   return (
     <>
       <Meta title="Home" />
-      <Carousel productList={productFeatured} duration={20000} />
-      <HeaderText textAlign={'center'}>Our top rated products</HeaderText>
-      <Row>
-        {!productTopRated.loading &&
-          productTopRated.products?.slice(0, 3).map((product) => (
-            <Col key={product._id} sm md lg>
-              <Product {...product} />
-            </Col>
-          ))}
-      </Row>
+      <Carousel productList={productFeatured} duration={5000} />
+      <TopRatedProducts productTopRated={productTopRated} />
       <ItemBanner {...featuredMessage} />
       <CategoryDisplay {...featuredCategory} />
     </>

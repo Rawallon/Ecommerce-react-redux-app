@@ -108,7 +108,6 @@ export const listCategoryProducts = (category = '', pageNumber = 1) => async (
 };
 
 export const deleteProductAdmin = (objectId) => async (dispatch, getState) => {
-  console.log('deleteProductAdmin');
   try {
     dispatch({
       type: PRODUCT_DELETE_ADMIN_REQUEST,

@@ -6,7 +6,6 @@ import PictureDisplay from '../PictureDisplay/';
 import ProductData from '../ProductData/';
 
 export default function ProductDisplay({ images, product, addToCart }) {
-  console.log(product);
   return (
     <Container>
       <Wrapper>

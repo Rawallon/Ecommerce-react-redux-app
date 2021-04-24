@@ -32,7 +32,6 @@ export const cartReducer = (
         cartItems: { ...state.cartItems, [payload.pId]: qty },
       };
     case CART_CHANGE_QTY_ITEM_FAILED:
-      console.log('qtd >');
       return state;
     case CART_REM_ITEM:
     case CART_ADD_FAILED:
