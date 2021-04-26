@@ -23,7 +23,10 @@ export const InputText = styled.input`
   border: 0 solid #ced4da;
   border-radius: 0;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-
+  ${({ isInvalid }) =>
+    isInvalid
+      ? `border-color: #d9534f; box-shadow: 0 0 0 0.2rem rgb(217 83 79 / 25%);`
+      : ''};
   :focus {
     color: #55595c;
     background-color: #f7f7f9;

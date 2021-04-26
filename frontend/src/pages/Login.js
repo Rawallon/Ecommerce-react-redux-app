@@ -14,8 +14,8 @@ export function Login({ location, login, history, userLogin }) {
   const { loading, error, userInfo } = userLogin;
 
   useEffect(() => {
-    if (userInfo) history.push(redirect);
-  }, [history, userInfo, redirect]);
+    if (!loading && !error && userInfo) history.push(redirect);
+  }, [error, history, loading, redirect, userInfo]);
 
   function submitHandler(e) {
     e.preventDefault();
@@ -33,6 +33,7 @@ export function Login({ location, login, history, userLogin }) {
             value={email}
             onChange={setEmail}
             required
+            autocomplete="email"
           />
           <FormInput
             name="password"
@@ -40,6 +41,7 @@ export function Login({ location, login, history, userLogin }) {
             value={password}
             onChange={setPassword}
             required
+            autocomplete="password"
           />
 
           <ButtonPrimary type="submit" variant="primary">

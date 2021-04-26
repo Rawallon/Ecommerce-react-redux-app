@@ -24,10 +24,11 @@ export function Register({
   const { error, loading } = userRegister;
 
   useEffect(() => {
-    if (userInfo) history.push(redirect);
-  }, [history, userInfo, redirect]);
+    if (!loading && !error && userInfo) history.push(redirect);
+  }, [history, userInfo, redirect, loading, error]);
 
   function submitHandler(e) {
+    setMessage('asd');
     e.preventDefault();
     if (
       name.length === 0 ||
@@ -68,6 +69,7 @@ export function Register({
             isInvalid={!!message['name']}
             placeholder="Complete name"
             onChange={setName}
+            autocomplete="complete-name"
           />
           <FormInput
             name="email"
@@ -75,6 +77,7 @@ export function Register({
             value={email}
             isInvalid={!!message['email']}
             onChange={setEmail}
+            autocomplete="email"
           />
           <FormInput
             name="password"
@@ -84,6 +87,7 @@ export function Register({
             placeholder="Password"
             value={password}
             onChange={setPassword}
+            autocomplete="new-password"
           />
           <FormInput
             name="confirmPassword"
@@ -94,6 +98,7 @@ export function Register({
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={setConfirmPassword}
+            autocomplete="confirm-password"
           />
 
           <ButtonPrimary type="submit" variant="primary" block>

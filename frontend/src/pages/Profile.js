@@ -136,13 +136,20 @@ export function Profile({
         <Prefetch error={error} loading={loading} />
 
         <form onSubmit={submitHandler} style={{ width: '100%' }}>
-          <FormInput name="name" type="text" value={name} onChange={setName} />
+          <FormInput
+            name="name"
+            type="text"
+            value={name}
+            onChange={setName}
+            autocomplete="name"
+          />
           <FormInput
             name="email"
             type="email"
             value={email}
             isInvalid={!!message['email']}
             onChange={setEmail}
+            autocomplete="email"
           />
           <FormInput
             name="password"
@@ -152,6 +159,7 @@ export function Profile({
             placeholder="Password"
             value={password}
             onChange={setPassword}
+            autocomplete="password"
           />
           <FormInput
             name="confirmPassword"
@@ -161,6 +169,7 @@ export function Profile({
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={setConfirmPassword}
+            autocomplete="password"
           />
 
           <ButtonPrimary type="submit" variant="primary" block>
