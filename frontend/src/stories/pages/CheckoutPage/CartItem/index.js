@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-  changeQtyCart,
-  listProductCart,
-} from '../../../../actions/cartActions';
+import { changeQtyCart } from '../../../../actions/cartActions';
 import { remCart } from '../../../../actions/cartActions';
 import Prefetch from '../../../../components/Prefetch';
 import { ButtonPrimary } from '../../../../styles/bootstrap.style';
@@ -19,7 +16,6 @@ import {
 
 export const CartItem = ({
   product,
-  listProductCart,
   changeQtyCart,
   pId,
   remCart,
@@ -27,10 +23,6 @@ export const CartItem = ({
   loading,
   error,
 }) => {
-  useEffect(() => {
-    listProductCart(pId);
-  }, [listProductCart, pId]);
-
   function changeQty(e) {
     if (qty > product.countInStock || +e.target.value === 0) {
       remCart(pId);
@@ -94,7 +86,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  listProductCart,
   remCart,
   changeQtyCart,
 };

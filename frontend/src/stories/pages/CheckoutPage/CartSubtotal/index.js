@@ -9,7 +9,7 @@ export const CartSubtotal2 = ({ checkoutHandler, qty, products }) => {
   useEffect(() => {
     let total = 0;
     for (const item in products) {
-      if (!products[item].loading) {
+      if (!products[item].loading && qty[item] !== undefined) {
         total += +products[item].price * +qty[item];
       }
     }
