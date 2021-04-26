@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   CartWrapper as Wrapper,
   MenuItem,
@@ -7,7 +7,8 @@ import {
 import { FiChevronRight, FiChevronsRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-export default function Categories({ categories, hoveredCat, setHoveredCat }) {
+export default function Categories({ categories }) {
+  const [hoveredCat, setHoveredCat] = useState(null);
   const { loading, categoryList } = categories;
 
   if (loading) return <div>loading</div>;
@@ -15,19 +16,15 @@ export default function Categories({ categories, hoveredCat, setHoveredCat }) {
     return (
       <div>
         <Wrapper>
-          <MenuWrapper>
-            {categoryList.map((category, index) => (
+          <MenuWrapper onMouseLeave={() => setHoveredCat(null)}>
+            {categoryList.map((category) => (
               <MenuItem
                 active={hoveredCat === 'category'}
                 onMouseEnter={() => setHoveredCat(category)}
                 key={category}>
                 <Link to={'/category/' + category}>
                   {category}
-                  {hoveredCat === category ? (
-                    <FiChevronsRight />
-                  ) : (
-                    <FiChevronRight />
-                  )}
+                  {hoveredCat === category ? <FiChevronsRight /> : ''}
                 </Link>
               </MenuItem>
             ))}

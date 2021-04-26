@@ -143,8 +143,18 @@ export const NavDropDown = styled.div`
   }
 `;
 
+const fadeUpShow = keyframes`
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+`;
 export const CatDropDown = styled(NavDropDown)`
-  animation-name: '';
+  animation-name: ${({ active }) => (active ? fadeUpShow : '')};
   left: 0;
   right: auto;
 `;

@@ -37,45 +37,25 @@ export const MenuWrapper = styled.div`
   justify-content: center;
   position: relative;
 
-  margin: 0.25rem 0.5rem;
-`;
-
-export const LoginForm = styled(MenuWrapper)`
-  margin: 0;
-  padding: 0.25rem 0.5rem;
-
-  input {
-    border-radius: 5px;
-    margin: 0.5rem 0;
-    width: 100%;
-    padding: 10px;
-    font-size: 1em;
-    border: #b1b1b1 solid 1px;
-    box-shadow: inset 0 1px 3px rgb(0 0 0 / 10%);
-    color: #4c4c4c;
-  }
+  margin: 1rem 0;
 `;
 
 export const MenuItem = styled.div`
   cursor: pointer;
   width: 100%;
-  display: block;
-  position: relative;
-  padding: 0.5rem 0.25rem;
-  margin: 0.25rem 0;
-  border-radius: 3px;
+  padding: 0.5rem 0.75rem;
   font-size: 14px;
-  color: #4c4c4c;
-  text-decoration: none;
-  background: ${(props) => (props.active ? '#e6e6e6' : 'transparent')};
+  background: transparent;
+  transition: all 0.5s;
+  border-bottom: 1px solid black;
 
   :hover {
-    color: #000;
-    background: #e6e6e6;
+    color: #fff;
+    background: #000;
   }
 
   a {
-    color: #000;
+    color: inherit;
     font-weight: normal;
     display: flex;
     justify-content: space-between;

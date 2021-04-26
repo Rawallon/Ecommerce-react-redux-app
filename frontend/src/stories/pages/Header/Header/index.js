@@ -38,12 +38,6 @@ export default function StoreHeader({
   const [hoverUser, setHoverUser] = useState(false);
   const [hoverCategories, setHoverCategories] = useState(false);
 
-  const [hoveredCat, setHoveredCat] = useState('');
-
-  useEffect(() => {
-    fetchFeaturedItems(hoveredCat);
-  }, [fetchFeaturedItems, hoveredCat]);
-
   let history = useHistory();
   function handleSearch() {
     history.push('/search/' + searchQuery);
@@ -81,7 +75,10 @@ export default function StoreHeader({
                 onMouseLeave={() => setHoverShopping(false)}
                 onClick={() => history.push('/cart')}>
                 <FaShoppingCart size="32" />
-                <NavDropDown cart active={hoverShopping}>
+                <NavDropDown
+                  cart
+                  active={hoverShopping}
+                  onClick={(e) => e.stopPropagation()}>
                   <Cart items={itemsOnCart} />
                 </NavDropDown>
               </NavMouseOver>
@@ -91,7 +88,9 @@ export default function StoreHeader({
                 onMouseLeave={() => setHoverUser(false)}
                 onClick={() => history.push('/profile')}>
                 <FaUser size="32" />
-                <NavDropDown active={hoverUser}>
+                <NavDropDown
+                  active={hoverUser}
+                  onClick={(e) => e.stopPropagation()}>
                   <Account auth={userInfo} logout={logout} />
                 </NavDropDown>
               </NavMouseOver>
@@ -105,20 +104,16 @@ export default function StoreHeader({
             <CatSub
               onMouseEnter={() => setHoverCategories(true)}
               onMouseLeave={() => setHoverCategories(false)}>
-              <FaBars /> Categories
+              <FaBars /> SHOP BY CATEGORY
               <CatDropDown active={hoverCategories}>
-                <Categories
-                  categories={categoriesList}
-                  hoveredCat={hoveredCat}
-                  setHoveredCat={setHoveredCat}
-                />
+                <Categories categories={categoriesList} />
               </CatDropDown>
-              <CatDetailsWrapper active={hoverCategories}>
+              {/* <CatDetailsWrapper active={hoverCategories}>
                 <CategoryDetails
                   hoveredCat={hoveredCat}
                   featuredItems={featuredItemPerCategory}
                 />
-              </CatDetailsWrapper>
+              </CatDetailsWrapper> */}
             </CatSub>
             {!categoriesList.loading &&
               categoriesList.categoryList.map((el) => (
