@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { InputLabel, InputText, InputWrapper } from './FormInput.style';
 
 const capitalize = (s) => {
@@ -16,7 +16,23 @@ export default function FormInput({
   disabled = false,
   placeholder,
   asField,
+  autocomplete = 'no',
 }) {
+  const [invalid, setInvalid] = useState(isInvalid);
+  useEffect(() => {
+    setInvalid(isInvalid);
+  }, [isInvalid]);
+
+  function handleOnBlur() {
+    if (value.toString().length === 0) {
+      setInvalid(true);
+    }
+    if (type !== 'email') return;
+    const isEmail = value.match(/.+@.+\..+/gi);
+    if (!isEmail || value.toString().length === 0) {
+      setInvalid(true);
+    }
+  }
   // To make sure it always has a label/placeholder, even if I don't explicitly set it
   let lbl = label || placeholder || name;
   let phd = placeholder || lbl;
@@ -24,14 +40,19 @@ export default function FormInput({
     <InputWrapper controlId={name}>
       <InputLabel>{capitalize(lbl)}:</InputLabel>
       <InputText
-        isInvalid={isInvalid}
+        isInvalid={invalid}
         type={type}
         disabled={disabled}
         placeholder={capitalize(phd)}
         value={value}
+        onBlur={handleOnBlur}
         required={required}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          setInvalid(false);
+          return onChange(e.target.value);
+        }}
         as={asField ? asField : 'input'}
+        autoComplete={autocomplete}
       />
     </InputWrapper>
   );
