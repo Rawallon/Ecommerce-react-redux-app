@@ -76,7 +76,7 @@ export const addOrderItems = asyncHandler(async (req, res) => {
       orderItems: iArr,
       orderItemsQty: sanitize(orderItemsQty),
       shippingAddress: sanitize(shippingAddress),
-      paymentMethod: sanitize(paymentMethod || 'Paypal'),
+      paymentMethod: sanitize(paymentMethod || 'PayPal'),
       paymentId: pref,
       itemsPrice: sanitize(itemsPrice),
       taxPrice,
@@ -170,7 +170,7 @@ export const putUpdateOrderPay = asyncHandler(async (req, res) => {
         };
         break;
 
-      case 'Paypal':
+      case 'PayPal':
         order.isPaid = true;
         order.paidAt = Date.now();
         order.paymentResult = {

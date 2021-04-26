@@ -98,7 +98,7 @@ export const Order = ({
 
     // Adds sdk according to the payment method
     const addPaymentScript = async () => {
-      if (order.paymentMethod === 'Paypal') {
+      if (order.paymentMethod === 'PayPal') {
         // Ps: Paypal SDK doesn't create a button
         const script = document.createElement('script');
         script.type = 'text/javascript';
@@ -149,19 +149,23 @@ export const Order = ({
   function renderPaypalBtn() {
     if (orderPayment.loading) return <Loader />;
     if (!order.isPaid) {
+      console.log({ sdkReady });
       if (!sdkReady) {
         return <Loader />;
       } else {
         return (
-          <PayPalButton
-            currency="BRL"
-            amount={(
-              order.totalPrice +
-              order.shippingPrice +
-              order.taxPrice
-            ).toFixed(2)}
-            onSuccess={succesPaymentHandler}
-          />
+          <div style={{ width: '100%', marginTop: '0.75rem' }}>
+            <PayPalButton
+              style={{ layout: 'vertical', color: 'black' }}
+              currency="BRL"
+              amount={(
+                order.totalPrice +
+                order.shippingPrice +
+                order.taxPrice
+              ).toFixed(2)}
+              onSuccess={succesPaymentHandler}
+            />
+          </div>
         );
       }
     }
@@ -288,10 +292,10 @@ export const Order = ({
                     </ListGroupItem>
                   </ListGroup>
                   <Col>
-                    {order.paymentMethod === 'Paypal' ? (
+                    {order.paymentMethod === 'PayPal' ? (
                       renderPaypalBtn()
                     ) : (
-                      <div id="button-checkout"></div>
+                      <div id="button-checkout">asd</div>
                     )}
                   </Col>
                   {isAdmin && (
