@@ -27,7 +27,6 @@ export const PaginateNumber = styled.li`
     text-decoration: none;
 
     :hover {
-      z-index: 2;
       color: black;
       text-decoration: none;
       background-color: #f7f7f9;
@@ -37,7 +36,6 @@ export const PaginateNumber = styled.li`
     ${({ active }) =>
       active &&
       `{
-      z-index: 3;
       color: #fff;
       background-color: #1a1a1a;
       border-color: #1a1a1a;

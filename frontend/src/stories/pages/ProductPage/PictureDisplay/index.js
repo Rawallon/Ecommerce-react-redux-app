@@ -44,7 +44,10 @@ export default function PictureDisplay({ images, slider = false }) {
       {!slider && (
         <ThumbWrapper>
           {images.map((img, index) => (
-            <ImgThumb key={index} onMouseEnter={() => setState(index)}>
+            <ImgThumb
+              active={state === index}
+              key={index}
+              onMouseEnter={() => setState(index)}>
               <img src={img} alt="" draggable="false" />
             </ImgThumb>
           ))}

@@ -20,9 +20,12 @@ export function Category({
   const { error, loading, products } = productList;
 
   useEffect(() => {
-    if (error) history.push('/404');
     listCategoryProducts(match.params.cat, pageNumber);
   }, [history, listCategoryProducts, match, error, pageNumber]);
+
+  if (error) {
+    return <div>{history.push('/404')}</div>;
+  }
 
   return (
     <>

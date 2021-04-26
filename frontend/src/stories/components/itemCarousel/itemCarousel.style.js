@@ -34,6 +34,10 @@ export const Button = styled.div`
     ${({ isLeft }) => (isLeft ? 'margin-left: 16px;' : 'margin-right: 16px;')}
     background: #fff;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    :active {
+      transform: scale(0.7);
+    }
   }
 `;
 

@@ -39,5 +39,5 @@ export const ModalBody = styled.div`
   left: 0;
   /* left: -300%; */
   transition: all 0.3s ease-in-out;
-  z-index: 2;
+  z-index: 3;
 `;

@@ -11,6 +11,7 @@ import {
   ItemWrapper,
   EmptyCart,
 } from './Cart.style';
+import { Link } from 'react-router-dom';
 
 export default function Cart({ items }) {
   if (items.length === 0)
@@ -38,7 +39,9 @@ export default function Cart({ items }) {
             </h3>
           </ItemCount>
           <Flex>
-            <CardButton>Go to checkout</CardButton>
+            <Link to="/cart" style={{ width: '100%' }}>
+              <CardButton>Go to checkout</CardButton>
+            </Link>
           </Flex>
         </Header>
         <ItemWrapper>

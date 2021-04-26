@@ -17,7 +17,6 @@ export const ProductTitle = styled.h1`
   color: #222;
   margin-bottom: 10px !important;
   font-weight: 600;
-  letter-spacing: 0px;
   line-height: 1.428;
 `;
 

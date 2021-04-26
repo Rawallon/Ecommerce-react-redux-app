@@ -30,20 +30,22 @@ export const ImgThumb = styled.div`
   width: 5rem;
   height: 5rem;
   background: #000;
-  border: 3px solid #f3f5f9;
+  border: 3px solid ${({ active }) => (active ? '#797A7C' : '#f3f5f9')};
   margin-bottom: 1rem;
   overflow: hidden;
   position: relative;
+  transition: border 0.3s;
   :hover {
-    border-color: #d1d9e8;
+    border-color: ${({ active }) => (active ? '#797A7C' : '#d1d9e8')};
   }
 
   img {
     width: 150%;
     height: auto;
     position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%);
+    transform: translate(-50%, -50%);
   }
 `;
 
@@ -55,11 +57,12 @@ export const ImgDisplay = styled.div`
   justify-content: center;
 
   img {
-    width: 100%;
+    max-width: 100%;
+    max-height: 508px;
+    width: auto;
     height: auto;
     top: 50%;
     left: 50%;
-    transform: translate(-50% -50%);
   }
 `;
 
