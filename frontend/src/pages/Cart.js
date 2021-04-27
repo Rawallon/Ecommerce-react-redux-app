@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import Meta from '../components/Meta';
-import CheckoutSteps from '../stories/pages/CheckoutPage/CheckoutSteps/';
-import CartPage from '../stories/pages/CheckoutPage/CartPage';
 import { HeaderText } from '../styles/main.styles';
+
+import Meta from '../components/atoms/Meta';
+import CheckoutSteps from '../components/molecules/CheckoutSteps';
+import CartPage from '../components/organisms/CartPage';
 
 export function Cart({ history, cartItems = {} }) {
   const [cartItemsArray, setCartItemsArray] = useState([]);

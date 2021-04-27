@@ -24,10 +24,10 @@ export const Container = styled.div`
     max-width: 1320px;
   }
 
-  & > *:first-child {
+  main > *:first-child {
     margin-top: 2rem !important;
   }
-  & > div {
+  main > div {
     margin-top: 3rem;
     margin-bottom: 3rem;
   }

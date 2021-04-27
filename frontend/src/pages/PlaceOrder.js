@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { clearCreateOrder, createOrder } from '../actions/orderAction';
-import Message from '../components/Message';
-import Meta from '../components/Meta';
-import CheckoutProduct from '../stories/pages/CheckoutPage/CheckoutProduct';
-import CheckoutSteps from '../stories/pages/CheckoutPage/CheckoutSteps/';
-import PlaceOrderSubtotal from '../stories/pages/CheckoutPage/PlaceOrderSubtotal';
+import { CheckoutProduct } from '../components/atoms/CheckoutProduct';
+import Message from '../components/atoms/Message';
+import Meta from '../components/atoms/Meta';
+import { PlaceOrderSubtotal } from '../components/atoms/PlaceOrderSubtotal';
+import CheckoutSteps from '../components/molecules/CheckoutSteps';
+
 import {
   Col,
   ListGroup,

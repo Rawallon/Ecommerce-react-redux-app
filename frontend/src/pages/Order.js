@@ -23,12 +23,11 @@ import {
   Row,
   Col,
 } from '../styles/bootstrap.style';
-
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import Meta from '../components/Meta';
-import PageLoader from '../components/PageLoader';
-import CheckoutProduct from '../stories/pages/CheckoutPage/CheckoutProduct';
+import Loader from '../components/organisms/Loader';
+import Message from '../components/atoms/Message';
+import PageLoader from '../components/molecules/PageLoader';
+import Meta from '../components/atoms/Meta';
+import CheckoutProduct from '../components/atoms/CheckoutProduct';
 
 const CardRow = styled.div`
   display: flex;

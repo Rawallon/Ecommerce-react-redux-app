@@ -6,15 +6,15 @@ import {
   listProducts,
   listTopProducts,
 } from '../actions/productActions';
-import Meta from '../components/Meta';
-import Carousel from '../stories/components/itemCarousel';
-import ItemBanner from '../stories/components/ItemBanner';
-import CategoryDisplay from '../stories/components/CategoryDisplay';
 import {
   listFeaturedMessage,
   listFeaturedCategory,
 } from '../actions/shopActions';
-import TopRatedProducts from '../stories/components/TopRatedProducts';
+import ItemBanner from '../components/atoms/ItemBanner';
+import Carousel from '../components/atoms/ItemCarousel';
+import Meta from '../components/atoms/Meta';
+import CategoryDisplay from '../components/molecules/CategoryDisplay';
+import TopRatedProducts from '../components/molecules/TopRatedProducts';
 
 export function Home({
   listProducts,

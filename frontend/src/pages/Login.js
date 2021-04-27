@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { login } from '../actions/userAction';
-import Prefetch from '../components/Prefetch';
-import FormInput from '../stories/components/FormInput';
+
 import { ButtonPrimary, Col, Row } from '../styles/bootstrap.style';
+
+import FormInput from '../components/atoms/FormInput';
+import Prefetch from '../components/molecules/Prefetch';
 
 export function Login({ location, login, history, userLogin }) {
   const [email, setEmail] = useState('');

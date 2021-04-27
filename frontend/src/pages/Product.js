@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+
+import { addToCart } from '../actions/cartActions';
 import {
   clearProductDetails,
   createProductReview,
   listProductDetails,
 } from '../actions/productActions';
-import { addToCart } from '../actions/cartActions';
-import Meta from '../components/Meta';
-import Prefetch from '../components/Prefetch';
-import ProductDisplay from '../stories/pages/ProductPage/ProductDisplay';
-import ProductContent from '../stories/pages/ProductPage/ProductContent';
-import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '../components/atoms/Breadcrumb/Breadcrumb';
+import Meta from '../components/atoms/Meta';
+import Prefetch from '../components/molecules/Prefetch';
+import ProductContent from '../components/molecules/ProductContent';
+import ProductDisplay from '../components/molecules/ProductDisplay';
 
 export function Product({
   productDetails,

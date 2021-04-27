@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+
 import { savePaymentMethod } from '../actions/cartActions';
-import Meta from '../components/Meta';
-import CheckoutSteps from '../stories/pages/CheckoutPage/CheckoutSteps/';
-import PaymentForm from '../stories/pages/CheckoutPage/PaymentForm';
+
+import Meta from '../components/atoms/Meta';
+
+import CheckoutSteps from '../components/molecules/CheckoutSteps';
+import PaymentForm from '../components/molecules/PaymentForm';
 
 export const Payment = ({
   shippingAddress,

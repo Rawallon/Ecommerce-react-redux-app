@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Meta from '../components/Meta';
+
+import Meta from '../components/atoms/Meta';
 
 const Jumbotron = styled.div`
   border-radius: 16px;

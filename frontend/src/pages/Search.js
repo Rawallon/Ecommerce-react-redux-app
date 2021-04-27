@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { listProducts } from '../actions/productActions';
-
-import Product from '../stories/components/CategoryProduct/';
-import Pagination from '../components/Pagination';
-import Meta from '../components/Meta';
-import Prefetch from '../components/Prefetch';
-import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '../components/atoms/Breadcrumb/Breadcrumb';
+import CategoryProduct from '../components/atoms/CategoryProduct';
+import Meta from '../components/atoms/Meta';
+import Pagination from '../components/atoms/Pagination';
+import Prefetch from '../components/molecules/Prefetch';
 
 const Row = styled.div`
   margin-top: 1.5rem;
@@ -69,7 +68,7 @@ export function Search({ productList, listProducts, match }) {
         {products &&
           products.map((product) => (
             <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-              <Product {...product} />
+              <CategoryProduct {...product} />
             </Col>
           ))}
       </Row>

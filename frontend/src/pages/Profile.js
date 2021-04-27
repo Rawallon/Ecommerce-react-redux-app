@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { FaTimes } from 'react-icons/fa';
 
 import { updateUserProfile } from '../actions/userAction';
 import { clearOrderList, getOrderList } from '../actions/orderAction';
-
-import Meta from '../components/Meta';
-import Prefetch from '../components/Prefetch';
-import Message from '../components/Message';
-import FormInput from '../stories/components/FormInput';
 
 import {
   ButtonPrimary,
@@ -16,8 +13,11 @@ import {
   Row,
   Col,
 } from '../styles/bootstrap.style';
-import { Link } from 'react-router-dom';
-import { FaTimes } from 'react-icons/fa';
+
+import Meta from '../components/atoms/Meta';
+import Message from '../components/atoms/Message';
+import Prefetch from '../components/molecules/Prefetch';
+import FormInput from '../components/atoms/FormInput';
 
 export function Profile({
   history,

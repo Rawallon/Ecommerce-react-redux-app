@@ -5,9 +5,11 @@ import {
   listCategoriesNames,
 } from '../actions/shopActions';
 import { logout } from '../actions/userAction';
-import StoreHeader from '../stories/pages/Header/Header';
-import Footer from './Footer';
+
 import { Container } from '../styles/main.styles';
+
+import Footer from './organisms/Footer';
+import StoreHeader from './organisms/Header';
 
 export const Layout = ({
   logout,
@@ -39,7 +41,9 @@ export const Layout = ({
         featuredItemPerCategory={featuredItemPerCategory}
         fetchFeaturedItems={fetchFeaturedItems}
       />
-      <Container>{children}</Container>
+      <Container>
+        <main>{children}</main>
+      </Container>
       <Footer />
     </>
   );

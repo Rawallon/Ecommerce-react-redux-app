@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { listCategoryProducts } from '../actions/productActions';
-
-import Product from '../stories/components/CategoryProduct/';
-import Meta from '../components/Meta';
-import Prefetch from '../components/Prefetch';
-import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
-import Pagination from '../components/Pagination';
 import { Col, Row } from '../styles/bootstrap.style';
+import Breadcrumb from '../components/atoms/Breadcrumb/Breadcrumb';
+import CategoryProduct from '../components/atoms/CategoryProduct';
+import Meta from '../components/atoms/Meta';
+import Prefetch from '../components/molecules/Prefetch';
+import Pagination from '../components/atoms/Pagination';
 
 export function Category({
   history,
@@ -45,7 +44,7 @@ export function Category({
         <Prefetch loading={loading} />
         {products.map((product) => (
           <Col key={product._id} sm md lg xl>
-            <Product {...product} />
+            <CategoryProduct {...product} />
           </Col>
         ))}
       </Row>

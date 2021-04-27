@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { register } from '../actions/userAction';
-import Meta from '../components/Meta';
-import Prefetch from '../components/Prefetch';
-import FormInput from '../stories/components/FormInput';
+
 import { ButtonPrimary, Col, Row } from '../styles/bootstrap.style';
+import { FormInput } from '../components/atoms/FormRadio/FormRadio.style';
+
+import Meta from '../components/atoms/Meta';
+import Prefetch from '../components/molecules/Prefetch';
 
 export function Register({
   location,
