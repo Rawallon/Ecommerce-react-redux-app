@@ -22,9 +22,14 @@ export const Button = styled.div`
   z-index: 2;
 
   div {
+    ${Wrapper}:hover & {
+      transform: scale(1);
+      opacity: 1;
+    }
+
     transition: opacity 0.2s, transform 0.3s;
-    transform: scale(${({ show }) => (show ? '1' : '0.7')});
-    opacity: ${({ show }) => (show ? '1' : '0')};
+    transform: scale(0.7);
+    opacity: 0;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -104,10 +104,13 @@ const activeAnim = keyframes`
     }
 `;
 export const NavDropDown = styled.div`
+  ${NavMouseOver}:hover & {
+    animation-name: ${activeAnim};
+    display: block;
+  }
+  display: none;
   animation-duration: 0.2s;
-  animation-name: ${({ active }) => (active ? activeAnim : '')};
   animation-fill-mode: forwards;
-  display: ${({ active }) => (active ? 'block' : 'none')};
   position: absolute;
   top: 160%;
   right: 0%;
@@ -141,22 +144,6 @@ export const NavDropDown = styled.div`
     width: 100vw;
     height: calc(100vh - 70px);
   }
-`;
-
-const fadeUpShow = keyframes`
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0px);
-    }
-`;
-export const CatDropDown = styled(NavDropDown)`
-  animation-name: ${({ active }) => (active ? fadeUpShow : '')};
-  left: 0;
-  right: auto;
 `;
 
 export const CatDetailsWrapper = styled(NavDropDown)`
@@ -243,6 +230,26 @@ export const CatSub = styled.div`
     height: 240%;
     background: #000;
     z-index: -1;
+  }
+`;
+
+const fadeUpShow = keyframes`
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+`;
+export const CatDropDown = styled(NavDropDown)`
+  left: 0;
+  right: auto;
+
+  ${CatSub}:hover & {
+    display: block;
+    animation-name: ${fadeUpShow};
   }
 `;
 

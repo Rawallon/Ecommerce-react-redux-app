@@ -27,19 +27,14 @@ export function Home({
   listFeaturedMessage,
   listFeaturedCategory,
 }) {
+  // Used as a "ComponentDidMount"
   useEffect(() => {
     listFeaturedMessage();
     listFeaturedCategory();
     listFeaturedProducts();
     listTopProducts();
     listProducts('', 1);
-  }, [
-    listProducts,
-    listTopProducts,
-    listFeaturedProducts,
-    listFeaturedMessage,
-    listFeaturedCategory,
-  ]);
+  }, []); // eslint-disable-line
   return (
     <>
       <Meta title="Home" />

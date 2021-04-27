@@ -37,7 +37,9 @@ export default function ProductData({
         <Rating rating={rating} count={numReviews} />
       </FlexBetween>
       {showDesc && <ProductDesc>{description}</ProductDesc>}
-      {/* <FlexRow>
+      {/* 
+      // This is commented out since it isn't implemented in the backend
+      <FlexRow>
         Color:
         <ColorDiv active color="blue" />
         <ColorDiv color="red" />

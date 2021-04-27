@@ -31,16 +31,19 @@ export default function StoreHeader({
   logout,
 }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [hoverShopping, setHoverShopping] = useState(false);
-  const [hoverUser, setHoverUser] = useState(false);
-  const [hoverCategories, setHoverCategories] = useState(false);
 
   let history = useHistory();
   function handleSearch() {
     history.push('/search/' + searchQuery);
   }
+
   function handleSearchInput(e) {
     if (e.key === 'Enter') return handleSearch();
+  }
+
+  function handleLogout() {
+    logout();
+    history.push('/login');
   }
   return (
     <>
@@ -66,29 +69,16 @@ export default function StoreHeader({
               </SearchButton>
             </NavCol>
             <NavCol align="flex-end">
-              <NavMouseOver
-                id="cart"
-                onMouseEnter={() => setHoverShopping(true)}
-                onMouseLeave={() => setHoverShopping(false)}
-                onClick={() => history.push('/cart')}>
+              <NavMouseOver id="cart" onClick={() => history.push('/cart')}>
                 <FaShoppingCart size="32" />
-                <NavDropDown
-                  cart
-                  active={hoverShopping}
-                  onClick={(e) => e.stopPropagation()}>
+                <NavDropDown cart onClick={(e) => e.stopPropagation()}>
                   <Cart items={itemsOnCart} />
                 </NavDropDown>
               </NavMouseOver>
-              <NavMouseOver
-                id="user"
-                onMouseEnter={() => setHoverUser(true)}
-                onMouseLeave={() => setHoverUser(false)}
-                onClick={() => history.push('/profile')}>
+              <NavMouseOver id="user" onClick={() => history.push('/profile')}>
                 <FaUser size="32" />
-                <NavDropDown
-                  active={hoverUser}
-                  onClick={(e) => e.stopPropagation()}>
-                  <Account auth={userInfo} logout={logout} />
+                <NavDropDown onClick={(e) => e.stopPropagation()}>
+                  <Account auth={userInfo} logout={handleLogout} />
                 </NavDropDown>
               </NavMouseOver>
             </NavCol>
@@ -98,19 +88,11 @@ export default function StoreHeader({
       <SubHeader>
         <ContHead>
           <NavCol align="flex-start">
-            <CatSub
-              onMouseEnter={() => setHoverCategories(true)}
-              onMouseLeave={() => setHoverCategories(false)}>
+            <CatSub>
               <FaBars /> SHOP BY CATEGORY
-              <CatDropDown active={hoverCategories}>
+              <CatDropDown>
                 <Categories categories={categoriesList} />
               </CatDropDown>
-              {/* <CatDetailsWrapper active={hoverCategories}>
-                <CategoryDetails
-                  hoveredCat={hoveredCat}
-                  featuredItems={featuredItemPerCategory}
-                />
-              </CatDetailsWrapper> */}
             </CatSub>
             {!categoriesList.loading &&
               categoriesList.categoryList.map((el) => (

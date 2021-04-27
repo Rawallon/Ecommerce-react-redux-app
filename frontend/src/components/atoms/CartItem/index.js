@@ -33,51 +33,46 @@ export const CartItem = ({
     }
     changeQtyCart(pId, e.target.value);
   }
-
+  if (loading || error) {
+    return (
+      <ListItem>
+        <Prefetch loading={loading} error={error} />
+      </ListItem>
+    );
+  }
   return (
-    <>
-      {(loading || error) && (
-        <ListItem>
-          <Prefetch loading={loading} error={error} />
-        </ListItem>
-      )}
-      {product && (
-        <ListItem>
-          <ItemImage>
-            <Link to={`/product/${product._id}`}>
-              <img src={product.image} alt={product.name} />
-            </Link>
-          </ItemImage>
-          <ItemFlex column>
-            <Link to={`/product/${product._id}`}>
-              <h6>{product.name}</h6>
-            </Link>
-            <ItemFlex>
-              <FlexGrow>
-                <SelectQty value={qty} onChange={changeQty}>
-                  <option key="0" value="0">
-                    0 (remove)
-                  </option>
-                  {[...Array(product.countInStock).keys()].map((x) => (
-                    <option key={x + 1} value={x + 1}>
-                      {x + 1}
-                    </option>
-                  ))}
-                </SelectQty>
-              </FlexGrow>
-              <FlexGrow>
-                <ButtonPrimary onClick={() => remCart(product._id)}>
-                  Remove
-                </ButtonPrimary>
-              </FlexGrow>
-            </ItemFlex>
-          </ItemFlex>
-          <ItemCenterText>
-            ${Number(product.price * qty).toFixed(2)}
-          </ItemCenterText>
-        </ListItem>
-      )}
-    </>
+    <ListItem>
+      <ItemImage>
+        <Link to={`/product/${product._id}`}>
+          <img src={product.image} alt={product.name} />
+        </Link>
+      </ItemImage>
+      <ItemFlex column>
+        <Link to={`/product/${product._id}`}>
+          <h6>{product.name}</h6>
+        </Link>
+        <ItemFlex>
+          <FlexGrow>
+            <SelectQty value={qty} onChange={changeQty}>
+              <option key="0" value="0">
+                0 (remove)
+              </option>
+              {[...Array(product.countInStock).keys()].map((x) => (
+                <option key={x + 1} value={x + 1}>
+                  {x + 1}
+                </option>
+              ))}
+            </SelectQty>
+          </FlexGrow>
+          <FlexGrow>
+            <ButtonPrimary onClick={() => remCart(product._id)}>
+              Remove
+            </ButtonPrimary>
+          </FlexGrow>
+        </ItemFlex>
+      </ItemFlex>
+      <ItemCenterText>${Number(product.price * qty).toFixed(2)}</ItemCenterText>
+    </ListItem>
   );
 };
 

@@ -43,29 +43,30 @@ export const CategoryProduct = ({
     addToCart(pId);
     history.push('/cart');
   }
-  const renderButtons = () => {
-    const viewBtn = (
-      <CardSecondaryButton
-        inStock={countInStock > 0}
-        onClick={() => listProductModalDetails(_id)}>
-        Quick View
-      </CardSecondaryButton>
-    );
 
+  const renderButtons = () => {
     if (countInStock) {
       return (
         <CardButtonsHidden>
           <CardButton onClick={() => addToCartHandler(_id)}>
             Add to cart
           </CardButton>
-          {viewBtn}
+          <CardSecondaryButton
+            inStock={countInStock > 0}
+            onClick={() => listProductModalDetails(_id)}>
+            Quick View
+          </CardSecondaryButton>
         </CardButtonsHidden>
       );
     } else {
       return (
         <CardButtonsHidden>
           <CardButtonDisabled>View details</CardButtonDisabled>
-          {viewBtn}
+          <CardSecondaryButton
+            inStock={countInStock > 0}
+            onClick={() => listProductModalDetails(_id)}>
+            Quick View
+          </CardSecondaryButton>
         </CardButtonsHidden>
       );
     }
@@ -97,12 +98,12 @@ export const CategoryProduct = ({
             {countInStock ? (
               <PriceDiv>
                 <PriceSpan>
-                  ${price.toString().split('.')[0]}.
+                  $ {price.toString().split('.')[0]}.
                   <small>{price.toString().split('.')[1] || '00'}</small>
                 </PriceSpan>
                 {oldPrice && (
                   <PriceSpan disabled>
-                    ${oldPrice.toString().split('.')[0]}.
+                    $ {oldPrice.toString().split('.')[0]}.
                     <small>{oldPrice.toString().split('.')[1] || '00'}</small>
                   </PriceSpan>
                 )}
@@ -118,11 +119,9 @@ export const CategoryProduct = ({
     );
 };
 
-const mapStateToProps = (state) => ({});
-
 const mapDispatchToProps = {
   addToCart,
   listProductModalDetails,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryProduct);
+export default connect(null, mapDispatchToProps)(CategoryProduct);

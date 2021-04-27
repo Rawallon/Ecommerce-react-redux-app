@@ -70,14 +70,12 @@ export default function OverallRating({ isUserLogged, product, reviewCreate }) {
         <BarWrapper>{BarRatingRender()}</BarWrapper>
       </RatingsWrapper>
       {isReviewing && (
-        <>
-          <FormWrapper>
-            <ReviewForm
-              setIsReviewing={setIsReviewing}
-              reviewCreate={reviewCreate}
-            />
-          </FormWrapper>
-        </>
+        <FormWrapper>
+          <ReviewForm
+            setIsReviewing={setIsReviewing}
+            reviewCreate={reviewCreate}
+          />
+        </FormWrapper>
       )}
     </PageWrapper>
   );

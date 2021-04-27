@@ -1,10 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 
-function blinkingEffect() {
-  return keyframes`
-   0%{
-       border: 1px solid #222;
-   }
+const blinkingEffect = keyframes`
    25%{
        border: 1px solid red;
    }
@@ -14,17 +10,10 @@ function blinkingEffect() {
    75% {
        border: 1px solid red;
    }
-   100% {
-       border: 1px solid #222;
-   }
-  `;
-}
 
-function blinkingColor() {
-  return keyframes`
-   0%{
-       color: black;
-   }
+  `;
+
+const blinkingColor = keyframes`
    25%{
        color: red;
    }
@@ -34,11 +23,8 @@ function blinkingColor() {
    75% {
        color: red;
    }
-   100% {
-       color: black;
-   }
   `;
-}
+
 export const Wrapper = styled.div`
   animation: ${({ warn }) =>
     warn

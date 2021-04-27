@@ -12,22 +12,26 @@ import {
   Row,
 } from '../../../styles/bootstrap.style';
 
+// This component is mostly ./CartSubtotal the reason why this is a new component
+// is there in case more fields gets added (currently only tax)
 export const PlaceOrderSubtotal = ({ qty, products, placeOrderHandler }) => {
   const [totalValue, setTotalValue] = useState(0);
   const [taxValue, setTaxValue] = useState(0);
   const [shippingValue, setShippingValue] = useState(0);
   const [itemQty, setItemQty] = useState(0);
+
   useEffect(() => {
     let total = 0;
 
     for (const item in products) {
       if (!products[item].price || !qty[item]) continue;
-      total += +products[item].price * +qty[item];
+      total += Number(products[item].price) * Number(qty[item]);
     }
     if (Object.keys(products).length > 0)
       setItemQty(
         Object.values(qty).reduce(
-          (accumulator, currentValue) => +accumulator + +currentValue,
+          (accumulator, currentValue) =>
+            Number(accumulator) + Number(currentValue),
         ),
       );
     setTotalValue(total);
@@ -36,6 +40,7 @@ export const PlaceOrderSubtotal = ({ qty, products, placeOrderHandler }) => {
   }, [products, qty]);
 
   function checkoutHandler() {
+    // Note: Make sure it also has a backend check
     if (itemQty > 0) placeOrderHandler();
   }
 
@@ -50,7 +55,7 @@ export const PlaceOrderSubtotal = ({ qty, products, placeOrderHandler }) => {
               <Row style={{ margin: 0 }}>
                 <HalfCol>
                   Ite
-                  {itemQty > 1 ? `ns` : `m`}
+                  {itemQty > 1 ? `ms` : `m`}
                 </HalfCol>
                 <HalfCol style={{ textAlign: 'right' }}>
                   ${totalValue.toFixed(2)}
@@ -87,7 +92,7 @@ export const PlaceOrderSubtotal = ({ qty, products, placeOrderHandler }) => {
               disabled={itemQty === 0}
               onClick={checkoutHandler}
               block>
-              Continue to checkout!
+              Place Order!
             </ButtonPrimary>
           </HalfCol>
         </CardBody>

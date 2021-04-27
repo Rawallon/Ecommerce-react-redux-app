@@ -3,27 +3,33 @@ import { connect } from 'react-redux';
 
 import { TextDiv, WrapperDiv, Button } from './CartSubtotal.style';
 
-export const CartSubtotal2 = ({ checkoutHandler, qty, products }) => {
+export const CartSubtotal = ({ checkoutHandler, qty, products }) => {
   const [totalValue, setTotalValue] = useState(0);
   const [shippingValue, setShippingValue] = useState(0);
   const [itemQty, setItemQty] = useState(0);
+
   useEffect(() => {
     let total = 0;
-    for (const item in products) {
-      if (!products[item].loading && qty[item] !== undefined) {
-        total += +products[item].price * +qty[item];
-      }
-    }
     if (Object.keys(products).length > 0 && Object.keys(qty).length > 0) {
+      // Loops through products and sum to the total var.
+      for (const item in products) {
+        if (!products[item].loading && qty[item] !== undefined) {
+          total += Number(products[item].price) * Number(qty[item]);
+        }
+      }
+      // Transform object in array then uses .reduce to sum the values
       setItemQty(
         Object.values(qty).reduce(
-          (accumulator, currentValue) => +accumulator + +currentValue,
+          (accumulator, currentValue) =>
+            Number(accumulator) + Number(currentValue),
         ),
       );
     } else {
       setShippingValue(0);
       setItemQty(0);
     }
+    // The reason there isn't a any shipping logic
+    // is that I'd need item weight and size
     setShippingValue(total > 100 ? 0 : 100);
     setTotalValue(total);
   }, [products, qty]);
@@ -37,7 +43,7 @@ export const CartSubtotal2 = ({ checkoutHandler, qty, products }) => {
         <TextDiv>
           <div>
             {itemQty} ite
-            {itemQty > 1 ? `ms` : `n`}
+            {itemQty > 1 ? `ms` : `m`}
           </div>
           <div>${totalValue.toFixed(2)}</div>
         </TextDiv>
@@ -46,11 +52,7 @@ export const CartSubtotal2 = ({ checkoutHandler, qty, products }) => {
           <div>{shippingValue}</div>
         </TextDiv>
         <div>
-          <Button
-            variant="outline-success"
-            disabled={itemQty === 0}
-            onClick={checkoutHandler}
-            block>
+          <Button disabled={itemQty === 0} onClick={checkoutHandler}>
             Continue to checkout!
           </Button>
         </div>
@@ -64,4 +66,4 @@ const mapStateToProps = (state) => ({
   products: state.cartList.products,
 });
 
-export default connect(mapStateToProps, null)(CartSubtotal2);
+export default connect(mapStateToProps, null)(CartSubtotal);

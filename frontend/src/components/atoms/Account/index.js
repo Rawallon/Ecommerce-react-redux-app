@@ -10,6 +10,7 @@ import {
   MenuWrapper,
 } from './Account.style';
 
+// This component is used in the header
 export default function Account({ auth, logout }) {
   if (!auth)
     return (
@@ -28,7 +29,9 @@ export default function Account({ auth, logout }) {
       </Wrapper>
     );
   else {
-    if (!auth.name) return null; //While loads after user logs in
+    // This if is needed when the user logs in the ".name" isn't set
+    if (!auth.name) return null;
+
     return (
       <Wrapper>
         <Header>
@@ -43,6 +46,7 @@ export default function Account({ auth, logout }) {
             <MenuItem>My Orders</MenuItem>
           </Link>
           {auth.isAdmin && (
+            // TODO: Implement admin functionality
             <>
               <Link to="#">
                 <MenuItem>You're admin!</MenuItem>

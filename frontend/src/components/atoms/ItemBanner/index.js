@@ -13,7 +13,9 @@ export default function itemBanner({ loading, featuredMessage }) {
     messageButton,
     messageImage,
   } = featuredMessage;
+
   if (loading) return null;
+
   return (
     <Banner background={'#' + messageColor}>
       <BannerContent>

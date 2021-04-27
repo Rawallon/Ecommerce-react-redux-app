@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 export default function Meta({ title, description, keywords }) {
   return (
     <Helmet>
-      <title>{title} | Shopay</title>
+      <title>Shopay | {title}</title>
       <meta name="description" content={description} />
       <meta name="keyword" content={keywords} />
     </Helmet>

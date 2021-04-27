@@ -18,108 +18,93 @@ import {
 export default function Carousel({ productList, duration }) {
   const { loading, products } = productList;
   const [currentImage, setCurrentImage] = useState(0);
-  const [isHover, setIsHover] = useState(false);
   const [mouseX, setMouseX] = useState(null);
-  const [clearTO, setClearTO] = useState(false);
 
   const changeImage = useCallback(
     (param) => {
-      if (loading) return;
       if (param === 'prev') {
         if (currentImage - 1 >= 0) {
-          setCurrentImage((prevVal) => setCurrentImage(prevVal - 1));
+          setCurrentImage(currentImage - 1);
         } else {
-          setCurrentImage(Object.keys(productList.products).length - 1);
+          setCurrentImage(Object.keys(products).length - 1);
         }
       } else {
-        if (currentImage + 1 < Object.keys(productList.products).length) {
-          setCurrentImage((prevVal) => setCurrentImage(prevVal + 1));
+        if (currentImage + 1 < Object.keys(products).length) {
+          setCurrentImage(currentImage + 1);
         } else {
           setCurrentImage(0);
         }
       }
     },
-    [currentImage, loading, productList],
+    [currentImage, products],
   );
-
-  function handleUserChange(dir) {
-    changeImage(dir);
-    setClearTO(true);
-  }
 
   useEffect(() => {
     let timer1 = setTimeout(() => {
       changeImage('next');
     }, duration);
-    if (clearTO) {
-      clearTimeout(timer1);
-      timer1 = setTimeout(() => {
-        changeImage('next');
-      }, duration);
-      setClearTO(!clearTO);
-    }
+
     return () => {
       clearTimeout(timer1);
     };
-  }, [changeImage, clearTO, currentImage, duration]);
+  }, [changeImage, currentImage, duration]);
 
-  const renderImages = () => {
-    return Object.values(products).map((item, index) => (
-      <SlideItem
-        onMouseDown={(e) => setMouseX(e.clientX)}
-        onMouseUp={(e) => mouseDown(e)}
-        active={currentImage === index}
-        color={item.bgColor}
-        key={item._id}>
-        <Link to={`/product/${item._id}`}>
-          <SlideItemText>
-            <SlideItemTitle color={item.nameColor}>{item.name}</SlideItemTitle>
-            <SlideItemSubtitle color={item.nameColor}>
-              For only $ {item.price}
-            </SlideItemSubtitle>
-            <SlideItemButton>Shop now!</SlideItemButton>
-          </SlideItemText>
-        </Link>
-        <img src={item.image} alt="" draggable="false" />
-      </SlideItem>
-    ));
-  };
-
-  const mouseDown = (e) => {
+  const handleMouseDown = (e) => {
     if (mouseX && e.clientX !== mouseX) {
       if (e.clientX > mouseX) {
-        handleUserChange('prev');
+        changeImage('prev');
       } else {
-        handleUserChange('next');
+        changeImage('next');
       }
     }
   };
+
   if (loading) return null;
-  else
-    return (
-      <Wrapper
-        onMouseEnter={() => setIsHover(true)}
-        onMouseLeave={() => setIsHover(false)}>
-        <Counter>
-          {Object.keys(products).map((s, i) => (
-            <CounterDot
-              key={i}
-              active={currentImage === i}
-              onClick={() => setCurrentImage(i)}
-            />
-          ))}
-        </Counter>
-        <Button show={isHover} onClick={() => handleUserChange('prev')} isLeft>
-          <div>
-            <FaChevronLeft />
-          </div>
-        </Button>
-        <Slides currentSlide={currentImage}>{renderImages()}</Slides>
-        <Button show={isHover} onClick={() => handleUserChange('next')}>
-          <div>
-            <FaChevronRight />
-          </div>
-        </Button>
-      </Wrapper>
-    );
+
+  return (
+    <Wrapper>
+      <Counter>
+        {Object.keys(products).map((s, i) => (
+          <CounterDot
+            key={i}
+            active={currentImage === i}
+            onClick={() => setCurrentImage(i)}
+          />
+        ))}
+      </Counter>
+      <Button onClick={() => changeImage('prev')} isLeft>
+        <div>
+          <FaChevronLeft />
+        </div>
+      </Button>
+      <Slides currentSlide={currentImage}>
+        {Object.values(products).map((item, index) => (
+          <SlideItem
+            onMouseDown={(e) => setMouseX(e.clientX)}
+            onMouseUp={(e) => handleMouseDown(e)}
+            active={currentImage === index}
+            color={item.bgColor}
+            key={item._id}>
+            <Link to={`/product/${item._id}`}>
+              <SlideItemText>
+                <SlideItemTitle color={item.nameColor}>
+                  {item.name}
+                </SlideItemTitle>
+                <SlideItemSubtitle color={item.nameColor}>
+                  For only $ {item.price}
+                </SlideItemSubtitle>
+                <SlideItemButton>Shop now!</SlideItemButton>
+              </SlideItemText>
+            </Link>
+            <img src={item.image} alt="" draggable="false" />
+          </SlideItem>
+        ))}
+      </Slides>
+      <Button onClick={() => changeImage('next')}>
+        <div>
+          <FaChevronRight />
+        </div>
+      </Button>
+    </Wrapper>
+  );
 }

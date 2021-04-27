@@ -12,7 +12,7 @@ import Prefetch from '../components/molecules/Prefetch';
 export function Login({ location, login, history, userLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const redirect = location.search ? location.search.split('=')[1] : '/';
+  const redirect = location.search ? location.search.split('=')[1] : '';
   const { loading, error, userInfo } = userLogin;
 
   useEffect(() => {
@@ -53,11 +53,14 @@ export function Login({ location, login, history, userLogin }) {
 
         <Row>
           <Col>
-            New customer?{' '}
-            <Link
-              to={redirect ? `/register?redirect=${redirect}` : `/register`}>
-              Register
-            </Link>
+            <span style={{ color: 'gray' }}>
+              New customer?{' '}
+              <Link
+                style={{ color: 'black' }}
+                to={redirect ? `/register?redirect=${redirect}` : `/register`}>
+                Register
+              </Link>
+            </span>
           </Col>
         </Row>
       </Col>

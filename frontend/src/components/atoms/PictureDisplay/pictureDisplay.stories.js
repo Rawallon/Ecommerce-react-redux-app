@@ -17,9 +17,3 @@ Default.args = {
   slider: false,
   images: [air, alexa, camera, air],
 };
-
-export const SliderOnly = Template.bind({});
-SliderOnly.args = {
-  slider: true,
-  images: [air, alexa, camera, air],
-};

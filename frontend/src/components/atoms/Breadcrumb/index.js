@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import { Nav, Li, Ol } from './Breadcrumb.style';
 
 export default function Breadcrumb({ links, center = false }) {

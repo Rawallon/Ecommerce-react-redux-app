@@ -15,6 +15,7 @@ export default function ShippingForm({ submitHandler, shippingAddress }) {
     e.preventDefault();
     submitHandler(address, city, postalCode, country);
   };
+
   return (
     <Row justifyCenter>
       <Col md>

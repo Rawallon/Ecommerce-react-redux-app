@@ -16,7 +16,7 @@ import Prefetch from '../../molecules/Prefetch';
 export function Modal({ productDetails, clearProductDetails, addToCart }) {
   const { error, loading, product, isModalOn } = productDetails || {
     error: false,
-    loading: false,
+    loading: true,
     product: {},
     isModalOn: false,
   };

@@ -12,6 +12,7 @@ export function Cart({ history, cartItems = {} }) {
 
   useEffect(() => {
     // Cart items format is "{ itemId: qty }"
+    // its stored only on localStorage
     setCartItemsArray(Object.keys(cartItems));
   }, [cartItems]);
 

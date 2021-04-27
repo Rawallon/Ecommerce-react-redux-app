@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 import {
   ImgDisplay,
   ImgThumb,
   PageWrapper,
   ThumbWrapper,
-  Button,
-  Counter,
-  CounterDot,
 } from './pictureDisplay.style';
 
-export default function PictureDisplay({ images, slider = false }) {
+export default function PictureDisplay({ images }) {
   const [state, setState] = useState(0);
   const [mouseX, setMouseX] = useState(null);
 
@@ -42,45 +38,20 @@ export default function PictureDisplay({ images, slider = false }) {
   };
   return (
     <PageWrapper>
-      {!slider && (
-        <ThumbWrapper>
-          {images.map((img, index) => (
-            <ImgThumb
-              active={state === index}
-              key={index}
-              onMouseEnter={() => setState(index)}>
-              <img src={img} alt="" draggable="false" />
-            </ImgThumb>
-          ))}
-        </ThumbWrapper>
-      )}
+      <ThumbWrapper>
+        {images.map((img, index) => (
+          <ImgThumb
+            active={state === index}
+            key={index}
+            onMouseEnter={() => setState(index)}>
+            <img src={img} alt="" draggable="false" />
+          </ImgThumb>
+        ))}
+      </ThumbWrapper>
       <ImgDisplay
         onMouseDown={(e) => setMouseX(e.clientX)}
         onMouseUp={(e) => mouseDown(e)}>
-        {slider && (
-          <>
-            <Counter>
-              {images.map((s, i) => (
-                <CounterDot key={i} active={state === i}>
-                  {' '}
-                </CounterDot>
-              ))}
-            </Counter>
-            <Button show={true} onClick={() => changeImage('prev')} isLeft>
-              <div>
-                <FaChevronLeft />
-              </div>
-            </Button>
-          </>
-        )}
         <img src={images[state]} alt="" draggable="false" />
-        {slider && (
-          <Button show={true} onClick={() => changeImage('next')}>
-            <div>
-              <FaChevronRight />
-            </div>
-          </Button>
-        )}
       </ImgDisplay>
     </PageWrapper>
   );

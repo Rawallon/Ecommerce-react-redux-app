@@ -7,7 +7,7 @@ import {
   createProductReview,
   listProductDetails,
 } from '../actions/productActions';
-import Breadcrumb from '../components/atoms/Breadcrumb/Breadcrumb';
+import Breadcrumb from '../components/atoms/Breadcrumb';
 import Meta from '../components/atoms/Meta';
 import Prefetch from '../components/molecules/Prefetch';
 import ProductContent from '../components/molecules/ProductContent';

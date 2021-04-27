@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { listProducts } from '../actions/productActions';
-import Breadcrumb from '../components/atoms/Breadcrumb/Breadcrumb';
+import Breadcrumb from '../components/atoms/Breadcrumb';
 import CategoryProduct from '../components/atoms/CategoryProduct';
 import Meta from '../components/atoms/Meta';
 import Pagination from '../components/atoms/Pagination';
@@ -75,7 +75,7 @@ export function Search({ productList, listProducts, match }) {
       <Pagination
         pages={productList.pages}
         page={productList.page}
-        keyword={keyword}
+        urlLink={`/search/${keyword}/page/`}
       />
     </>
   );

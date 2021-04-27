@@ -89,29 +89,3 @@ export const ItemData = styled.div`
     overflow: hidden;
   }
 `;
-
-export const EmptyCart = styled.div`
-  width: 70%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 0;
-  span {
-    font-weight: 400;
-    margin-bottom: 5px;
-    color: #9a9a9a;
-  }
-  h3 {
-    color: #262626;
-    font-size: 1rem;
-    font-weight: 600;
-  }
-
-  hr {
-    width: 75%;
-    border: 1px solid #e6e6e6;
-    margin: 0.85rem auto;
-  }
-`;

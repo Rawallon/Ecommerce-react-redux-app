@@ -27,27 +27,26 @@ export const CartProduct = ({
   }, [listProductCart, pId]);
 
   if (loading || error) return <Prefetch error={error} loading={loading} />;
-  else
-    return (
-      <ItemDisplay>
-        <ItemImage>
-          <Link to={'/product/' + product._id}>
-            <img src={product.image} alt="" />
-          </Link>
-        </ItemImage>
-        <ItemDetails>
-          <Link to={'/product/' + product._id}>
-            <ItemName>{product.name}</ItemName>
-          </Link>
-          <button onClick={() => remCart(pId)}>Remove</button>
-        </ItemDetails>
-        {/* <ItemAlign align="start">{product.qty}</ItemAlign> */}
-        <ItemAlign>
-          ${(product.price * qty).toString().split('.')[0]}.
-          {(product.price * qty).toFixed(2).toString().split('.')[1] || '00'}
-        </ItemAlign>
-      </ItemDisplay>
-    );
+
+  return (
+    <ItemDisplay>
+      <ItemImage>
+        <Link to={'/product/' + product._id}>
+          <img src={product.image} alt="" />
+        </Link>
+      </ItemImage>
+      <ItemDetails>
+        <Link to={'/product/' + product._id}>
+          <ItemName>{product.name}</ItemName>
+        </Link>
+        <button onClick={() => remCart(pId)}>Remove</button>
+      </ItemDetails>
+      <ItemAlign>
+        ${(product.price * qty).toString().split('.')[0]}.
+        {(product.price * qty).toFixed(2).toString().split('.')[1] || '00'}
+      </ItemAlign>
+    </ItemDisplay>
+  );
 };
 
 const mapStateToProps = (state, ownProps) => ({

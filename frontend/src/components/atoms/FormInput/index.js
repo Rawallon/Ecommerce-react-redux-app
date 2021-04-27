@@ -20,10 +20,14 @@ export default function FormInput({
   autocomplete = 'no',
 }) {
   const [invalid, setInvalid] = useState(isInvalid);
+
+  // In case it recieves invalid as prop
+  // A TODO would be to add messages
   useEffect(() => {
     setInvalid(isInvalid);
   }, [isInvalid]);
 
+  // To make validation "feel" faster we do it onBlur
   function handleOnBlur() {
     if (value.toString().length === 0) {
       setInvalid(true);
@@ -34,9 +38,11 @@ export default function FormInput({
       setInvalid(true);
     }
   }
-  // To make sure it always has a label/placeholder, even if I don't explicitly set it
+
+  // This way we can garantee it always has a label/placeholder
   let lbl = label || placeholder || name;
   let phd = placeholder || lbl;
+
   return (
     <InputWrapper controlId={name}>
       <InputLabel>{capitalize(lbl)}:</InputLabel>
@@ -49,7 +55,6 @@ export default function FormInput({
         onBlur={handleOnBlur}
         required={required}
         onChange={(e) => {
-          setInvalid(false);
           return onChange(e.target.value);
         }}
         as={asField ? asField : 'input'}

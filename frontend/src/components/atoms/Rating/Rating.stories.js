@@ -28,10 +28,3 @@ RedStar.args = {
   count: '2',
   color: 'red',
 };
-
-export const FAIcons = Template.bind({});
-FAIcons.args = {
-  bsIcon: false,
-  rating: '3.5',
-  count: '10',
-};

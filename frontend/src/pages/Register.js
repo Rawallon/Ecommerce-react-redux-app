@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import { register } from '../actions/userAction';
 
 import { ButtonPrimary, Col, Row } from '../styles/bootstrap.style';
-import { FormInput } from '../components/atoms/FormRadio/FormRadio.style';
 
 import Meta from '../components/atoms/Meta';
 import Prefetch from '../components/molecules/Prefetch';
+import FormInput from '../components/atoms/FormInput';
 
 export function Register({
   location,
@@ -110,10 +110,14 @@ export function Register({
 
         <Row>
           <Col>
-            Already registered?{' '}
-            <Link to={redirect ? `/login?redirect=${redirect}` : `/register`}>
-              Login
-            </Link>
+            <span style={{ color: 'gray' }}>
+              Already registered?{' '}
+              <Link
+                style={{ color: 'black' }}
+                to={redirect ? `/login?redirect=${redirect}` : `/register`}>
+                Login
+              </Link>
+            </span>
           </Col>
         </Row>
       </Col>

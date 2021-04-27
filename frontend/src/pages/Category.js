@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { listCategoryProducts } from '../actions/productActions';
 import { Col, Row } from '../styles/bootstrap.style';
-import Breadcrumb from '../components/atoms/Breadcrumb/Breadcrumb';
+import Breadcrumb from '../components/atoms/Breadcrumb';
 import CategoryProduct from '../components/atoms/CategoryProduct';
 import Meta from '../components/atoms/Meta';
 import Prefetch from '../components/molecules/Prefetch';
@@ -22,8 +22,9 @@ export function Category({
     listCategoryProducts(match.params.cat, pageNumber);
   }, [history, listCategoryProducts, match, error, pageNumber]);
 
+  if (loading) return <Prefetch loading={loading} />;
   if (error) {
-    return <div>{history.push('/404')}</div>;
+    return <>{history.push('/404')}</>;
   }
 
   return (
@@ -41,7 +42,6 @@ export function Category({
       />
 
       <Row>
-        <Prefetch loading={loading} />
         {products.map((product) => (
           <Col key={product._id} sm md lg xl>
             <CategoryProduct {...product} />

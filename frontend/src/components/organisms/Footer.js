@@ -8,12 +8,17 @@ export default function Footer() {
       <Container>
         <Row style={{ margin: '0', padding: '2rem 0' }}>
           <Col alignItems="center" justifyContent="space-evenly">
-            <a href="https://github.com/Rawallon">Made with &#129505;</a>
-            <a
-              href="https://github.com/Rawallon/Ecommerce-react-redux-app"
-              style={{ textAlign: 'right' }}>
-              <img src="/gh-logo.png" alt="" width="24" height="24" />
-            </a>
+            <span>
+              <a href="https://github.com/Rawallon">Made with &#129505;</a>
+            </span>
+            <span>
+              <a
+                href="https://github.com/Rawallon/Ecommerce-react-redux-app"
+                style={{ textAlign: 'right' }}>
+                Go to the repo{' '}
+                <img src="/gh-logo.png" alt="" width="24" height="24" />
+              </a>
+            </span>
           </Col>
         </Row>
       </Container>

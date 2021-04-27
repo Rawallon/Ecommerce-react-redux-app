@@ -17,13 +17,19 @@ export default function GiveRating({
       return <BsStar onClick={() => setCurrentRating(compare)} color={color} />;
   }
 
+  // Creates an empty array then loops through it rendering returnIcon
+  // Maybe using a propper loop would be more performatic (< 0.1ms?)
   return (
     <Wrapper>
+      {Array(5)
+        .fill()
+        .map((_, index) => returnIcon(currentRating, index + 1))}
+      {/* Maybe?
       {returnIcon(currentRating, 1)}
       {returnIcon(currentRating, 2)}
       {returnIcon(currentRating, 3)}
       {returnIcon(currentRating, 4)}
-      {returnIcon(currentRating, 5)}
+      {returnIcon(currentRating, 5)}         */}
     </Wrapper>
   );
 }

@@ -27,19 +27,21 @@ export default function Quantity({ qty, setQty, numInStock }) {
     }
   };
 
+  // This is used to allow "blink" animation to happen
   useEffect(() => {
     if (warn)
       setTimeout(() => {
         setWarn(false);
       }, 1000);
   }, [warn]);
+
   return (
     <Wrapper warn={warn}>
       <QtyInput
         warn={warn}
         max={numInStock}
         value={qty}
-        onChange={(e) => setQty(qty)}></QtyInput>
+        onChange={() => setQty(qty)}></QtyInput>
       <BtnWrapper>
         <MinusButton warn={warn} onClick={() => changeQty('rem')}>
           <FaMinus />

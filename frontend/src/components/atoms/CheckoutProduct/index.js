@@ -22,8 +22,8 @@ export const CheckoutProduct = ({
     listProductCart(pId);
   }, [listProductCart, pId]);
 
-  // The value of the item should be store when the order is made (in case it changes later)
-  // In case something goes haywire and the value isn't stored with the order it will display the item's current price
+  // The value of the item *should* be stored when the order is made
+  // If for whatever reason it isn't this function makes it display the items current price
   function renderPrice() {
     if (propPrice && propQty)
       return (
