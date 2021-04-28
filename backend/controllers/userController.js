@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import UserModel from '../models/UserModel.js';
+import UserModel from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
 import sanitize from '../utils/sanitize.js';
 
