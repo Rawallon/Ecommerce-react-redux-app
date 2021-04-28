@@ -21,56 +21,96 @@ Default.args = {
         name: 'Paul',
         title: 'Good',
         comment: 'what the title says',
-        createdAt: '2021-03-10T01:34:50.913+00:00',
+        createdAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
+        updatedAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
       },
       {
         rating: '3',
         name: 'John',
         title: 'Ok',
         comment: 'Whatever',
-        createdAt: '2021-03-10T01:34:50.913+00:00',
+        createdAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
+        updatedAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
       },
       {
         rating: '1',
         name: 'Breno',
         title: 'No bueno',
         comment: 'yikes',
-        createdAt: '2021-03-10T01:34:50.913+00:00',
+        createdAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
+        updatedAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
       },
       {
         rating: '5',
         name: 'Stevie',
         title: 'So good',
         comment: 'it got me good',
-        createdAt: '2021-03-10T01:34:50.913+00:00',
+        createdAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
+        updatedAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
       },
       {
         rating: '5',
         name: 'Habacookie',
         title: 'Alrighy',
         comment: 'it is what it is',
-        createdAt: '2021-03-10T01:34:50.913+00:00',
+        createdAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
+        updatedAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
       },
       {
         rating: '5',
         name: 'Habacookie',
         title: 'Alrighy',
         comment: 'it is what it is',
-        createdAt: '2021-03-10T01:34:50.913+00:00',
+        createdAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
+        updatedAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
       },
       {
         rating: '2',
         name: 'Don Juan',
         title: 'Awesome',
         comment: 'Works as intended',
-        createdAt: '2021-03-10T01:34:50.913+00:00',
+        createdAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
+        updatedAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
       },
       {
         rating: '2',
         name: 'Not Don',
         title: 'Not really awesome',
         comment: 'it only works sometimes',
-        createdAt: '2021-03-10T01:34:50.913+00:00',
+        createdAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
+        updatedAt: {
+          $date: '2021-03-10T01:34:50.913Z',
+        },
       },
     ],
   },

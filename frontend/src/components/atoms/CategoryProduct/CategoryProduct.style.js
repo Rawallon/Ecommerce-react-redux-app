@@ -49,8 +49,8 @@ export const Cardimg = styled.a`
   border-radius: 18px 18px 0 0;
   text-align: center;
   width: 100%;
-
-  padding: 1rem 2rem;
+  padding: 0 1rem;
+  padding-top: 1rem;
 
   img {
     width: 100%;
