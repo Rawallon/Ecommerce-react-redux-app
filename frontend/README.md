@@ -1,6 +1,6 @@
 # Live Demo
 
-<a title="Deployed on heroku" href="https://podcastr-rawallon.vercel.app/">
+<a title="Deployed on heroku" href="http://shopay-app.herokuapp.com/">
 <img alt="Deployed on heroku" src="https://img.shields.io/badge/Deployed%20on%20heroku-%239E7CC1?style=plastic&logo=heroku&logoColor=white" width="200px" />
 </a>
 
