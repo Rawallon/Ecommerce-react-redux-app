@@ -1,7 +1,5 @@
 import asyncHandler from 'express-async-handler';
 import homeModel from '../models/homeModel.js';
-import sanitize from '../utils/sanitize.js';
-import Mongoose from 'mongoose';
 
 // @desc Fetch homepage message information
 // @route GET /api/homepage/message

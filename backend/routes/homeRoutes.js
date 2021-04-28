@@ -4,8 +4,6 @@ import {
   getMessageData,
 } from '../controllers/homeController.js';
 
-import { isAdmin, protect } from '../middleware/authMiddleware.js';
-
 const router = express.Router();
 
 router.route('/message').get(getMessageData);

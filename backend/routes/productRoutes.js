@@ -15,17 +15,16 @@ import { isAdmin, protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.route('/').get(getProducts).post(protect, isAdmin, createProductAdmin);
+router.route('/').get(getProducts);
+//.post(protect, isAdmin, createProductAdmin);
 
 router.route('/featured/:category?').get(getFeaturedProducts);
 
 router.route('/top/:category?').get(getTopProducts);
 
-router
-  .route('/:id')
-  .get(getProductById)
-  .delete(protect, isAdmin, deleteProductAdmin)
-  .patch(protect, isAdmin, updateProductAdmin);
+router.route('/:id').get(getProductById);
+//.delete(protect, isAdmin, deleteProductAdmin)
+//.patch(protect, isAdmin, updateProductAdmin);
 
 router.route('/category/name').get(getCategoryNames);
 

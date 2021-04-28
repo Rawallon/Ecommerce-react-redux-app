@@ -1,7 +1,9 @@
 import dotenv from 'dotenv';
 import users from './data/users.js';
 import products from './data/products.js';
+import homeinformations from './data/homeinformations.js';
 
+import HomeModel from './models/homeModel.js';
 import UserModel from './models/userModel.js';
 import ProductModel from './models/productModel.js';
 import OrderModel from './models/orderModel.js';
@@ -13,10 +15,12 @@ connectDB();
 
 const importData = async () => {
   try {
+    await HomeModel.deleteMany();
     await OrderModel.deleteMany();
     await ProductModel.deleteMany();
     await UserModel.deleteMany();
 
+    const createdHomeInfo = await HomeModel.insertMany(homeinformations);
     const createdUsers = await UserModel.insertMany(users);
     const adminUser = createdUsers[0]._id;
     const sampleProducts = products.map((item) => ({
@@ -36,6 +40,7 @@ const importData = async () => {
 
 const purgeData = async () => {
   try {
+    await HomeModel.deleteMany();
     await OrderModel.deleteMany();
     await ProductModel.deleteMany();
     await UserModel.deleteMany();
