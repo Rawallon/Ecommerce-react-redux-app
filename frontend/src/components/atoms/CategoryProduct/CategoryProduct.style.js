@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const CardButtonsHidden = styled.div`
   position: absolute;
@@ -16,7 +17,7 @@ export const CardButtonsHidden = styled.div`
 `;
 
 export const Card = styled.div`
-  max-width: 366px;
+  max-width: ${({ small }) => (small ? '200px' : '366px')};
   position: relative;
   display: flex;
   flex-direction: column;
@@ -43,7 +44,7 @@ export const Card = styled.div`
     `};
 `;
 
-export const Cardimg = styled.a`
+export const Cardimg = styled(Link)`
   display: block;
   overflow: hidden;
   border-radius: 18px 18px 0 0;
@@ -66,10 +67,13 @@ export const Cardimg = styled.a`
 export const CardBody = styled.div`
   position: relative;
   flex: 1 1 auto;
-  padding: 1.25rem 1.25rem;
+  /* padding: 1.25rem 1.25rem; */
+
   padding-top: 0.5rem !important;
   padding-bottom: 1rem !important;
-
+  @media (min-width: 768px) {
+    padding: 1.25rem 1.25rem;
+  }
   span {
     display: block;
     font-size: 0.75rem;
@@ -98,6 +102,9 @@ export const CardBody = styled.div`
 export const CardRow = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 export const PriceDiv = styled.div`
   display: flex;

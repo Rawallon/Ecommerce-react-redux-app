@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -23,6 +24,7 @@ import {
 import Rating from '../Rating';
 
 export const CategoryProduct = ({
+  small = false,
   addToCart,
   listProductModalDetails,
   loading,
@@ -75,24 +77,24 @@ export const CategoryProduct = ({
   if (loading) return null;
   else
     return (
-      <Card simple={!showButtons}>
+      <Card small={small} simple={!showButtons}>
         {oldPrice && <OnSaleBage>Sale</OnSaleBage>}
         {badge && (
           <OnSaleBage color={badge[1]} font={badge[2]}>
             {badge[0]}
           </OnSaleBage>
         )}
-        <Cardimg href={`/product/${_id}`}>
+        <Cardimg to={`/product/${_id}`}>
           <img src={image} alt="" />
         </Cardimg>
         <CardBody>
           {showCategory && (
             <span>
-              <a href={`/category/${category}`}>{category}</a>
+              <Link to={`/category/${category}`}>{category}</Link>
             </span>
           )}
           <h3>
-            <a href={`/product/${_id}`}>{name}</a>
+            <Link to={`/product/${_id}`}>{name}</Link>
           </h3>
           <CardRow inStock={countInStock > 0}>
             {countInStock ? (

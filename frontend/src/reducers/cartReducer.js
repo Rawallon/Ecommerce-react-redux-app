@@ -80,6 +80,13 @@ export const cartListReducer = (
           [payload._id]: { ...payload, loading: false },
         },
       };
+    case CART_LIST_FAIL:
+      return {
+        products: {
+          ...state.products,
+          [payload._id]: { error: payload.error, loading: false },
+        },
+      };
     case CART_REM_ITEM:
       const { [payload.pId]: _, ...rest } = state.products;
       return {

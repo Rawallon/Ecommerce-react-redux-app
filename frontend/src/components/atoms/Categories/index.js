@@ -12,7 +12,7 @@ export default function Categories({ categories }) {
   const [hoveredCat, setHoveredCat] = useState(null);
   const { loading, categoryList } = categories;
 
-  if (loading) return <div>loading</div>;
+  if (loading) return null;
 
   return (
     <div>

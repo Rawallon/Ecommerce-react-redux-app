@@ -50,7 +50,7 @@ export function CategoryDisplay({
         {!loading &&
           featuredCategoryProducts &&
           featuredCategoryProducts.map((item) => (
-            <Product key={item._id} showButtons={false} {...item} />
+            <Product small key={item._id} showButtons={false} {...item} />
           ))}
       </CategoryItems>
     </Wrapper>

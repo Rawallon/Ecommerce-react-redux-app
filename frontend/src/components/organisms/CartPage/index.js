@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import CartItem from '../../atoms/CartItem';
 import CartSubtotal from '../../atoms/CartSubtotal';
-import Message from '../../atoms/Message';
+import Message from '../../atoms/Message/';
 
 import { WrapperCart } from './CartPage.style';
 

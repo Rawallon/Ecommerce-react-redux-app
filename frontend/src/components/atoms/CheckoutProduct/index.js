@@ -39,21 +39,32 @@ export const CheckoutProduct = ({
       );
   }
 
+  // In case it doesn't load the item it'll show the error message and price
+  if (loading || error)
+    return (
+      <ListGroupItem>
+        <CartItemWrapper>
+          <div />
+          <Prefetch loading={loading} error={error} />
+          <div>{renderPrice()}</div>
+        </CartItemWrapper>
+      </ListGroupItem>
+    );
+
   return (
-    <>
-      <Prefetch loading={loading} error={error} />
-      {product && (
-        <ListGroupItem>
-          <CartItemWrapper>
+    <ListGroupItem>
+      <CartItemWrapper>
+        {product && (
+          <>
             <Link to={`/product/${product._id}`}>
               <img src={product.image} alt={product.name} />
             </Link>
             <Link to={`/product/${product._id}`}>{product.name}</Link>
             <div>{renderPrice()}</div>
-          </CartItemWrapper>
-        </ListGroupItem>
-      )}
-    </>
+          </>
+        )}
+      </CartItemWrapper>
+    </ListGroupItem>
   );
 };
 

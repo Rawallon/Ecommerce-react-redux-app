@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { clearCreateOrder, createOrder } from '../actions/orderAction';
 
 import CheckoutProduct from '../components/atoms/CheckoutProduct';
-import Message from '../components/atoms/Message';
+import Message from '../components/atoms/Message/';
 import Meta from '../components/atoms/Meta';
 import PlaceOrderSubtotal from '../components/atoms/PlaceOrderSubtotal';
 import CheckoutSteps from '../components/molecules/CheckoutSteps';

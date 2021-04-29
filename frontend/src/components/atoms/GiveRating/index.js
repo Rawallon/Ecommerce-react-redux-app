@@ -11,10 +11,20 @@ export default function GiveRating({
   function returnIcon(value, compare) {
     if (value >= compare)
       return (
-        <BsStarFill onClick={() => setCurrentRating(compare)} color={color} />
+        <BsStarFill
+          key={value}
+          onClick={() => setCurrentRating(compare)}
+          color={color}
+        />
       );
     else
-      return <BsStar onClick={() => setCurrentRating(compare)} color={color} />;
+      return (
+        <BsStar
+          key={value}
+          onClick={() => setCurrentRating(compare)}
+          color={color}
+        />
+      );
   }
 
   // Creates an empty array then loops through it rendering returnIcon

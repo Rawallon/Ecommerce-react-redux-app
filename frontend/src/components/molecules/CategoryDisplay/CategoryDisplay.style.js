@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  max-width: 1320px;
-
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 2fr;
+  }
 `;
 
 export const CategoryImage = styled.div`
@@ -19,6 +19,10 @@ export const CategoryImage = styled.div`
     max-height: 495px;
     width: auto;
     border-radius: 0 0 18px 18px;
+    display: none;
+    @media (min-width: 768px) {
+      display: block;
+    }
   }
 `;
 
@@ -43,21 +47,20 @@ export const CategoryTitle = styled.div`
 
 export const CategoryItems = styled.div`
   gap: 0.5rem;
-  margin-left: 1rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
+
+  @media (min-width: 768px) {
+    margin-left: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
 `;
 
 export const CategoryImageLink = styled.a`
-  align-self: flex-end;
-  width: 100%;
-  height: auto;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: flex-end;
-
+  margin-top: auto;
   img {
     width: 100%;
     height: auto;

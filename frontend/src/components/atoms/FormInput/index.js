@@ -54,9 +54,7 @@ export default function FormInput({
         value={value}
         onBlur={handleOnBlur}
         required={required}
-        onChange={(e) => {
-          return onChange(e.target.value);
-        }}
+        onChange={(e) => onChange(e.target.value)}
         as={asField ? asField : 'input'}
         autoComplete={autocomplete}
       />

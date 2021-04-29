@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Alert } from '../../styles/bootstrap.style';
+import { Alert } from '../../../styles/bootstrap.style';
 
 export default function Message({ variant = 'info', children }) {
   function chosenColor(variant) {
