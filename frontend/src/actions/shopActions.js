@@ -38,31 +38,6 @@ export const listCategoriesNames = () => async (dispatch) => {
   }
 };
 
-export const listFeaturedCategoriesItems = (selectedCategory) => async (
-  dispatch,
-) => {
-  try {
-    dispatch({
-      type: SHOP_FEATURED_CATEGORY_ITEMS_REQUEST,
-    });
-    const { data } = await axios.get(
-      `/api/products/featured/${selectedCategory}`,
-    );
-    dispatch({
-      type: SHOP_FEATURED_CATEGORY_ITEMS_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: SHOP_FEATURED_CATEGORY_ITEMS_FAILED,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
 export const listFeaturedCategoryItems = (selectedCategory) => async (
   dispatch,
 ) => {
