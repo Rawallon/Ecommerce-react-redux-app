@@ -1,9 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-  listFeaturedCategoriesItems,
-  listCategoriesNames,
-} from '../actions/shopActions';
+import { listCategoriesNames } from '../actions/shopActions';
 import { logout } from '../actions/userAction';
 
 import { Container } from '../styles/main.styles';
@@ -15,7 +12,6 @@ export const Layout = ({
   logout,
   categoriesNames,
   listCategoriesNames,
-  listFeaturedCategoriesItems,
   itemsOnCart,
   featuredItemPerCategory,
   userInfo,
@@ -25,12 +21,6 @@ export const Layout = ({
     listCategoriesNames();
   }, [listCategoriesNames]);
 
-  const fetchFeaturedItems = useCallback(
-    (categoryName) => {
-      listFeaturedCategoriesItems(categoryName);
-    },
-    [listFeaturedCategoriesItems],
-  );
   return (
     <>
       <StoreHeader
@@ -39,7 +29,6 @@ export const Layout = ({
         userInfo={userInfo}
         logout={logout}
         featuredItemPerCategory={featuredItemPerCategory}
-        fetchFeaturedItems={fetchFeaturedItems}
       />
       <Container>
         <main>{children}</main>
@@ -58,7 +47,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   listCategoriesNames,
-  listFeaturedCategoriesItems,
   logout,
 };
 
