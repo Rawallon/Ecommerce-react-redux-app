@@ -14,11 +14,12 @@ import {
 
 export const addToCart = (id, qty = 1) => async (dispatch, getState) => {
   const { data } = await axios.get(`/api/products/${id}`);
-
-  if (!data || data.countInStock <= 0)
+  if (data.message || data.countInStock <= 0) {
     dispatch({
       type: CART_ADD_FAILED,
     });
+    return;
+  }
 
   dispatch({
     type: CART_ADD_ITEM,
@@ -34,10 +35,12 @@ export const addToCart = (id, qty = 1) => async (dispatch, getState) => {
 export const changeQtyCart = (id, qty = 1) => async (dispatch, getState) => {
   const { data } = await axios.get(`/api/products/${id}`);
 
-  if (!data || qty > data.countInStock)
+  if (data.message || qty > data.countInStock) {
     dispatch({
       type: CART_CHANGE_QTY_ITEM_FAILED,
     });
+    return;
+  }
 
   dispatch({
     type: CART_CHANGE_QTY_ITEM_SUCCESS,
@@ -50,13 +53,11 @@ export const changeQtyCart = (id, qty = 1) => async (dispatch, getState) => {
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 
-export const remCart = (id) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/api/products/${id}`);
-
+export const remCart = (id) => (dispatch, getState) => {
   dispatch({
     type: CART_REM_ITEM,
     payload: {
-      pId: data._id,
+      pId: id,
     },
   });
 
@@ -93,7 +94,7 @@ export const listProductCart = (pId) => async (dispatch, getState) => {
   }
 };
 
-export const saveShippingAddress = (formData) => async (dispatch) => {
+export const saveShippingAddress = (formData) => (dispatch) => {
   dispatch({
     type: CART_SAVE_SHIPPING_ADDRESS,
     payload: formData,
@@ -101,10 +102,10 @@ export const saveShippingAddress = (formData) => async (dispatch) => {
   localStorage.setItem('shippingAddress', JSON.stringify(formData));
 };
 
-export const savePaymentMethod = (formData) => async (dispatch) => {
+export const savePaymentMethod = (formData) => (dispatch) => {
   dispatch({
     type: CART_SAVE_PAYMENT_METHOD,
     payload: formData,
   });
-  //localStorage.setItem('paymentMethod', JSON.stringify(formData));
+  localStorage.setItem('paymentMethod', JSON.stringify(formData));
 };
