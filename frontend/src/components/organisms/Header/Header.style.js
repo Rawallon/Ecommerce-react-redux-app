@@ -11,6 +11,8 @@ export const Header = styled.div`
 
   @media (max-width: 576px) {
     padding: 1.5rem;
+    position: sticky;
+    top: 0;
   }
 `;
 
@@ -139,10 +141,14 @@ export const NavDropDown = styled.div`
 
   @media (max-width: 576px) {
     z-index: 3;
-    top: 140%;
-    left: -1.75rem;
+    left: -3rem;
+    /* left: -1.75rem; */
+    /* width: 100vw; */
+    position: fixed;
+    top: 70px;
+    left: 0;
     width: 100vw;
-    height: calc(100vh - 70px);
+    height: 100vh;
   }
 `;
 

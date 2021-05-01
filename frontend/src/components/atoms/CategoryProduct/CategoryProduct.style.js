@@ -17,7 +17,7 @@ export const CardButtonsHidden = styled.div`
 `;
 
 export const Card = styled.div`
-  max-width: ${({ small }) => (small ? '200px' : '366px')};
+  max-width: 366px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -26,6 +26,10 @@ export const Card = styled.div`
   border-radius: 18px 18px 0 0;
   z-index: 1;
   transition: box-shadow 0.2s ease;
+
+  @media (max-width: 768px) {
+    max-width: ${({ small }) => (small ? '200px' : '366px')};
+  }
 
   ${({ simple }) =>
     !simple &&

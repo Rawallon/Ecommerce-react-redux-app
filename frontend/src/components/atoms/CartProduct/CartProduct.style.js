@@ -23,6 +23,10 @@ export const ItemImage = styled.div`
   margin-right: 2rem;
   text-align: center;
 
+  @media (max-width: 576px) {
+    display: none;
+  }
+
   img {
     position: absolute;
     width: auto;

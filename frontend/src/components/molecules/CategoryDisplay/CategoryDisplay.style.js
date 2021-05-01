@@ -15,6 +15,7 @@ export const CategoryImage = styled.div`
   justify-content: space-between;
   background: ${({ background }) => `#${background}`};
   border-radius: 18px;
+
   img {
     max-height: 495px;
     width: auto;
@@ -30,6 +31,7 @@ export const CategoryTitle = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem;
+
   h3 {
     margin-bottom: 0.25rem;
     font-size: 1.75rem;
@@ -48,11 +50,13 @@ export const CategoryTitle = styled.div`
 export const CategoryItems = styled.div`
   gap: 0.5rem;
   display: grid;
+  margin-top: 2rem;
+  justify-items: center;
 
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-
   @media (min-width: 768px) {
+    margin-top: 0;
     margin-left: 1rem;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;

@@ -58,11 +58,17 @@ align-items:center;
   padding: 0 100px;
 
   img {
-    max-width: 461px;
+    display: none;
     width: auto;
-    max-height: 368px;
     height: 100%;
     margin: 0 auto;
+
+  @media (min-width: 768px) {
+    display: block;
+    max-height: 368px;
+    max-width: 461px;
+  }
+
   }
 `;
 export const SlideItemText = styled.div`

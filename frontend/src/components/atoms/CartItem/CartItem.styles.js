@@ -23,6 +23,10 @@ export const ItemFlex = styled.div`
   ${({ column }) =>
     column ? 'flex-direction: column' : 'flex-direction: row'};
   justify-content: space-evenly;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
 `;
 
 export const ItemCenterText = styled(ItemFlex)`

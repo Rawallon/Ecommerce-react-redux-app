@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
+import styled from 'styled-components';
 
 import { updateUserProfile } from '../actions/userAction';
 import { clearOrderList, getOrderList } from '../actions/orderAction';
@@ -19,6 +20,28 @@ import Meta from '../components/atoms/Meta';
 import Prefetch from '../components/molecules/Prefetch';
 import FormInput from '../components/atoms/FormInput';
 import Message from '../components/atoms/Message';
+
+const RowWrapper = styled(Row)`
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
+`;
+
+const Column = styled(Col)`
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  flex: ${({ flex }) => flex};
+  max-width: ${({ maxWidth }) => maxWidth};
+  @media (max-width: 576px) {
+    & + & {
+      margin-top: 2rem;
+      overflow: auto;
+    }
+    max-width: 100%;
+    flex-direction: column;
+  }
+`;
 
 export function Profile({
   history,
@@ -119,16 +142,9 @@ export function Profile({
   }
 
   return (
-    <Row>
+    <RowWrapper>
       <Meta title="Profile" />
-      <Col
-        justifyContent={'flex-start'}
-        alignItems={'flex-start'}
-        flexDirection={'column'}
-        style={{
-          flex: '0 0 25%',
-          maxWidth: '25%',
-        }}>
+      <Column flex="0 0 25%" maxWidth="25%">
         <h2>Profile</h2>
         {userUpdateProfile.success && (
           <Message variant="success">Profile updated</Message>
@@ -177,15 +193,8 @@ export function Profile({
             Update
           </ButtonPrimary>
         </form>
-      </Col>
-      <Col
-        justifyContent={'flex-start'}
-        alignItems={'flex-start'}
-        flexDirection={'column'}
-        style={{
-          flex: '0 0 75%',
-          maxWidth: '75%',
-        }}>
+      </Column>
+      <Column flex="0 0 75%" maxWidth="75%">
         <h2>My orders</h2>
         <Col>
           <TableSMStripedBordered>
@@ -219,8 +228,8 @@ export function Profile({
             </tbody>
           </TableSMStripedBordered>
         </Col>
-      </Col>
-    </Row>
+      </Column>
+    </RowWrapper>
   );
 }
 

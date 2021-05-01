@@ -36,6 +36,28 @@ const CardRow = styled.div`
     flex-grow: 1;
   }
 `;
+
+const RowWrapper = styled(Row)`
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
+`;
+
+const Column = styled(Col)`
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  flex: ${({ flex }) => flex};
+  max-width: ${({ maxWidth }) => maxWidth};
+  @media (max-width: 576px) {
+    & + & {
+      margin-top: 2rem;
+    }
+    max-width: 100%;
+    flex-direction: column;
+  }
+`;
+
 export const Order = ({
   match,
   getOrderDetails,
@@ -175,17 +197,10 @@ export const Order = ({
   if (loading) return <PageLoader />;
   if (order)
     return (
-      <div>
+      <>
         <Meta title="Order details" />
-        <Row>
-          <Col
-            justifyContent={'flex-start'}
-            alignItems={'flex-start'}
-            flexDirection={'column'}
-            style={{
-              flex: '0 0 66.666667%',
-              maxWidth: '66.666667%',
-            }}>
+        <RowWrapper>
+          <Column flex={'0 0 66.666667%'} maxWidth={'66.666667%'}>
             <ListGroup>
               <ListGroupItem>
                 <ListGroupItemHeader>
@@ -242,15 +257,8 @@ export const Order = ({
                 </ListGroup>
               </ListGroupItem>
             </ListGroup>
-          </Col>
-          <Col
-            justifyContent={'flex-start'}
-            alignItems={'flex-start'}
-            flexDirection={'column'}
-            style={{
-              flex: '0 0 33.3333%',
-              maxWidth: '33.3333%',
-            }}>
+          </Column>
+          <Column flex={'0 0 33.3333%'} maxWidth={'33.3333%'}>
             <>
               <Card>
                 <CardHeader>Order Summary</CardHeader>
@@ -309,9 +317,9 @@ export const Order = ({
                 </CardBody>
               </Card>
             </>
-          </Col>
-        </Row>
-      </div>
+          </Column>
+        </RowWrapper>
+      </>
     );
 };
 

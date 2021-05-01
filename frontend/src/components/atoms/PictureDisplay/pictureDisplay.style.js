@@ -4,7 +4,6 @@ export const PageWrapper = styled.div`
   display: grid;
   user-select: none;
   position: relative;
-
   @media (max-width: 992px) {
     grid-template-rows: auto 1fr;
   }
@@ -16,12 +15,13 @@ export const PageWrapper = styled.div`
 export const ThumbWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 1rem;
 
   @media (max-width: 992px) {
     flex-direction: row;
+    justify-content: center;
   }
   @media (min-width: 992px) {
+    margin-right: 1rem;
     flex-direction: column;
   }
 `;

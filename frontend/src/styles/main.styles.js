@@ -24,8 +24,10 @@ export const Container = styled.div`
     max-width: 1320px;
   }
 
-  main > *:first-child {
-    margin-top: 2rem !important;
+  @media (min-width: 768px) {
+    main > *:first-child {
+      margin-top: 2rem !important;
+    }
   }
   main > div {
     margin-top: 3rem;
