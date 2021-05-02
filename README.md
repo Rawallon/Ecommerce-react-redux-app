@@ -82,8 +82,8 @@ dummy@email.com
 - [x] Mark orders as delivered option
 - [x] Checkout process (shipping, payment method, etc)
 - [x] PayPal and Mercado Pago integration
+- [x] Responsive design
 - [ ] Tests
-- [ ] Responsive design
 - [ ] Admin Panel
 - [ ] Server Side Rendering
 
@@ -141,7 +141,7 @@ I used a Rails-style pattern [[ref](https://livebook.manning.com/book/redux-in-a
 In the back-end I chose to stick with the classic MVC (Model-View-Controller, without a View) with a few changes to make it more API friendly. Another thing also worth mentioning is that I'm using ES6/ESM imports.
 
 ```
-├───config
+┌───config
 │   └─ Configurations
 ├───controllers
 │   └─ Business logic
@@ -171,7 +171,7 @@ Don't forget to configure backend .env, use the following template:
 
 ```
 PORT=
-MONGO_URI=mongodb+srv://<username>:<password>@cluster0.7arhk.mongodb.net<database>?retryWrites=true&w=majority
+MONGO_URI=
 JWT_TOKEN=
 PAYPAL_CLIENT_ID=
 MERCADO_PAGO_ACCESS_TOKEN=
@@ -179,25 +179,19 @@ MERCADO_PAGO_ACCESS_TOKEN=
 
 ```bash
 # Clone the repo
-$ git clone https://github.com/Rawallon/Ecommerce-react-redux-app
+$ git clone https://github.com/Rawallon/Ecommerce-react-redux-app && cd Ecommerce-react-redux-app
 
 # Install front-end dependencies
-$ cd frontend && npm i
-
-# Return to root folder
-$ cd ..
+$ cd frontend && npm i && cd ..
 
 # Install back-end dependencies
-$ cd backend && npm i
-
-# Return to root folder
-$ cd ..
+$ cd backend && npm i && cd ..
 
 # Install concurrently
 $ npm i
 
 # Feed data into your DB
-$ npm  run data:import
+$ npm run data:import
 
 # Runs both ends
 $ npm start
