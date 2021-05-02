@@ -1,4 +1,11 @@
 import styled from 'styled-components';
+import { Container } from '../../../styles/main.styles';
+
+export const ModalContainer = styled(Container)`
+  display: grid;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const Wrapper = styled.div`
   display: grid;
@@ -21,7 +28,8 @@ export const ModalStyle = styled.div`
 
 export const ModalContent = styled.div`
   border: 3px solid #f3f5f9;
-  width: 70%;
+  width: 100%;
+  height: max-content;
   background: #fff;
   padding: 2rem;
   border-radius: 0.4rem;

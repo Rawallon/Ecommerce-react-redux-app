@@ -6,8 +6,13 @@ import { useHistory } from 'react-router';
 import { clearProductDetails } from '../../../actions/productActions';
 import { addToCart } from '../../../actions/cartActions';
 
-import { Wrapper, ModalStyle, ModalContent, ModalBody } from './Modal.style';
-import { Container } from '../../../styles/main.styles';
+import {
+  ModalContainer,
+  Wrapper,
+  ModalStyle,
+  ModalContent,
+  ModalBody,
+} from './Modal.style';
 
 import PictureDisplay from '../../atoms/PictureDisplay';
 import ProductData from '../../molecules/ProductData';
@@ -35,20 +40,24 @@ export function Modal({ productDetails, clearProductDetails, addToCart }) {
   if (!isModalOn) return null;
   if (error || loading) return <Prefetch loading={loading} error={error} />;
   return ReactDom.createPortal(
-    <div>
+    <>
       <ModalStyle>
-        <Container>
-          <ModalBody onClick={clearProductDetails}>
+        <ModalBody onClick={clearProductDetails}>
+          <ModalContainer>
             <ModalContent onClick={(e) => e.stopPropagation()}>
               <Wrapper>
                 <PictureDisplay images={Array(3).fill(product.image)} />
-                <ProductData {...product} addToCart={addToCartHandler} />
+                <ProductData
+                  showLinks
+                  {...product}
+                  addToCart={addToCartHandler}
+                />
               </Wrapper>
             </ModalContent>
-          </ModalBody>
-        </Container>
+          </ModalContainer>
+        </ModalBody>
       </ModalStyle>
-    </div>,
+    </>,
     document.getElementById('modal-root'),
   );
 }
