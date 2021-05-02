@@ -11,11 +11,13 @@ import {
   CartButton,
   CategoriesList,
   DataWrapper,
+  CartButtonDisabled,
 } from './ProductData.style';
 import Quantity from '../../atoms/Quantity';
 import Rating from '../../atoms/Rating';
 
 export default function ProductData({
+  showLinks = false,
   addToCart,
   showDesc = true,
   name,
@@ -31,7 +33,13 @@ export default function ProductData({
 
   return (
     <Wrapper>
-      <ProductTitle>{name}</ProductTitle>
+      {showLinks ? (
+        <Link to={'/product/' + _id}>
+          <ProductTitle>{name}</ProductTitle>
+        </Link>
+      ) : (
+        <ProductTitle>{name}</ProductTitle>
+      )}
       <FlexBetween>
         <PriceTag>$ {price}</PriceTag>
         <Rating rating={rating} count={numReviews} />
@@ -44,17 +52,35 @@ export default function ProductData({
         <ColorDiv active color="blue" />
         <ColorDiv color="red" />
       </FlexRow> */}
-      <FlexRow>
-        <Quantity qty={qty} setQty={setQty} numInStock={countInStock} />
-        <CartButton onClick={() => addToCart(_id, qty)}>Add to Cart</CartButton>
-      </FlexRow>
+      {countInStock > 0 ? (
+        <FlexRow>
+          <Quantity qty={qty} setQty={setQty} numInStock={countInStock} />
+          <CartButton onClick={() => addToCart(_id, qty)}>
+            Add to Cart
+          </CartButton>
+        </FlexRow>
+      ) : (
+        <FlexRow>
+          <Quantity qty={0} numInStock={0} />
+          <CartButtonDisabled>Out of stock</CartButtonDisabled>
+        </FlexRow>
+      )}
       <DataWrapper>
         <CategoriesList>
-          <span>SKU:</span>
-          <p>{_id}</p>
+          {showLinks ? (
+            <Link to={'/product/' + _id}>
+              <span>SKU:</span>
+              <p>{_id}</p>
+            </Link>
+          ) : (
+            <>
+              <span>SKU:</span>
+              <p>{_id}</p>
+            </>
+          )}
         </CategoriesList>
         <CategoriesList>
-          <span>Categories:</span>
+          <span>Category:</span>
           <Link to={'/category/' + category}>{category}</Link>
         </CategoriesList>
       </DataWrapper>

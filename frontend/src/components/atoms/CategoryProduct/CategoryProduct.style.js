@@ -180,5 +180,5 @@ export const OnSaleBage = styled.div`
   font-size: 0.875em;
   border-radius: 0.175rem;
   color: ${({ font }) => (font ? font : 'white')};
-  left: 0.75rem;
+  ${({ right }) => (right ? `right: 0.75rem;` : `left: 0.75rem;`)};
 `;

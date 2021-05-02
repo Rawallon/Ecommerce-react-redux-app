@@ -78,7 +78,12 @@ export const CategoryProduct = ({
   else
     return (
       <Card small={small} simple={!showButtons}>
-        {oldPrice && <OnSaleBage>Sale</OnSaleBage>}
+        {oldPrice && <OnSaleBage right>Sale</OnSaleBage>}
+        {countInStock === 0 && (
+          <OnSaleBage right color={'#f3f5f9'} font={'#4b566b'}>
+            Out of stock
+          </OnSaleBage>
+        )}
         {badge && (
           <OnSaleBage color={badge[1]} font={badge[2]}>
             {badge[0]}

@@ -70,10 +70,20 @@ export const CartButton = styled.button`
   }
 `;
 
+export const CartButtonDisabled = styled(CartButton)`
+  background-color: #f3f5f9;
+  color: #4b566b;
+
+  &:hover {
+    background-color: #d1d9e8;
+  }
+`;
+
 export const DataWrapper = styled.div`
+  margin-top: 4rem;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: max-content;
   justify-content: flex-end;
 `;
 
