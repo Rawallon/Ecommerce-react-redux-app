@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Banner = styled.div`
   display: flex;
@@ -10,13 +10,6 @@ export const Banner = styled.div`
   height: 100%;
   position: relative;
   border-radius: 0.4375rem;
-  img {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: auto;
-  }
 `;
 
 export const BannerContent = styled.div`
@@ -64,5 +57,44 @@ export const BannerContent = styled.div`
       background-color: #fe3638;
       box-shadow: 0 0.5rem 1.125rem -0.5rem rgba(254, 105, 106, 0.9);
     }
+  }
+`;
+
+// const move = keyframes`
+//   0%   { transform: scale(1) translate(2rem, -1rem); }
+//   38%  { transform: scale(1)  translate(1.7rem, 1rem) rotate(90deg); }
+//   40%  { transform: scale(1) translate(1.7rem, 1rem) rotate(90deg); }
+//   78%  { transform: scale(1.3) translate(1.5rem, -1.5rem) rotate(-20deg); }
+//   80%  { transform: scale(1.3) translate(1.5rem, -1.5rem) rotate(-20deg); }
+//   100% { transform: scale(1) translate(2rem, -1rem); }`;
+
+export const BannerImage = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  img {
+    position: absolute;
+    right: 2rem;
+    top: 20%;
+    max-height: 170px;
+    height: 70%;
+    width: auto;
+  }
+
+  svg {
+    transform: scale(1.3) translate(1rem, -1rem) rotate(-70deg);
+    position: absolute;
+    right: 0;
+    top: 0;
+    max-height: 200px;
+    height: 200%;
+    width: auto;
   }
 `;
