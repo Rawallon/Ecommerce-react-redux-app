@@ -26,10 +26,18 @@
     "build": "react-scripts build",
     "start": "react-scripts start",
     "test": "react-scripts test",
+    "coverage": "react-scripts test --watchAll=false --coverage",
     "eject": "react-scripts eject",
     "watch:css": "postcss src/styles/tailwind.css -o src/styles/main.css",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.{stories,style,styles}.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/"
+    ]
   },
   "eslintConfig": {
     "extends": [
