@@ -9,23 +9,23 @@ import {
   PRODUCT_DETAILS_CLEAR,
   PRODUCT_DELETE_ADMIN_REQUEST,
   PRODUCT_DELETE_ADMIN_SUCCESS,
-  PRODUCT_DELETE_ADMIN_FAILED,
+  PRODUCT_DELETE_ADMIN_FAIL,
   PRODUCT_CREATE_ADMIN_REQUEST,
   PRODUCT_CREATE_ADMIN_SUCCESS,
-  PRODUCT_CREATE_ADMIN_FAILED,
+  PRODUCT_CREATE_ADMIN_FAIL,
   PRODUCT_UPDATE_ADMIN_REQUEST,
   PRODUCT_UPDATE_ADMIN_SUCCESS,
-  PRODUCT_UPDATE_ADMIN_FAILED,
+  PRODUCT_UPDATE_ADMIN_FAIL,
   PRODUCT_CREATE_REVIEW_REQUEST,
   PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_REVIEW_FAIL,
   PRODUCT_CREATE_REVIEW_CLEAR,
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
-  PRODUCT_TOP_FAILED,
+  PRODUCT_TOP_FAIL,
   PRODUCT_FEATURED_REQUEST,
   PRODUCT_FEATURED_SUCCESS,
-  PRODUCT_FEATURED_FAILED,
+  PRODUCT_FEATURED_FAIL,
   PRODUCT_MODAL_REQUEST,
   PRODUCT_MODAL_SUCCESS,
   PRODUCT_MODAL_FAIL,
@@ -132,98 +132,6 @@ export const listCategoryProducts = (category = '', pageNumber = 1) => async (
   }
 };
 
-export const deleteProductAdmin = (objectId) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: PRODUCT_DELETE_ADMIN_REQUEST,
-    });
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
-      },
-    };
-
-    await axios.delete('/api/products/' + objectId, config);
-    dispatch({
-      type: PRODUCT_DELETE_ADMIN_SUCCESS,
-      payload: objectId,
-    });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_DELETE_ADMIN_FAILED,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
-export const updateProductAdmin = (objectId, formData) => async (
-  dispatch,
-  getState,
-) => {
-  try {
-    dispatch({
-      type: PRODUCT_UPDATE_ADMIN_REQUEST,
-    });
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
-      },
-    };
-    const { data } = await axios.patch(
-      '/api/products/' + objectId,
-      formData,
-      config,
-    );
-    dispatch({
-      type: PRODUCT_UPDATE_ADMIN_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_UPDATE_ADMIN_FAILED,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
-export const createProductAdmin = (formData) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: PRODUCT_CREATE_ADMIN_REQUEST,
-    });
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
-      },
-    };
-    const { data } = await axios.post('/api/products/', formData, config);
-    dispatch({
-      type: PRODUCT_CREATE_ADMIN_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_CREATE_ADMIN_FAILED,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
 export const createProductReview = (objectId, formData) => async (
   dispatch,
   getState,
@@ -258,7 +166,8 @@ export const createProductReview = (objectId, formData) => async (
     });
   }
 };
-export const clearProductReview = () => async (dispatch) => {
+
+export const clearProductReview = () => (dispatch) => {
   dispatch({
     type: PRODUCT_CREATE_REVIEW_CLEAR,
   });
@@ -276,7 +185,7 @@ export const listTopProducts = () => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: PRODUCT_TOP_FAILED,
+      type: PRODUCT_TOP_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -301,7 +210,7 @@ export const listFeaturedProducts = (categoryName = '', pageSize = 3) => async (
     });
   } catch (error) {
     dispatch({
-      type: PRODUCT_FEATURED_FAILED,
+      type: PRODUCT_FEATURED_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
