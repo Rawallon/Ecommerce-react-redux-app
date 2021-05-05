@@ -2,19 +2,19 @@ import axios from 'axios';
 import {
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
-  ORDER_CREATE_FAILED,
+  ORDER_CREATE_FAIL,
   ORDER_CREATE_CLEAR,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
-  ORDER_DETAILS_FAILED,
+  ORDER_DETAILS_FAIL,
   ORDER_DETAILS_CLEAR,
   ORDER_PAYMENT_REQUEST,
   ORDER_PAYMENT_SUCCESS,
-  ORDER_PAYMENT_FAILED,
+  ORDER_PAYMENT_FAIL,
   ORDER_PAYMENT_CLEAR,
   ORDER_LIST_REQUEST,
   ORDER_LIST_SUCCESS,
-  ORDER_LIST_FAILED,
+  ORDER_LIST_FAIL,
   ORDER_LIST_CLEAR,
 } from '../types';
 
@@ -33,7 +33,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
-      type: ORDER_CREATE_FAILED,
+      type: ORDER_CREATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -42,7 +42,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
   }
 };
 
-export const clearCreateOrder = () => async (dispatch) => {
+export const clearCreateOrder = () => (dispatch) => {
   dispatch({
     type: ORDER_CREATE_CLEAR,
   });
@@ -67,7 +67,7 @@ export const getOrderDetails = (orderId) => async (dispatch, getState) => {
     });
   } catch (error) {
     dispatch({
-      type: ORDER_DETAILS_FAILED,
+      type: ORDER_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -76,7 +76,7 @@ export const getOrderDetails = (orderId) => async (dispatch, getState) => {
   }
 };
 
-export const clearOrderDetails = () => async (dispatch) => {
+export const clearOrderDetails = () => (dispatch) => {
   dispatch({
     type: ORDER_DETAILS_CLEAR,
   });
@@ -101,7 +101,7 @@ export const getOrderList = () => async (dispatch, getState) => {
     });
   } catch (error) {
     dispatch({
-      type: ORDER_LIST_FAILED,
+      type: ORDER_LIST_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -110,13 +110,13 @@ export const getOrderList = () => async (dispatch, getState) => {
   }
 };
 
-export const clearOrderList = () => async (dispatch) => {
+export const clearOrderList = () => (dispatch) => {
   dispatch({
     type: ORDER_LIST_CLEAR,
   });
 };
 
-export const clearPaymentDetails = () => async (dispatch) => {
+export const clearPaymentDetails = () => (dispatch) => {
   dispatch({
     type: ORDER_PAYMENT_CLEAR,
   });
@@ -144,35 +144,7 @@ export const setOrderPayment = (orderId, payRes) => async (
     dispatch({ type: ORDER_PAYMENT_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
-      type: ORDER_PAYMENT_FAILED,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
-export const getAllOrdersListAdmin = () => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: ORDER_LIST_REQUEST,
-    });
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
-      },
-    };
-
-    const { data } = await axios.get('/api/orders/', config);
-    dispatch({
-      type: ORDER_LIST_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: ORDER_LIST_FAILED,
+      type: ORDER_PAYMENT_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -199,7 +171,7 @@ export const setAsDeliveredAdmin = (orderId) => async (dispatch, getState) => {
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
-      type: ORDER_DETAILS_FAILED,
+      type: ORDER_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
