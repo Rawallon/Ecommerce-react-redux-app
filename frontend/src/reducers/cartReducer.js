@@ -1,8 +1,8 @@
 import {
-  CART_ADD_FAILED,
+  CART_ADD_FAIL,
   CART_ADD_ITEM,
   CART_CHANGE_QTY_ITEM_SUCCESS,
-  CART_CHANGE_QTY_ITEM_FAILED,
+  CART_CHANGE_QTY_ITEM_FAIL,
   CART_LIST_FAIL,
   CART_LIST_REQUEST,
   CART_LIST_SUCCESS,
@@ -31,10 +31,10 @@ export const cartReducer = (
         ...state,
         cartItems: { ...state.cartItems, [payload.pId]: qty },
       };
-    case CART_CHANGE_QTY_ITEM_FAILED:
+    case CART_CHANGE_QTY_ITEM_FAIL:
       return state;
     case CART_REM_ITEM:
-    case CART_ADD_FAILED:
+    case CART_ADD_FAIL:
       const { [payload.pId]: _, ...res } = state.cartItems;
       return {
         ...state,

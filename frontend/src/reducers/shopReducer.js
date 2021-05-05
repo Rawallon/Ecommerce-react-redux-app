@@ -1,19 +1,19 @@
 import {
   SHOP_CATEGORIES_REQUEST,
   SHOP_CATEGORIES_SUCCESS,
-  SHOP_CATEGORIES_FAILED,
+  SHOP_CATEGORIES_FAIL,
   SHOP_FEATURED_CATEGORY_REQUEST,
   SHOP_FEATURED_CATEGORY_SUCCESS,
-  SHOP_FEATURED_CATEGORY_FAILED,
+  SHOP_FEATURED_CATEGORY_FAIL,
   SHOP_FEATURED_CATEGORY_PRODUCTS_REQUEST,
   SHOP_FEATURED_CATEGORY_PRODUCTS_SUCCESS,
-  SHOP_FEATURED_CATEGORY_PRODUCTS_FAILED,
+  SHOP_FEATURED_CATEGORY_PRODUCTS_FAIL,
   SHOP_FEATURED_CATEGORY_ITEMS_REQUEST,
   SHOP_FEATURED_CATEGORY_ITEMS_SUCCESS,
-  SHOP_FEATURED_CATEGORY_ITEMS_FAILED,
+  SHOP_FEATURED_CATEGORY_ITEMS_FAIL,
   SHOP_FEATURED_MESSAGE_REQUEST,
   SHOP_FEATURED_MESSAGE_SUCCESS,
-  SHOP_FEATURED_MESSAGE_FAILED,
+  SHOP_FEATURED_MESSAGE_FAIL,
 } from '../types';
 
 export const categoriesNamesReducer = (
@@ -24,7 +24,7 @@ export const categoriesNamesReducer = (
   switch (type) {
     case SHOP_CATEGORIES_REQUEST:
       return { loading: true, categoryList: [] };
-    case SHOP_CATEGORIES_FAILED:
+    case SHOP_CATEGORIES_FAIL:
       return { loading: false, error: payload };
     case SHOP_CATEGORIES_SUCCESS:
       return { loading: false, categoryList: payload };
@@ -41,7 +41,7 @@ export const featuredItemsPerCategoryReducer = (
   switch (type) {
     case SHOP_FEATURED_CATEGORY_ITEMS_REQUEST:
       return { loading: true, featuredProducts: {} };
-    case SHOP_FEATURED_CATEGORY_ITEMS_FAILED:
+    case SHOP_FEATURED_CATEGORY_ITEMS_FAIL:
       return { loading: false, error: payload };
     case SHOP_FEATURED_CATEGORY_ITEMS_SUCCESS:
       return { loading: false, featuredProducts: payload };
@@ -58,13 +58,13 @@ export const featuredCategoryReducer = (
   switch (type) {
     case SHOP_FEATURED_CATEGORY_REQUEST:
       return { loading: true, featuredCategory: {}, products: [] };
-    case SHOP_FEATURED_CATEGORY_FAILED:
+    case SHOP_FEATURED_CATEGORY_FAIL:
       return { loading: false, error: payload };
     case SHOP_FEATURED_CATEGORY_SUCCESS:
       return { loading: false, featuredCategory: payload };
     case SHOP_FEATURED_CATEGORY_PRODUCTS_REQUEST:
       return { ...state, loading: true };
-    case SHOP_FEATURED_CATEGORY_PRODUCTS_FAILED:
+    case SHOP_FEATURED_CATEGORY_PRODUCTS_FAIL:
       return { ...state, loading: false, error: payload };
     case SHOP_FEATURED_CATEGORY_PRODUCTS_SUCCESS:
       return { ...state, loading: false, products: payload };
@@ -81,7 +81,7 @@ export const featuredMessageReducer = (
   switch (type) {
     case SHOP_FEATURED_MESSAGE_REQUEST:
       return { loading: true, featuredMessage: {} };
-    case SHOP_FEATURED_MESSAGE_FAILED:
+    case SHOP_FEATURED_MESSAGE_FAIL:
       return { loading: false, error: payload };
     case SHOP_FEATURED_MESSAGE_SUCCESS:
       return { loading: false, featuredMessage: payload };

@@ -48,7 +48,7 @@ describe('Cart actions', () => {
         },
       }),
     );
-    const expectedActions = [{ type: type.CART_ADD_FAILED }];
+    const expectedActions = [{ type: type.CART_ADD_FAIL }];
     const store = mockStore({ cart: { cartItems: {} } });
     return store
       .dispatch(addToCart(0, 0))
@@ -84,7 +84,7 @@ describe('Cart actions', () => {
         },
       }),
     );
-    const expectedActions = [{ type: type.CART_CHANGE_QTY_ITEM_FAILED }];
+    const expectedActions = [{ type: type.CART_CHANGE_QTY_ITEM_FAIL }];
     const store = mockStore({ cart: { cartItems: {} } });
     return store
       .dispatch(changeQtyCart(0, 0))

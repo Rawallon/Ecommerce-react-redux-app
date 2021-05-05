@@ -43,7 +43,7 @@ describe('User Action', () => {
     );
     const expectedActions = [
       { type: type.USER_LOGIN_REQUEST },
-      { type: type.USER_LOGIN_FAILED },
+      { type: type.USER_LOGIN_FAIL },
     ];
     const store = mockStore({});
     return store
@@ -87,7 +87,7 @@ describe('User Action', () => {
     );
     const expectedActions = [
       { type: type.USER_REGISTER_REQUEST },
-      { type: type.USER_REGISTER_FAILED },
+      { type: type.USER_REGISTER_FAIL },
     ];
     const store = mockStore({});
     return store
@@ -121,7 +121,7 @@ describe('User Action', () => {
     const expectedActions = [
       { type: type.USER_UPDATE_PROFILE_REQUEST },
       {
-        type: type.USER_UPDATE_PROFILE_FAILED,
+        type: type.USER_UPDATE_PROFILE_FAIL,
         payload: 'nope',
       },
     ];

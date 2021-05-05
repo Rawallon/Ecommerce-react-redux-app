@@ -1,24 +1,24 @@
 import {
-  USER_LOGIN_FAILED,
+  USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAILED,
+  USER_REGISTER_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
-  USER_UPDATE_PROFILE_FAILED,
+  USER_UPDATE_PROFILE_FAIL,
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
-  USER_LIST_FAILED,
+  USER_LIST_FAIL,
   USER_LIST_CLEAR,
   USER_UPDATE_ADMIN_REQUEST,
   USER_UPDATE_ADMIN_SUCCESS,
-  USER_UPDATE_ADMIN_FAILED,
+  USER_UPDATE_ADMIN_FAIL,
   USER_LIST_DETAILS_REQUEST,
   USER_LIST_DETAILS_SUCCESS,
-  USER_LIST_DETAILS_FAILED,
+  USER_LIST_DETAILS_FAIL,
 } from '../types';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -29,7 +29,7 @@ export const userLoginReducer = (state = {}, action) => {
     case USER_UPDATE_PROFILE_SUCCESS:
     case USER_LOGIN_SUCCESS:
       return { loading: false, userInfo: payload };
-    case USER_LOGIN_FAILED:
+    case USER_LOGIN_FAIL:
       return { loading: false, error: payload };
     case USER_LOGOUT:
       return {};
@@ -45,7 +45,7 @@ export const userRegisterReducer = (state = {}, action) => {
       return { loading: true };
     case USER_REGISTER_SUCCESS:
       return { loading: false };
-    case USER_REGISTER_FAILED:
+    case USER_REGISTER_FAIL:
       return { loading: false, error: payload };
     default:
       return state;
@@ -62,7 +62,7 @@ export const userUpdateProfileReducer = (
       return { loading: true };
     case USER_UPDATE_PROFILE_SUCCESS:
       return { loading: false, success: true };
-    case USER_UPDATE_PROFILE_FAILED:
+    case USER_UPDATE_PROFILE_FAIL:
       return { loading: false, error: payload };
     case USER_LOGOUT:
       return {};
@@ -96,9 +96,9 @@ export const userListReducer = (
       return { loading: false, success: true };
     case USER_LIST_DETAILS_SUCCESS:
       return { loading: false, user: payload };
-    case USER_LIST_DETAILS_FAILED:
-    case USER_UPDATE_ADMIN_FAILED:
-    case USER_LIST_FAILED:
+    case USER_LIST_DETAILS_FAIL:
+    case USER_UPDATE_ADMIN_FAIL:
+    case USER_LIST_FAIL:
       return { loading: false, error: payload };
     case USER_LIST_CLEAR:
       return {};

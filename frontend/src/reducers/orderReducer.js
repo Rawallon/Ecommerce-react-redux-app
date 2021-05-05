@@ -1,19 +1,19 @@
 import {
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
-  ORDER_CREATE_FAILED,
+  ORDER_CREATE_FAIL,
   ORDER_CREATE_CLEAR,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
-  ORDER_DETAILS_FAILED,
+  ORDER_DETAILS_FAIL,
   ORDER_DETAILS_CLEAR,
   ORDER_PAYMENT_REQUEST,
   ORDER_PAYMENT_SUCCESS,
-  ORDER_PAYMENT_FAILED,
+  ORDER_PAYMENT_FAIL,
   ORDER_PAYMENT_CLEAR,
   ORDER_LIST_REQUEST,
   ORDER_LIST_SUCCESS,
-  ORDER_LIST_FAILED,
+  ORDER_LIST_FAIL,
   ORDER_LIST_CLEAR,
 } from '../types';
 
@@ -24,7 +24,7 @@ export const orderCreateReducer = (state = {}, action) => {
       return { loading: true };
     case ORDER_CREATE_SUCCESS:
       return { loading: false, success: true, order: payload };
-    case ORDER_CREATE_FAILED:
+    case ORDER_CREATE_FAIL:
       return { loading: false, error: payload };
     case ORDER_CREATE_CLEAR:
       return {};
@@ -43,7 +43,7 @@ export const orderDetailsReducer = (
       return { loading: true };
     case ORDER_DETAILS_SUCCESS:
       return { loading: false, order: payload };
-    case ORDER_DETAILS_FAILED:
+    case ORDER_DETAILS_FAIL:
       return { loading: false, error: payload };
     case ORDER_DETAILS_CLEAR:
       return { loading: false, orderItems: [] };
@@ -59,7 +59,7 @@ export const orderPayReducer = (state = { loading: false }, action) => {
       return { loading: true };
     case ORDER_PAYMENT_SUCCESS:
       return { loading: false, success: true };
-    case ORDER_PAYMENT_FAILED:
+    case ORDER_PAYMENT_FAIL:
       return { loading: false, error: payload };
     case ORDER_PAYMENT_CLEAR:
       return { loading: false };
@@ -75,7 +75,7 @@ export const orderListReducer = (state = { loading: false }, action) => {
       return { loading: true };
     case ORDER_LIST_SUCCESS:
       return { loading: false, orders: payload };
-    case ORDER_LIST_FAILED:
+    case ORDER_LIST_FAIL:
       return { loading: false, error: payload };
     case ORDER_LIST_CLEAR:
       return { loading: false };

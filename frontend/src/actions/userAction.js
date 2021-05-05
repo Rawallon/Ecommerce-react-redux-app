@@ -1,24 +1,24 @@
 import {
-  USER_LOGIN_FAILED,
+  USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAILED,
+  USER_REGISTER_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
-  USER_UPDATE_PROFILE_FAILED,
+  USER_UPDATE_PROFILE_FAIL,
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
-  USER_LIST_FAILED,
+  USER_LIST_FAIL,
   USER_LIST_CLEAR,
   USER_UPDATE_ADMIN_REQUEST,
   USER_UPDATE_ADMIN_SUCCESS,
-  USER_UPDATE_ADMIN_FAILED,
+  USER_UPDATE_ADMIN_FAIL,
   USER_LIST_DETAILS_REQUEST,
   USER_LIST_DETAILS_SUCCESS,
-  USER_LIST_DETAILS_FAILED,
+  USER_LIST_DETAILS_FAIL,
 } from '../types';
 import axios from 'axios';
 
@@ -45,7 +45,7 @@ export const login = (email, password) => async (dispatch) => {
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
-      type: USER_LOGIN_FAILED,
+      type: USER_LOGIN_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -85,7 +85,7 @@ export const register = (name, email, password) => async (dispatch) => {
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
-      type: USER_REGISTER_FAILED,
+      type: USER_REGISTER_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -110,7 +110,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
-      type: USER_UPDATE_PROFILE_FAILED,
+      type: USER_UPDATE_PROFILE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

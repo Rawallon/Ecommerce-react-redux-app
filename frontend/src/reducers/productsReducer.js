@@ -8,23 +8,23 @@ import {
   PRODUCT_DETAILS_CLEAR,
   PRODUCT_DELETE_ADMIN_REQUEST,
   PRODUCT_DELETE_ADMIN_SUCCESS,
-  PRODUCT_DELETE_ADMIN_FAILED,
+  PRODUCT_DELETE_ADMIN_FAIL,
   PRODUCT_UPDATE_ADMIN_REQUEST,
   PRODUCT_UPDATE_ADMIN_SUCCESS,
-  PRODUCT_UPDATE_ADMIN_FAILED,
+  PRODUCT_UPDATE_ADMIN_FAIL,
   PRODUCT_CREATE_ADMIN_REQUEST,
   PRODUCT_CREATE_ADMIN_SUCCESS,
-  PRODUCT_CREATE_ADMIN_FAILED,
+  PRODUCT_CREATE_ADMIN_FAIL,
   PRODUCT_CREATE_REVIEW_CLEAR,
   PRODUCT_CREATE_REVIEW_FAIL,
   PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_REVIEW_REQUEST,
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
-  PRODUCT_TOP_FAILED,
+  PRODUCT_TOP_FAIL,
   PRODUCT_FEATURED_REQUEST,
   PRODUCT_FEATURED_SUCCESS,
-  PRODUCT_FEATURED_FAILED,
+  PRODUCT_FEATURED_FAIL,
   PRODUCT_MODAL_SUCCESS,
   PRODUCT_MODAL_REQUEST,
   PRODUCT_MODAL_FAIL,
@@ -57,7 +57,7 @@ export const productListReducer = (
         delSuccess: true,
         products: newProducts,
       };
-    case PRODUCT_DELETE_ADMIN_FAILED:
+    case PRODUCT_DELETE_ADMIN_FAIL:
       return { ...state, loading: false, delError: payload };
     default:
       return state;
@@ -83,8 +83,8 @@ export const productDetailsReducer = (
       return { loading: false, product: payload, isModalOn: false };
     case PRODUCT_MODAL_SUCCESS:
       return { loading: false, product: payload, isModalOn: true };
-    case PRODUCT_CREATE_ADMIN_FAILED:
-    case PRODUCT_UPDATE_ADMIN_FAILED:
+    case PRODUCT_CREATE_ADMIN_FAIL:
+    case PRODUCT_UPDATE_ADMIN_FAIL:
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: payload };
     case PRODUCT_MODAL_FAIL:
@@ -124,7 +124,7 @@ export const productTopRatedReducer = (
       return { loading: true, products: [] };
     case PRODUCT_TOP_SUCCESS:
       return { loading: false, products: payload };
-    case PRODUCT_TOP_FAILED:
+    case PRODUCT_TOP_FAIL:
       return { loading: false, error: payload };
 
     default:
@@ -142,7 +142,7 @@ export const productFeaturedReducer = (
       return { loading: true, products: [] };
     case PRODUCT_FEATURED_SUCCESS:
       return { loading: false, products: payload };
-    case PRODUCT_FEATURED_FAILED:
+    case PRODUCT_FEATURED_FAIL:
       return { loading: false, error: payload };
 
     default:

@@ -2,19 +2,19 @@ import axios from 'axios';
 import {
   SHOP_CATEGORIES_REQUEST,
   SHOP_CATEGORIES_SUCCESS,
-  SHOP_CATEGORIES_FAILED,
+  SHOP_CATEGORIES_FAIL,
   SHOP_FEATURED_CATEGORY_REQUEST,
   SHOP_FEATURED_CATEGORY_SUCCESS,
-  SHOP_FEATURED_CATEGORY_FAILED,
+  SHOP_FEATURED_CATEGORY_FAIL,
   SHOP_FEATURED_CATEGORY_ITEMS_REQUEST,
   SHOP_FEATURED_CATEGORY_ITEMS_SUCCESS,
-  SHOP_FEATURED_CATEGORY_ITEMS_FAILED,
+  SHOP_FEATURED_CATEGORY_ITEMS_FAIL,
   SHOP_FEATURED_MESSAGE_REQUEST,
   SHOP_FEATURED_MESSAGE_SUCCESS,
-  SHOP_FEATURED_MESSAGE_FAILED,
+  SHOP_FEATURED_MESSAGE_FAIL,
   SHOP_FEATURED_CATEGORY_PRODUCTS_REQUEST,
   SHOP_FEATURED_CATEGORY_PRODUCTS_SUCCESS,
-  SHOP_FEATURED_CATEGORY_PRODUCTS_FAILED,
+  SHOP_FEATURED_CATEGORY_PRODUCTS_FAIL,
 } from '../types';
 
 export const listCategoriesNames = () => async (dispatch) => {
@@ -29,7 +29,7 @@ export const listCategoriesNames = () => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: SHOP_CATEGORIES_FAILED,
+      type: SHOP_CATEGORIES_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -54,7 +54,7 @@ export const listFeaturedCategoryItems = (selectedCategory) => async (
     });
   } catch (error) {
     dispatch({
-      type: SHOP_FEATURED_CATEGORY_PRODUCTS_FAILED,
+      type: SHOP_FEATURED_CATEGORY_PRODUCTS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -75,7 +75,7 @@ export const listFeaturedCategory = () => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: SHOP_FEATURED_CATEGORY_FAILED,
+      type: SHOP_FEATURED_CATEGORY_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -96,7 +96,7 @@ export const listFeaturedMessage = () => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: SHOP_FEATURED_MESSAGE_FAILED,
+      type: SHOP_FEATURED_MESSAGE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

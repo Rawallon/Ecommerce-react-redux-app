@@ -35,7 +35,7 @@ describe('Shop action creator', () => {
     );
     const expectedActions = [
       { type: type.SHOP_CATEGORIES_REQUEST },
-      { type: type.SHOP_CATEGORIES_FAILED, payload: mockData },
+      { type: type.SHOP_CATEGORIES_FAIL, payload: mockData },
     ];
     const store = mockStore({});
     return store
@@ -67,7 +67,7 @@ describe('Shop action creator', () => {
     const expectedActions = [
       { type: type.SHOP_FEATURED_CATEGORY_PRODUCTS_REQUEST },
       {
-        type: type.SHOP_FEATURED_CATEGORY_PRODUCTS_FAILED,
+        type: type.SHOP_FEATURED_CATEGORY_PRODUCTS_FAIL,
         payload: mockData,
       },
     ];
@@ -103,7 +103,7 @@ describe('Shop action creator', () => {
     const expectedActions = [
       { type: type.SHOP_FEATURED_CATEGORY_REQUEST },
       {
-        type: type.SHOP_FEATURED_CATEGORY_FAILED,
+        type: type.SHOP_FEATURED_CATEGORY_FAIL,
         payload: mockData,
       },
     ];
@@ -139,7 +139,7 @@ describe('Shop action creator', () => {
     const expectedActions = [
       { type: type.SHOP_FEATURED_MESSAGE_REQUEST },
       {
-        type: type.SHOP_FEATURED_MESSAGE_FAILED,
+        type: type.SHOP_FEATURED_MESSAGE_FAIL,
         payload: mockData,
       },
     ];

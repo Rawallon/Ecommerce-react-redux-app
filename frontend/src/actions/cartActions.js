@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {
-  CART_ADD_FAILED,
+  CART_ADD_FAIL,
   CART_ADD_ITEM,
-  CART_CHANGE_QTY_ITEM_FAILED,
+  CART_CHANGE_QTY_ITEM_FAIL,
   CART_CHANGE_QTY_ITEM_SUCCESS,
   CART_LIST_FAIL,
   CART_LIST_REQUEST,
@@ -16,7 +16,7 @@ export const addToCart = (id, qty = 1) => async (dispatch, getState) => {
   const { data } = await axios.get(`/api/products/${id}`);
   if (data.message || data.countInStock <= 0) {
     dispatch({
-      type: CART_ADD_FAILED,
+      type: CART_ADD_FAIL,
     });
     return;
   }
@@ -37,7 +37,7 @@ export const changeQtyCart = (id, qty = 1) => async (dispatch, getState) => {
 
   if (data.message || qty > data.countInStock) {
     dispatch({
-      type: CART_CHANGE_QTY_ITEM_FAILED,
+      type: CART_CHANGE_QTY_ITEM_FAIL,
     });
     return;
   }
