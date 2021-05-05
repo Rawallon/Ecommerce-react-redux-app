@@ -16,5 +16,6 @@ export default function Message({ variant = 'info', children }) {
         return ['#7d5a29', '#fcefdc'];
     }
   }
+  
   return <Alert variant={chosenColor(variant)}>{children}</Alert>;
 }

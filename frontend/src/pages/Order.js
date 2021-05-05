@@ -24,7 +24,7 @@ import {
   Col,
 } from '../styles/bootstrap.style';
 import Loader from '../components/organisms/Loader';
-import Message from '../components/atoms/Message/';
+import Message from '../components/atoms/MessageComponent';
 import PageLoader from '../components/molecules/PageLoader';
 import Meta from '../components/atoms/Meta';
 import CheckoutProduct from '../components/atoms/CheckoutProduct';

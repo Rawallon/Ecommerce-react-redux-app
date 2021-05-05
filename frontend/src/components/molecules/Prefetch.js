@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Message from '../atoms/Message/';
+import Message from '../atoms/MessageComponent';
 import PageLoader from './PageLoader';
 
 // This component should run before any data loads or if return an error

@@ -19,7 +19,7 @@ import Meta from '../components/atoms/Meta';
 
 import Prefetch from '../components/molecules/Prefetch';
 import FormInput from '../components/atoms/FormInput';
-import Message from '../components/atoms/Message';
+import Message from '../components/atoms/MessageComponent';
 
 const RowWrapper = styled(Row)`
   @media (max-width: 576px) {
