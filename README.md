@@ -26,9 +26,8 @@ This project was my biggest one so far and without a doubt the one that I most l
 
 # Live Demo
 
-<a title="Deployed on heroku" href="http://shopay-app.herokuapp.com/">
-<img alt="Deployed on heroku" src="https://img.shields.io/badge/Deployed%20on%20heroku-%239E7CC1?style=plastic&logo=heroku&logoColor=white" width="200px" />
-</a>
+[Deployed on Railway](https://shopay.up.railway.app/)
+
 
 #### Logins
 
